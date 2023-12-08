@@ -10,11 +10,11 @@
 		
 		<properties>
 			<property name="jakarta.persistence.jdbc.url"
-				value="jdbc:mysql://localhost:3306/*FIXME*?useSSL=false&amp;useLegacyDatetimeCode=false&amp;serverTimezone=US/Mountain" />
+				value="jdbc:mysql://localhost:3306/homeschooldb?useSSL=false&amp;useLegacyDatetimeCode=false&amp;serverTimezone=US/Mountain" />
 			<property name="jakarta.persistence.jdbc.user"
-				value="*FIXME*" />
+				value="teacher" />
 			<property name="jakarta.persistence.jdbc.password"
-				value="*FIXME*" />
+				value="teacher" />
 			<property name="jakarta.persistence.jdbc.driver"
 				value="com.mysql.cj.jdbc.Driver" />
 
