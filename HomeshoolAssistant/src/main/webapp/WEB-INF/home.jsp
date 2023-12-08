@@ -8,5 +8,7 @@
 </head>
 <body>
 <h2> Assisting with your homeschooling needs!</h2>
+
+${SMOKETEST }
 </body>
 </html>
