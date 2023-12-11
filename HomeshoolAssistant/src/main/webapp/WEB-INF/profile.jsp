@@ -5,9 +5,11 @@
 <html>
 <%@ include file="includes/header.jsp"%>
 <body>
-<h2> Assisting with your homeschooling needs!</h2>
-
-${SMOKETEST }
+<ul>
+<li>First Name: ${user.firstname }</li>
+<li>Last Name: ${user.lastname }</li>
+<li>Username: ${user.username }</li>
+</ul>
 </body>
 <%@ include file="includes/footer.jsp"%>
 </html>

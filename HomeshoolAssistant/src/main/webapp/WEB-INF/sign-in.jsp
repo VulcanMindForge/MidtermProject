@@ -5,9 +5,17 @@
 <html>
 <%@ include file="includes/header.jsp"%>
 <body>
-<h2> Assisting with your homeschooling needs!</h2>
+<div class = "container">
+<form class = "form" action="login.do">
+	
+	<h2>Log In</h2>
 
-${SMOKETEST }
+		<input type="text" name="username"> 
+		<input type="password" name="password" /> 
+		<input type="submit" value="Log In">
+
+</form>
+</div>
 </body>
 <%@ include file="includes/footer.jsp"%>
 </html>

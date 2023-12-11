@@ -32,4 +32,34 @@ public class UserDaoImpl implements UserDAO {
 
 		return user;
 	}
+
+	@Override
+	public User registerUser(User user) {
+		em.persist(user);
+		em.flush();
+		
+		return user;
+	}
+
+	@Override
+	public User updateUser(int userId, User user) {
+		User userToUpdate = em.find(User.class, user);
+		userToUpdate.setFirstName(user.getFirstName());
+		userToUpdate.setLastName(user.getLastName());
+		userToUpdate.setUsername(user.getUsername());
+		userToUpdate.setPassword(user.getPassword());
+		userToUpdate.setRole(user.getRole());
+		userToUpdate.setEnabled(user.isEnabled());
+		return userToUpdate;
+	}
+
+	@Override
+	public boolean removeUser(int userId) {
+		User userToRemove = em.find(User.class, userId);
+		if (userToRemove != null) {
+			em.remove(userToRemove);
+			return true;
+		}
+		return false;
+	}
 }
