@@ -1,11 +1,13 @@
 package com.skilldistillery.homeschoolassistant.entities;
 
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Subject {
@@ -15,8 +17,19 @@ public class Subject {
 	private int id;
 	
 	private String title;
+	
+	@OneToMany(mappedBy = "subject")
+	private List<Standard> standards;
 
 	public Subject() {
+	}
+
+	public List<Standard> getStandards() {
+		return standards;
+	}
+
+	public void setStandards(List<Standard> standards) {
+		this.standards = standards;
 	}
 
 	public int getId() {

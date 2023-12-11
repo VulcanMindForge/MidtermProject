@@ -1,5 +1,6 @@
 package com.skilldistillery.homeschoolassistant.entities;
 
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Column;
@@ -7,6 +8,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -21,8 +23,19 @@ public class GradeLevel {
 	
 	@Column(name = "grade_number")
 	private String gradeNumber;
+	
+	@OneToMany(mappedBy = "gradeLevel")
+	private List<Standard> standards;
 
 	public GradeLevel() {
+	}
+
+	public List<Standard> getStandards() {
+		return standards;
+	}
+
+	public void setStandards(List<Standard> standards) {
+		this.standards = standards;
 	}
 
 	public int getId() {

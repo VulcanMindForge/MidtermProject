@@ -13,7 +13,7 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 
 class LessonPlanTest {
-	
+
 	private static EntityManagerFactory emf;
 	private static EntityManager em;
 	private LessonPlan lessonPlan;
@@ -45,11 +45,18 @@ class LessonPlanTest {
 		assertNotNull(lessonPlan);
 		assertEquals("still math", lessonPlan.getDescription());
 	}
-	
+
 	@Test
 	void test_title() {
 		assertNotNull(lessonPlan);
 		assertEquals("how to teach math", lessonPlan.getTitle());
+	}
+
+	@Test
+	void test_assignments() {
+		assertNotNull(lessonPlan);
+		assertNotNull(lessonPlan.getAssignments());
+		assertTrue(lessonPlan.getAssignments().size() > 0);
 	}
 
 }

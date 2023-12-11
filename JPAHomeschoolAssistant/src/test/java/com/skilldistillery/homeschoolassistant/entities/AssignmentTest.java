@@ -51,5 +51,12 @@ class AssignmentTest {
 		assertNotNull(assignment);
 		assertEquals(false, assignment.isCompleted());
 	}
+	
+	@Test
+	void test_student() {
+		assertNotNull(assignment);
+		assertNotNull(assignment.getStudent());
+		assertEquals(1, assignment.getStudent().getId());
+	}
 
 }

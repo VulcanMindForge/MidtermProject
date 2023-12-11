@@ -1,5 +1,6 @@
 package com.skilldistillery.homeschoolassistant.entities;
 
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Column;
@@ -7,6 +8,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Standard {
@@ -23,8 +27,43 @@ public class Standard {
 	
 	@Column(name = "standard_year")
 	private Integer standardYear;
+	
+	@ManyToMany(mappedBy="standards")
+	private List<Resource> resources;
+	
+	@ManyToOne
+	@JoinColumn(name = "subject_id")
+	private Subject subject;
+	
+	@ManyToOne
+	@JoinColumn(name = "grade_level_id")
+	private GradeLevel gradeLevel;
 
 	public Standard() {
+	}
+
+	public Subject getSubject() {
+		return subject;
+	}
+
+	public void setSubject(Subject subject) {
+		this.subject = subject;
+	}
+
+	public GradeLevel getGradeLevel() {
+		return gradeLevel;
+	}
+
+	public void setGradeLevel(GradeLevel gradeLevel) {
+		this.gradeLevel = gradeLevel;
+	}
+
+	public List<Resource> getResources() {
+		return resources;
+	}
+
+	public void setResources(List<Resource> resources) {
+		this.resources = resources;
 	}
 
 	public int getId() {

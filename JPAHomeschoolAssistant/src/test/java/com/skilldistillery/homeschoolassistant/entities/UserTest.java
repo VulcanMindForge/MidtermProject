@@ -45,5 +45,17 @@ class UserTest {
 		assertNotNull(user);
 		assertEquals("johndoe1", user.getUsername());
 	}
+	
+	@Test
+	void test_sent_message() {
+		assertNotNull(user);
+		assertTrue(user.getSent().size() > 0);
+	}
+	
+	@Test
+	void test_received_message() {
+		assertNotNull(user);
+		assertTrue(user.getReceived().size() > 0);
+	}
 
 }

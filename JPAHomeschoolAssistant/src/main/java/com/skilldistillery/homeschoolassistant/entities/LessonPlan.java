@@ -1,6 +1,7 @@
 package com.skilldistillery.homeschoolassistant.entities;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Column;
@@ -8,6 +9,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -29,8 +31,19 @@ public class LessonPlan {
 	private LocalDateTime lastUpdate;
 	
 	private boolean shared;
+	
+	@OneToMany(mappedBy = "lessonPlan")
+	private List<Assignment> assignments;
 
 	public LessonPlan() {
+	}
+
+	public List<Assignment> getAssignments() {
+		return assignments;
+	}
+
+	public void setAssignments(List<Assignment> assignments) {
+		this.assignments = assignments;
 	}
 
 	public int getId() {

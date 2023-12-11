@@ -1,5 +1,6 @@
 package com.skilldistillery.homeschoolassistant.entities;
 
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Column;
@@ -7,6 +8,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class User {
@@ -25,11 +27,43 @@ public class User {
 	private String role;
 	private boolean enabled;
 	
+	@OneToMany(mappedBy = "sender")
+	private List<Message> sent;
+	
+	@OneToMany(mappedBy = "receiver")
+	private List<Message> received;
+	
+	@OneToMany(mappedBy = "user")
+	private List<Resource> resources;
+	
 	
 	public User() {
-		super();
 	}
 	
+	public List<Resource> getResources() {
+		return resources;
+	}
+
+	public void setResources(List<Resource> resources) {
+		this.resources = resources;
+	}
+
+	public List<Message> getSent() {
+		return sent;
+	}
+
+	public void setSent(List<Message> sent) {
+		this.sent = sent;
+	}
+
+	public List<Message> getReceived() {
+		return received;
+	}
+
+	public void setReceived(List<Message> received) {
+		this.received = received;
+	}
+
 	public int getId() {
 		return id;
 	}

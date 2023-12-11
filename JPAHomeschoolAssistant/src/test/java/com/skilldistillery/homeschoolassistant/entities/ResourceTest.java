@@ -51,5 +51,12 @@ class ResourceTest {
 		assertNotNull(resource);
 		assertEquals("google,com", resource.getUrl());
 	}
+	
+	@Test
+	void test_assignments() {
+		assertNotNull(resource);
+		assertNotNull(resource.getAssignments());
+		assertTrue(resource.getAssignments().size() > 0);
+	}
 
 }
