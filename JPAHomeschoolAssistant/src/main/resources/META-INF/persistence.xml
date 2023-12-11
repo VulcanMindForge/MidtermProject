@@ -6,6 +6,15 @@
 	<persistence-unit name="JPAHomeschoolAssistant">
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 		
+		<class>com.skilldistillery.homeschoolassistant.entities.Assignment</class>
+		<class>com.skilldistillery.homeschoolassistant.entities.GradeLevel</class>
+		<class>com.skilldistillery.homeschoolassistant.entities.LessonPlan</class>
+		<class>com.skilldistillery.homeschoolassistant.entities.Message</class>
+		<class>com.skilldistillery.homeschoolassistant.entities.Resource</class>
+		<class>com.skilldistillery.homeschoolassistant.entities.Standard</class>
+		<class>com.skilldistillery.homeschoolassistant.entities.Student</class>
+		<class>com.skilldistillery.homeschoolassistant.entities.Subject</class>
+		<class>com.skilldistillery.homeschoolassistant.entities.Teacher</class>
 		<class>com.skilldistillery.homeschoolassistant.entities.User</class>
 		
 		<properties>
