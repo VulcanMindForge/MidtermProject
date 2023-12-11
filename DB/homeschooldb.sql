@@ -34,6 +34,23 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
+-- Table `teacher`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `teacher` ;
+
+CREATE TABLE IF NOT EXISTS `teacher` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `email` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `fk_teacher_user1`
+    FOREIGN KEY (`id`)
+    REFERENCES `user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
 -- Table `lesson_plan`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `lesson_plan` ;
@@ -51,6 +68,11 @@ CREATE TABLE IF NOT EXISTS `lesson_plan` (
   CONSTRAINT `user_id`
     FOREIGN KEY (`teacher_id`)
     REFERENCES `user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_lesson_plan_teacher1`
+    FOREIGN KEY (`teacher_id`)
+    REFERENCES `teacher` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -267,6 +289,16 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 START TRANSACTION;
 USE `homeschooldb`;
 INSERT INTO `user` (`id`, `first_name`, `last_name`, `username`, `password`, `role`, `enabled`) VALUES (1, 'john', 'doe', 'johndoe1', '1234', '1', 1);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `teacher`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `homeschooldb`;
+INSERT INTO `teacher` (`id`, `email`) VALUES (1, 'teacher1@mail.com');
 
 COMMIT;
 
