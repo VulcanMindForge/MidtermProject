@@ -26,8 +26,19 @@ public class GradeLevel {
 	
 	@OneToMany(mappedBy = "gradeLevel")
 	private List<Standard> standards;
+	
+	@OneToMany(mappedBy = "gradeLevel")
+	private List<Student> students;
 
 	public GradeLevel() {
+	}
+
+	public List<Student> getStudents() {
+		return students;
+	}
+
+	public void setStudents(List<Student> students) {
+		this.students = students;
 	}
 
 	public List<Standard> getStandards() {

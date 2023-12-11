@@ -9,6 +9,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
@@ -34,8 +36,20 @@ public class LessonPlan {
 	
 	@OneToMany(mappedBy = "lessonPlan")
 	private List<Assignment> assignments;
+	
+	@ManyToOne
+	@JoinColumn(name = "teacher_id")
+	private Teacher teacher;
 
 	public LessonPlan() {
+	}
+
+	public Teacher getTeacher() {
+		return teacher;
+	}
+
+	public void setTeacher(Teacher teacher) {
+		this.teacher = teacher;
 	}
 
 	public List<Assignment> getAssignments() {

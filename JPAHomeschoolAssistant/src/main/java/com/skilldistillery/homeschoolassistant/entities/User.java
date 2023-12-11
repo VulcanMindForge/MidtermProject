@@ -36,10 +36,20 @@ public class User {
 	@OneToMany(mappedBy = "user")
 	private List<Resource> resources;
 	
+	@OneToMany(mappedBy = "parent")
+	private List<Student> students;
 	
 	public User() {
 	}
 	
+	public List<Student> getStudents() {
+		return students;
+	}
+
+	public void setStudents(List<Student> students) {
+		this.students = students;
+	}
+
 	public List<Resource> getResources() {
 		return resources;
 	}
