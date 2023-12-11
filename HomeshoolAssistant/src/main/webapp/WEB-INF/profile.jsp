@@ -6,8 +6,8 @@
 <%@ include file="includes/header.jsp"%>
 <body>
 <ul>
-<li>First Name: ${user.firstname }</li>
-<li>Last Name: ${user.lastname }</li>
+<li>First Name: ${user.firstName }</li>
+<li>Last Name: ${user.lastName }</li>
 <li>Username: ${user.username }</li>
 </ul>
 </body>

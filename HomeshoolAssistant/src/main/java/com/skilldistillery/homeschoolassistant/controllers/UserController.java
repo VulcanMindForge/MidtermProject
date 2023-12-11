@@ -45,38 +45,4 @@ public class UserController {
 		return "sign-in";
 	}
 	
-	@RequestMapping (path="login.do", method = RequestMethod.GET)
-	public String loginView(HttpSession session) {
-		User sessionUser = (User) session.getAttribute("user");
-		if ( sessionUser != null) {
-			return "profile";
-		}
-		return "login";
-	}
-
-	@RequestMapping (path="login.do", method = RequestMethod.POST)
-	public String loginAction(@RequestParam("username") String name, @RequestParam("password") String password, Model model, HttpSession session) {
-		User user = userDAO.authenticateUser(name, password);
-		Boolean loginSuccessful = false;
-		User sessionUser = (User) session.getAttribute("user");
-		if ( sessionUser != null) {
-			return "profile";
-		}
-		if (user != null) {
-			loginSuccessful = true;
-			session.setAttribute("login", loginSuccessful);
-			session.setAttribute("user", user);
-			return "profile";
-		} else {
-			session.setAttribute("login", loginSuccessful);
-			return "login";
-		}
-	}
-	
-	@RequestMapping (path="logout.do", method = RequestMethod.GET)
-	public String logoutAction(Model model, HttpSession session) {
-		session.removeAttribute("user");
-		session.removeAttribute("login");
-		return "index";
-	}
 }

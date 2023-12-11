@@ -6,7 +6,7 @@
 <%@ include file="includes/header.jsp"%>
 <body>
 <div class = "container">
-<form class = "form" action="login.do">
+<form class = "form" action="login.do" method="POST">
 	
 	<h2>Log In</h2>
 
