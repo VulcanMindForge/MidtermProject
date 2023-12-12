@@ -44,5 +44,4 @@ public class UserController {
 		model.addAttribute("user", newUser);
 		return "sign-in";
 	}
-	
 }

@@ -1,5 +1,7 @@
 package com.skilldistillery.homeschoolassistant.data;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.skilldistillery.homeschoolassistant.entities.User;
@@ -43,7 +45,7 @@ public class UserDaoImpl implements UserDAO {
 
 	@Override
 	public User updateUser(int userId, User user) {
-		User userToUpdate = em.find(User.class, user);
+		User userToUpdate = em.find(User.class, userId);
 		userToUpdate.setFirstName(user.getFirstName());
 		userToUpdate.setLastName(user.getLastName());
 		userToUpdate.setUsername(user.getUsername());
@@ -61,5 +63,19 @@ public class UserDaoImpl implements UserDAO {
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public User findById(int userId) {
+		return em.find(User.class, userId);
+	}
+
+	@Override
+	public List<User> findAll() {
+		String jpql = "SELECT u FROM User u";
+
+		List<User> users = em.createQuery(jpql, User.class).getResultList();
+
+		return users;
 	}
 }
