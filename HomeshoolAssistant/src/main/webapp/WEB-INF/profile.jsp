@@ -10,6 +10,11 @@
 <li>Last Name: ${user.lastName }</li>
 <li>Username: ${user.username }</li>
 </ul>
+<c:if test="${user.role eq 'Teacher' }">
+<form class="form" action = "lessonPlanAdd.do">
+<input type="submit" name="Add Lesson Plan">
+</form>
+</c:if>
 </body>
 <%@ include file="includes/footer.jsp"%>
 </html>

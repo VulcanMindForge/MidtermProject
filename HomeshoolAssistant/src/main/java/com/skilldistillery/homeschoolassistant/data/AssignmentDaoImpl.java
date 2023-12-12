@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import com.skilldistillery.homeschoolassistant.entities.Assignment;
 import com.skilldistillery.homeschoolassistant.entities.LessonPlan;
 import com.skilldistillery.homeschoolassistant.entities.Resource;
+import com.skilldistillery.homeschoolassistant.entities.Teacher;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -75,6 +76,7 @@ public class AssignmentDaoImpl implements AssignmentDAO {
 
 	@Override
 	public LessonPlan addLessonPlan(LessonPlan lessonPlan) {
+		System.out.println(lessonPlan.getTeacher());
 		em.persist(lessonPlan);
 		em.flush();		
 		return lessonPlan;
@@ -100,4 +102,16 @@ public class AssignmentDaoImpl implements AssignmentDAO {
 		}
 		return false;
 	}
+
+	@Override
+	public LessonPlan getLessonPlan(int lessonPlanId) {
+		return em.find(LessonPlan.class, lessonPlanId);	
+	}
+	
+	@Override
+	public Teacher getTeacherById(int userId) {
+		return em.find(Teacher.class, userId);	
+	}
+	
+	
 }

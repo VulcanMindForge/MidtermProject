@@ -3,6 +3,7 @@ package com.skilldistillery.homeschoolassistant.data;
 import com.skilldistillery.homeschoolassistant.entities.Assignment;
 import com.skilldistillery.homeschoolassistant.entities.LessonPlan;
 import com.skilldistillery.homeschoolassistant.entities.Resource;
+import com.skilldistillery.homeschoolassistant.entities.Teacher;
 
 public interface AssignmentDAO {
 	Resource addResource(Resource resource);
@@ -16,4 +17,6 @@ public interface AssignmentDAO {
 	LessonPlan addLessonPlan(LessonPlan lessonPlan);
 	LessonPlan modifyLessonPlan(int lessonPlanId, LessonPlan lessonPlan);
 	Boolean removeLessonPlan(int lessonPlanId);
+	LessonPlan getLessonPlan(int lessonPlanId);
+	Teacher getTeacherById(int userId);
 }
