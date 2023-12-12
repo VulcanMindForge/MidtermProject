@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.skilldistillery.homeschoolassistant.entities.Teacher;
 import com.skilldistillery.homeschoolassistant.entities.User;
 
 import jakarta.persistence.EntityManager;
@@ -28,7 +29,6 @@ public class UserDaoImpl implements UserDAO {
 					.setParameter("pw", password)
 					.getSingleResult();
 		} catch (Exception e) {
-//			e.printStackTrace();
 			System.err.println("Invalid user: " + username);
 		}
 
@@ -77,5 +77,15 @@ public class UserDaoImpl implements UserDAO {
 		List<User> users = em.createQuery(jpql, User.class).getResultList();
 
 		return users;
+	}
+
+	@Override
+	public Teacher addTeacher(User user) {
+		Teacher teacher = new Teacher();
+		teacher.setEmail(user.getFirstName() + "@" + user.getLastName() + ".com");
+		em.persist(teacher);
+		em.flush();
+		
+		return teacher;
 	}
 }

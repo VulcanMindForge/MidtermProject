@@ -35,7 +35,7 @@ public class AccountController {
 	public String showEditAccountForm(@RequestParam("userId") Integer userId, Model model) {
 		User user = userDAO.findById(userId);
 		model.addAttribute("user", user);
-		return "edit_accountForm";
+		return "account/edit_accountForm";
 	}
 	
 	@RequestMapping(path = "edit_account.do", method = RequestMethod.POST)
@@ -56,9 +56,9 @@ public class AccountController {
 		return "redirect:account.do";
 	}
 
-	@RequestMapping(path = "add_studentForm", method = RequestMethod.GET)
+	@RequestMapping(path = "add_accountForm", method = RequestMethod.GET)
 	public String showAddStudentForm() {
-		return "add_studentForm";
+		return "account/add_accountForm";
 	}
 
 	@RequestMapping(path = "addAccount.do", method = RequestMethod.POST)

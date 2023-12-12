@@ -2,6 +2,7 @@ package com.skilldistillery.homeschoolassistant.data;
 
 import java.util.List;
 
+import com.skilldistillery.homeschoolassistant.entities.Teacher;
 import com.skilldistillery.homeschoolassistant.entities.User;
 
 public interface UserDAO {
@@ -12,4 +13,5 @@ public interface UserDAO {
 	User findById(int userId);
 	List<User> findAll();
 	boolean removeUser(int userId);
+	Teacher addTeacher(User user);
 }

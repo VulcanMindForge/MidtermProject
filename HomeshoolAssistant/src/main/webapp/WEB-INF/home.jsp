@@ -9,11 +9,6 @@
 
 ${SMOKETEST }
 
-	<h5>Current Users</h5>
-	<c:forEach var="user" items="${userList}">
-		<a href="getAccount.do?userId=${user.id}">${user.id}: ${user.firstName} ${user.lastName} ${user.password}</a> <br>
-	</c:forEach>
-	<br>
 </body>
 <%@ include file="includes/footer.jsp"%>
 </html>

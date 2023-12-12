@@ -3,7 +3,9 @@
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
 <!DOCTYPE html>
 <html>
-<%@ include file="includes/header.jsp"%>
+<!--%@ include file="includes/header.jsp"%-->
+<%@ include file="/WEB-INF/includes/header.jsp"%>
+
 <head>
 <title>Add Account</title>
 </head>
@@ -36,5 +38,5 @@
     </form>
 
 </body>
-<%@ include file="includes/footer.jsp"%>
+<%@ include file="/WEB-INF/includes/footer.jsp"%>
 </html>

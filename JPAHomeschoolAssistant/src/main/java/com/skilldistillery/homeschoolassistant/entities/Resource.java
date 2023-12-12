@@ -2,8 +2,10 @@ package com.skilldistillery.homeschoolassistant.entities;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Locale.Category;
 import java.util.Objects;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -27,9 +29,11 @@ public class Resource {
 	private String url;
 
 	@Column(name = "create_date")
+	@CreationTimestamp
 	private LocalDateTime createDate;
 
 	@Column(name = "last_update")
+	@UpdateTimestamp
 	private LocalDateTime lastUpdate;
 
 	@OneToMany(mappedBy = "resource")

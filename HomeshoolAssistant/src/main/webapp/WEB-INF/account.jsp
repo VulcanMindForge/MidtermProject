@@ -18,7 +18,7 @@
 	</c:forEach>
 	<br>
 
-	<a href="add_studentForm">Add Student</a>
+	<a href="add_accountForm">Add Account</a>
 
 
 </body>
