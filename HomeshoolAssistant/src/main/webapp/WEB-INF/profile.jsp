@@ -10,6 +10,8 @@
 <li>Last Name: ${user.lastName }</li>
 <li>Username: ${user.username }</li>
 </ul>
+
+<a href="assignment.do?userId=${user.id }" > List Assignments</a>
 </body>
 <%@ include file="includes/footer.jsp"%>
 </html>
