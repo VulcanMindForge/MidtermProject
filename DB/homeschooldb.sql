@@ -324,7 +324,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `homeschooldb`;
-<<<<<<< HEAD
+
 INSERT INTO `grade_level` (`id`, `name`, `grade_number`) VALUES (1, 'Kindergarten', '0');
 INSERT INTO `grade_level` (`id`, `name`, `grade_number`) VALUES (2, 'First', '1');
 INSERT INTO `grade_level` (`id`, `name`, `grade_number`) VALUES (3, 'Second', '2');
@@ -338,13 +338,7 @@ INSERT INTO `grade_level` (`id`, `name`, `grade_number`) VALUES (10, 'Freshman',
 INSERT INTO `grade_level` (`id`, `name`, `grade_number`) VALUES (11, 'Sophmore', '10');
 INSERT INTO `grade_level` (`id`, `name`, `grade_number`) VALUES (12, 'Junior', '11');
 INSERT INTO `grade_level` (`id`, `name`, `grade_number`) VALUES (13, 'Senior', '12');
-=======
-INSERT INTO `grade_level` (`id`, `name`, `grade_number`) VALUES (1, '6th grade', '6');
-INSERT INTO `grade_level` (`id`, `name`, `grade_number`) VALUES (2, '7th grade', '7');
-INSERT INTO `grade_level` (`id`, `name`, `grade_number`) VALUES (3, '8th grade', '8');
-INSERT INTO `grade_level` (`id`, `name`, `grade_number`) VALUES (4, '9th grade', '9');
-INSERT INTO `grade_level` (`id`, `name`, `grade_number`) VALUES (5, '10th grade', '10');
->>>>>>> d5644c133fdf5e03dcf486ba120ae82bba04aa02
+
 
 COMMIT;
 
@@ -406,20 +400,13 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `homeschooldb`;
-<<<<<<< HEAD
+
 INSERT INTO `subject` (`id`, `title`) VALUES (1, 'Math');
 INSERT INTO `subject` (`id`, `title`) VALUES (2, 'Science');
 INSERT INTO `subject` (`id`, `title`) VALUES (3, 'Computer Science');
 INSERT INTO `subject` (`id`, `title`) VALUES (4, 'Social Studies');
 INSERT INTO `subject` (`id`, `title`) VALUES (5, 'Language Arts');
 INSERT INTO `subject` (`id`, `title`) VALUES (6, 'Physical Education');
-=======
-INSERT INTO `subject` (`id`, `title`) VALUES (1, 'math');
-INSERT INTO `subject` (`id`, `title`) VALUES (2, 'science');
-INSERT INTO `subject` (`id`, `title`) VALUES (3, 'social studies');
-INSERT INTO `subject` (`id`, `title`) VALUES (4, 'computer science');
-INSERT INTO `subject` (`id`, `title`) VALUES (5, 'language arts');
->>>>>>> d5644c133fdf5e03dcf486ba120ae82bba04aa02
 
 COMMIT;
 
