@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS `lesson_plan` (
   `title` VARCHAR(45) NOT NULL,
   `description` TEXT NOT NULL,
   `create_date` DATETIME NOT NULL,
-  `last_update` DATETIME NOT NULL,
+  `last_update` DATETIME NULL,
   `shared` TINYINT NULL,
   PRIMARY KEY (`id`),
   INDEX `user_id_idx` (`teacher_id` ASC),
@@ -131,8 +131,8 @@ CREATE TABLE IF NOT EXISTS `resource` (
   `title` VARCHAR(45) NOT NULL,
   `url` VARCHAR(2000) NULL,
   `user_id` INT NOT NULL,
-  `create_date` DATETIME NOT NULL,
-  `last_update` DATETIME NOT NULL,
+  `create_date` DATETIME NULL,
+  `last_update` DATETIME NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_resource_user1_idx` (`user_id` ASC),
   CONSTRAINT `fk_resource_user1`
@@ -289,6 +289,8 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 START TRANSACTION;
 USE `homeschooldb`;
 INSERT INTO `user` (`id`, `first_name`, `last_name`, `username`, `password`, `role`, `enabled`) VALUES (1, 'john', 'doe', 'johndoe1', '1234', '1', 1);
+INSERT INTO `user` (`id`, `first_name`, `last_name`, `username`, `password`, `role`, `enabled`) VALUES (2, 'mom', 'doe', 'mom1', '1234', 'Teacher', 1);
+INSERT INTO `user` (`id`, `first_name`, `last_name`, `username`, `password`, `role`, `enabled`) VALUES (3, 'son', 'doe', 'son1', '1234', 'Student', 0);
 
 COMMIT;
 
@@ -309,6 +311,10 @@ COMMIT;
 START TRANSACTION;
 USE `homeschooldb`;
 INSERT INTO `lesson_plan` (`id`, `teacher_id`, `title`, `description`, `create_date`, `last_update`, `shared`) VALUES (1, 1, 'how to teach math', 'still math', '2022-01-02', '2022-01-03', 0);
+INSERT INTO `lesson_plan` (`id`, `teacher_id`, `title`, `description`, `create_date`, `last_update`, `shared`) VALUES (2, 1, 'how to teach science', 'still science', '2022-01-02', NULL, NULL);
+INSERT INTO `lesson_plan` (`id`, `teacher_id`, `title`, `description`, `create_date`, `last_update`, `shared`) VALUES (3, 1, 'how to teach social studies', 'still social studies', '2022-01-02', NULL, NULL);
+INSERT INTO `lesson_plan` (`id`, `teacher_id`, `title`, `description`, `create_date`, `last_update`, `shared`) VALUES (4, 1, 'how to teach computer science', 'still computer science', '2022-01-02', NULL, NULL);
+INSERT INTO `lesson_plan` (`id`, `teacher_id`, `title`, `description`, `create_date`, `last_update`, `shared`) VALUES (5, 1, 'how to teach language arts', 'still language arts', '2022-01-02', NULL, NULL);
 
 COMMIT;
 
@@ -318,7 +324,11 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `homeschooldb`;
-INSERT INTO `grade_level` (`id`, `name`, `grade_number`) VALUES (1, 'mom', '1');
+INSERT INTO `grade_level` (`id`, `name`, `grade_number`) VALUES (1, '6th grade', '6');
+INSERT INTO `grade_level` (`id`, `name`, `grade_number`) VALUES (2, '7th grade', '7');
+INSERT INTO `grade_level` (`id`, `name`, `grade_number`) VALUES (3, '8th grade', '8');
+INSERT INTO `grade_level` (`id`, `name`, `grade_number`) VALUES (4, '9th grade', '9');
+INSERT INTO `grade_level` (`id`, `name`, `grade_number`) VALUES (5, '10th grade', '10');
 
 COMMIT;
 
@@ -339,6 +349,10 @@ COMMIT;
 START TRANSACTION;
 USE `homeschooldb`;
 INSERT INTO `resource` (`id`, `title`, `url`, `user_id`, `create_date`, `last_update`) VALUES (1, 'math01', 'google,com', 1, '2022-01-02', '2022-01-02');
+INSERT INTO `resource` (`id`, `title`, `url`, `user_id`, `create_date`, `last_update`) VALUES (2, 'science01', 'https://ket.pbslearningmedia.org/collection/btl07-ex/', 1, '2022-01-02', NULL);
+INSERT INTO `resource` (`id`, `title`, `url`, `user_id`, `create_date`, `last_update`) VALUES (3, 'history01', 'https://www.historyforkids.net/', 1, '2022-01-02', NULL);
+INSERT INTO `resource` (`id`, `title`, `url`, `user_id`, `create_date`, `last_update`) VALUES (4, 'compsci01', 'https://climatekids.nasa.gov/', 1, '2022-01-02', NULL);
+INSERT INTO `resource` (`id`, `title`, `url`, `user_id`, `create_date`, `last_update`) VALUES (5, 'reading01', NULL, 1, NULL, NULL);
 
 COMMIT;
 
@@ -349,6 +363,10 @@ COMMIT;
 START TRANSACTION;
 USE `homeschooldb`;
 INSERT INTO `assignment` (`id`, `student_id`, `title`, `description`, `duedate`, `lessonplan_id`, `resource_id`, `completed`, `grade`) VALUES (1, 1, 'math', '1+1', '2022-02-03', 1, 1, 0, NULL);
+INSERT INTO `assignment` (`id`, `student_id`, `title`, `description`, `duedate`, `lessonplan_id`, `resource_id`, `completed`, `grade`) VALUES (2, 1, 'science', 'don\'t mix these', '2022-02-06', 2, 2, 0, NULL);
+INSERT INTO `assignment` (`id`, `student_id`, `title`, `description`, `duedate`, `lessonplan_id`, `resource_id`, `completed`, `grade`) VALUES (3, 1, 'social studies', 'this happened when?', '2022-02-05', 3, 3, 0, NULL);
+INSERT INTO `assignment` (`id`, `student_id`, `title`, `description`, `duedate`, `lessonplan_id`, `resource_id`, `completed`, `grade`) VALUES (4, 1, 'computer science', 'type type type delete type', '2022-02-04', 4, 4, 0, NULL);
+INSERT INTO `assignment` (`id`, `student_id`, `title`, `description`, `duedate`, `lessonplan_id`, `resource_id`, `completed`, `grade`) VALUES (5, 1, 'language arts', 'read this out loud', '2022-02-04', 5, 5, 0, NULL);
 
 COMMIT;
 
@@ -359,6 +377,10 @@ COMMIT;
 START TRANSACTION;
 USE `homeschooldb`;
 INSERT INTO `message` (`id`, `sender_id`, `receiver_id`, `message`, `message_date`) VALUES (1, 1, 1, 'hi', '2022-01-02');
+INSERT INTO `message` (`id`, `sender_id`, `receiver_id`, `message`, `message_date`) VALUES (2, 1, 2, 'hi', '2022-01-02');
+INSERT INTO `message` (`id`, `sender_id`, `receiver_id`, `message`, `message_date`) VALUES (3, 1, 2, 'how are you?', '2022-01-02');
+INSERT INTO `message` (`id`, `sender_id`, `receiver_id`, `message`, `message_date`) VALUES (4, 2, 1, 'i\'m good', '2022-01-02');
+INSERT INTO `message` (`id`, `sender_id`, `receiver_id`, `message`, `message_date`) VALUES (5, 2, 1, 'how are you?', '2022-01-02');
 
 COMMIT;
 
@@ -369,6 +391,10 @@ COMMIT;
 START TRANSACTION;
 USE `homeschooldb`;
 INSERT INTO `subject` (`id`, `title`) VALUES (1, 'math');
+INSERT INTO `subject` (`id`, `title`) VALUES (2, 'science');
+INSERT INTO `subject` (`id`, `title`) VALUES (3, 'social studies');
+INSERT INTO `subject` (`id`, `title`) VALUES (4, 'computer science');
+INSERT INTO `subject` (`id`, `title`) VALUES (5, 'language arts');
 
 COMMIT;
 
