@@ -11,11 +11,19 @@
 		<li>Username: ${user.username }</li>
 	</ul>
 
-	<a href="edit_accountForm?userId=${user.id}">Edit Account</a> <br><br>
+	<a href="edit_accountForm?userId=${user.id}">Edit Account</a>
+	<br>
+	<br>
 
 	<c:if test="${user.role eq 'Teacher' }">
 		<form class="form" action="lessonPlanAdd.do">
-			<input type="submit" name="Add Lesson Plan">
+			<input type="submit" value="Add Lesson Plan">
+		</form>
+		<form class="form" action="resourceAdd.do" method="get">
+			<input type="submit" value="Add Resource">
+		</form>
+		<form class="form" action="standardAdd.do">
+			<input type="submit" value="Add Standard">
 		</form>
 	</c:if>
 </body>
