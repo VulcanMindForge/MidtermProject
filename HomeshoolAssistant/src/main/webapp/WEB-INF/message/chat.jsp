@@ -15,23 +15,18 @@
 	<br>
 	
 	<h4>Your Chats</h4>
+	
 	<c:forEach var="otherUser" items="${userList}">
-	    <a href="history.do?senderId=${user.id}&receiverId=${otherUser.id}">
-	        To: ${otherUser.firstName} ${otherUser.lastName}</a>
-	    <br>
+		<c:if test="${user.id ne otherUser.id}">
+	        <a href="history.do?senderId=${user.id}&receiverId=${otherUser.id}">
+	            To: ${otherUser.firstName} ${otherUser.lastName}
+	        </a>
+	        <br>
+	    </c:if>
 	</c:forEach>
 	
 	<br>
-	
-	<!--  
-	<h3>New Chat</h3>
-	<c:forEach var="otherUser" items="${userList}">
-	    <a href="new_messageForm?senderId=${user.id}&receiverId=${otherUser.id}">From: ${user.firstName} ${user.lastName}
-	        To: ${otherUser.id}: ${otherUser.firstName} ${otherUser.lastName}</a><br>
-	</c:forEach>
-	-->
 		
-
 </body>
 <%@ include file="/WEB-INF/includes/footer.jsp"%>
 </html>

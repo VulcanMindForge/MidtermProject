@@ -15,10 +15,7 @@
 	<form action="sendMessage.do" method="post">
 	    <input type="hidden" id="senderId" name="senderId" value="${sender.id}">
 	    <input type="hidden" id="receiverId" name="receiverId" value="${receiver.id}">
-	    <!--  
-	    <label for="userId">User ID:</label>
-	    <input type="hidden" id="userId" name="userId" value="${sender.id}" required readonly> <br>
-	    -->
+
 	    <label>From: ${sender.firstName} ${sender.lastName}</label><br>
 	    <label for="firstName">To: ${receiver.firstName} ${receiver.lastName}</label> <br> 
 	    <label for="message">Message:</label><br>

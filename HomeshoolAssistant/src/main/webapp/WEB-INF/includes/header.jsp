@@ -29,6 +29,10 @@
 					</c:if>
 
 					<c:if test="${login eq true}">
+						<li><a href="message.do">Chat</a></li>
+					</c:if>
+					
+					<c:if test="${login eq true}">
 						<li><a href="logout.do">Logout</a></li>
 					</c:if>
 				</ul>
