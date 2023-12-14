@@ -1,5 +1,6 @@
 package com.skilldistillery.homeschoolassistant.entities;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -21,7 +22,7 @@ public class Assignment {
 
 	private String description;
 
-	private LocalDateTime duedate;
+	private LocalDate duedate;
 
 	private boolean completed;
 
@@ -74,11 +75,11 @@ public class Assignment {
 		this.description = description;
 	}
 
-	public LocalDateTime getDuedate() {
+	public LocalDate getDuedate() {
 		return duedate;
 	}
 
-	public void setDuedate(LocalDateTime duedate) {
+	public void setDuedate(LocalDate duedate) {
 		this.duedate = duedate;
 	}
 

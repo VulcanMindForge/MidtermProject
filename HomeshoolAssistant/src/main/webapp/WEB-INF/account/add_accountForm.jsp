@@ -33,7 +33,12 @@
         <label for="role">Role:</label>
         <input type="text" id="role" name="role" required>
         <br>
-
+		
+        <label for="role">Grade Level if Student: </label>
+        <input type="text" id="gradeLevel" name="gradeLevel">
+        <br>
+		
+		<input type="hidden" value="${user.id }">
         <input type="submit" value="Add Account">
     </form>
 

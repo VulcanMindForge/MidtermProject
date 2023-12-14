@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.skilldistillery.homeschoolassistant.entities.GradeLevel;
+import com.skilldistillery.homeschoolassistant.entities.Student;
 import com.skilldistillery.homeschoolassistant.entities.Teacher;
 import com.skilldistillery.homeschoolassistant.entities.User;
 
@@ -71,6 +73,16 @@ public class UserDaoImpl implements UserDAO {
 	}
 
 	@Override
+	public Teacher findTeacherById(int teacherId) {
+		return em.find(Teacher.class, teacherId);
+	}
+
+	@Override
+	public GradeLevel findGradeLevelById(int gradeId) {
+		return em.find(GradeLevel.class, gradeId);
+	}
+
+	@Override
 	public List<User> findAll() {
 		String jpql = "SELECT u FROM User u";
 
@@ -83,9 +95,20 @@ public class UserDaoImpl implements UserDAO {
 	public Teacher addTeacher(User user) {
 		Teacher teacher = new Teacher();
 		teacher.setEmail(user.getFirstName() + "@" + user.getLastName() + ".com");
+		teacher.setId(user.getId());
 		em.persist(teacher);
 		em.flush();
-		
 		return teacher;
+	}
+
+	@Override
+	public Student addStudent(User user, String gradeLevel, String teacherId) {
+		Student student = new Student();
+		student.setId(user.getId());
+		student.setGradeLevel(findGradeLevelById(Integer.parseInt(gradeLevel)));
+		student.setParent(findById(Integer.parseInt(teacherId)));
+		em.persist(student);
+		em.flush();
+		return student;
 	}
 }

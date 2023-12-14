@@ -9,6 +9,7 @@ import com.skilldistillery.homeschoolassistant.entities.GradeLevel;
 import com.skilldistillery.homeschoolassistant.entities.LessonPlan;
 import com.skilldistillery.homeschoolassistant.entities.Resource;
 import com.skilldistillery.homeschoolassistant.entities.Standard;
+import com.skilldistillery.homeschoolassistant.entities.Student;
 import com.skilldistillery.homeschoolassistant.entities.Subject;
 import com.skilldistillery.homeschoolassistant.entities.Teacher;
 import com.skilldistillery.homeschoolassistant.entities.User;
@@ -150,6 +151,16 @@ public class AssignmentDaoImpl implements AssignmentDAO {
 	public Teacher getTeacherById(int userId) {
 		return em.find(Teacher.class, userId);	
 	}
+	
+	@Override
+	public Student getStudentById(int userId) {
+		return em.find(Student.class, userId);	
+	}
+	
+	@Override
+	public Resource getResourceById(int resourceId) {
+		return em.find(Resource.class, resourceId);	
+	}
 
 	@Override
 	public Standard getStandardById(int standardId) {
@@ -187,6 +198,12 @@ public class AssignmentDaoImpl implements AssignmentDAO {
 		return em.createQuery(sql, Subject.class).getResultList();
 	}
 
+	@Override
+	public List<Student> getAllStudents() {
+		String sql = "Select student From Student student";
+		return em.createQuery(sql, Student.class).getResultList();
+	}
+
 
 	@Override
 	public List<Assignment> listAssignments(int userId) {
@@ -198,12 +215,40 @@ public class AssignmentDaoImpl implements AssignmentDAO {
 		return assignments;
 	}
 
+	
 
+	@Override
+	public List<Assignment> getAssignmentsByPlanId(int planId) {
+		String sql = "Select plan FROM LessonPlan plan WHERE id = :planId";
+		LessonPlan plan = em.createQuery(sql, LessonPlan.class).setParameter("planId", planId).getSingleResult();
+		sql = "Select assignment From Assignment assignment WHERE lessonPlan = :plan";
+		return em.createQuery(sql, Assignment.class).setParameter("plan", plan).getResultList();
+	}
 
 	@Override
 	public List<Standard> getAllStandards() {
 		String sql = "Select standard From Standard standard";
 		return em.createQuery(sql, Standard.class).getResultList();
+	}
+
+	@Override
+	public List<Resource> getAllResources() {
+		String sql = "Select resource From Resource resource";
+		return em.createQuery(sql, Resource.class).getResultList();
+	}
+
+	@Override
+	public List<Student> getStudentsByTeacherId(int userId) {
+		String sql = "SELECT user FROM User user WHERE id = :userId";
+		User parent = em.createQuery(sql, User.class).setParameter("userId", userId).getSingleResult();
+		sql = "Select student From Student student where parent = :parentId";
+		return em.createQuery(sql, Student.class).setParameter("parentId", parent).getResultList();
+	}
+
+	@Override
+	public LessonPlan getLessonPlanById(int planId) {
+		String sql = "SELECT plan FROM LessonPlan plan WHERE id = :planId";
+		return em.createQuery(sql, LessonPlan.class).setParameter("planId", planId).getSingleResult();
 	}
 	
 }

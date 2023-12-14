@@ -14,6 +14,7 @@
 
 	<h5>Current Students</h5>
 	<c:forEach var="user" items="${userList}">
+		<c:if test="${user.role eq 'student'}"></c:if>
 		<a href="getAccount.do?userId=${user.id}">${user.id}: ${user.firstName} ${user.lastName}</a> <br>
 	</c:forEach>
 	<br>
@@ -21,7 +22,6 @@
 	<a href="message.do">Chat</a>
 	<br><br>
 	<a href="add_accountForm">Add Account</a>
-
 
 </body>
 <%@ include file="includes/footer.jsp"%>
