@@ -38,7 +38,7 @@
         <input type="text" id="gradeLevel" name="gradeLevel">
         <br>
 		
-		<input type="hidden" value="${user.id }">
+		<input type="hidden" value="${user.id }" name="teacherId">
         <input type="submit" value="Add Account">
     </form>
 

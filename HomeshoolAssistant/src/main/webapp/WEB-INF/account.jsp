@@ -25,6 +25,19 @@
 	</c:forEach>
 
 	<a href="add_accountForm">Add Account</a>
+	
+	<c:if test="${user.role eq 'Teacher' }">
+		<form class="form" action="lessonPlanAdd.do">
+			<input type="hidden" value="${user.id}" name="userId">
+			<input type="submit" value="Add Lesson Plan">
+		</form>
+		<form class="form" action="resourceAdd.do" method="get">
+			<input type="submit" value="Add Resource">
+		</form>
+		<form class="form" action="standardAdd.do">
+			<input type="submit" value="Add Standard">
+		</form>
+	</c:if>
 
 </body>
 <%@ include file="includes/footer.jsp"%>

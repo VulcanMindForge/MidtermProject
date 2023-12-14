@@ -69,8 +69,6 @@
 				<input type="hidden" name="teacher" value="${user.id}"> 
 				<input type="submit" value="Add Assignment">
 			</div>
-		</form>
-		<form class="form" action="lessonPlanAdd.do" method="POST">
 			<input type="hidden" name="finished" value="finished">
 			<input type="submit" value="Submit Plan">
 		</form>

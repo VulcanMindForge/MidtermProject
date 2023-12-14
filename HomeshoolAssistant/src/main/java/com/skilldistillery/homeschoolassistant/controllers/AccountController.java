@@ -65,7 +65,7 @@ public class AccountController {
     @RequestMapping(path = "addAccount.do", method = RequestMethod.POST)
     public String addPlayer(HttpSession session, @RequestParam("firstName") String firstName,
             @RequestParam("lastName") String lastName, @RequestParam("username") String username,
-            @RequestParam("password") String password, @RequestParam("role") String role) {
+            @RequestParam("password") String password, @RequestParam("role") String role, @RequestParam("gradeLevel") String gradeLevel, @RequestParam("teacherId") String teacherId) {
 
         User newUser = new User();
         newUser.setFirstName(firstName);
@@ -73,7 +73,12 @@ public class AccountController {
         newUser.setUsername(username);
         newUser.setPassword(password);
         newUser.setRole(role);
-        newUser.setEnabled(false);
+        if (role.equalsIgnoreCase("student")) {
+        	userDAO.addStudent(newUser, gradeLevel, teacherId);
+        } else {
+        	userDAO.addTeacher(newUser);
+        }
+        newUser.setEnabled(true);
 
         userDAO.registerUser(newUser);
 
