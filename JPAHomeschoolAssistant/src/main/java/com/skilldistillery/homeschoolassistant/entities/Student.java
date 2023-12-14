@@ -1,11 +1,10 @@
 package com.skilldistillery.homeschoolassistant.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -13,9 +12,8 @@ import jakarta.persistence.OneToMany;
 
 @Entity
 public class Student {
-
+	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
 	@OneToMany(mappedBy = "student")
@@ -39,7 +37,27 @@ public class Student {
 	public void setParent(User parent) {
 		this.parent = parent;
 	}
-
+	
+	public void addAssignment(Assignment assignment) {
+		if (assignments == null) {
+			assignments = new ArrayList<>();
+		}
+		if (!assignments.contains(assignment)) {
+			assignments.add(assignment);
+			if (assignment.getStudent() != null) {
+				assignment.getStudent().removeAssignment(assignment);
+			}
+			assignment.setStudent(this);
+		}
+	}
+	
+	public void removeAssignment(Assignment assignment) {
+		if (assignments != null && assignments.contains(assignment)) {
+			assignments.remove(assignment);
+			assignment.setStudent(null);
+		}
+	}
+	
 	public List<Assignment> getAssignments() {
 		return assignments;
 	}

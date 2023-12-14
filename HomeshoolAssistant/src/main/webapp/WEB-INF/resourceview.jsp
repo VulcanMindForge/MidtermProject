@@ -5,9 +5,15 @@
 <html>
 <%@ include file="includes/header.jsp"%>
 <body>
-<h2> Assisting with your homeschooling needs!</h2>
+<h2>${resource.title}</h2>
+<a href="${resource.url }"> Link to external resource</a>
+<h2>Standards this resource covers</h2>
+<c:forEach var="standard" items="${resource.standards }">
 
-${SMOKETEST }
+${standard.description }
+</c:forEach>
+
+${standard }
 
 </body>
 <%@ include file="includes/footer.jsp"%>

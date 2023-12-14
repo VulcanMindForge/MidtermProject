@@ -1,9 +1,12 @@
 package com.skilldistillery.homeschoolassistant.entities;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale.Category;
 import java.util.Objects;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -27,9 +30,11 @@ public class Resource {
 	private String url;
 
 	@Column(name = "create_date")
+	@CreationTimestamp
 	private LocalDateTime createDate;
 
 	@Column(name = "last_update")
+	@UpdateTimestamp
 	private LocalDateTime lastUpdate;
 
 	@OneToMany(mappedBy = "resource")
@@ -40,14 +45,49 @@ public class Resource {
 	private User user;
 
 	@ManyToMany
-	@JoinTable(name = "standard_has_resource", 
-				joinColumns = @JoinColumn(name = "resource_id"), 
-				inverseJoinColumns = @JoinColumn(name = "standard_id"))
+	@JoinTable(name = "standard_has_resource", joinColumns = @JoinColumn(name = "resource_id"), inverseJoinColumns = @JoinColumn(name = "standard_id"))
 	private List<Standard> standards;
 
 	public Resource() {
 	}
 
+	public void addAssignment(Assignment assignment) {
+		if (assignments == null) {
+			assignments = new ArrayList<>();
+		}
+		if (!assignments.contains(assignment)) {
+			assignments.add(assignment);
+			if (assignment.getResource() != null) {
+				assignment.getResource().removeAssignment(assignment);
+			}
+			assignment.setResource(this);
+		}
+	}
+
+	public void removeAssignment(Assignment assignment) {
+		if (assignments != null && assignments.contains(assignment)) {
+			assignments.remove(assignment);
+			assignment.setLessonPlan(null);
+		}
+	}
+
+	public void addStandard(Standard standard) {
+		if (standards == null) {
+			standards = new ArrayList<>();
+		}
+		if (!standards.contains(standard)) {
+			standards.add(standard);
+			standard.addResource(this);
+		}
+	}
+	
+	public void removeStandard(Standard standard) {
+		if (standards != null && standards.contains(standard)) {
+			standards.remove(standard);
+			standard.removeResource(this);
+		}
+	}
+	
 	public List<Standard> getStandards() {
 		return standards;
 	}

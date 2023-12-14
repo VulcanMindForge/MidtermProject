@@ -41,8 +41,8 @@ public class UserController {
 		user.setEnabled(true);
 		user.setRole("Teacher");
 		User newUser = userDAO.registerUser(user);
+		userDAO.addTeacher(newUser);
 		model.addAttribute("user", newUser);
 		return "sign-in";
 	}
-	
 }
