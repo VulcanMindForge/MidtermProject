@@ -14,12 +14,13 @@
 		<li>Username: ${user.username }</li>
 	</ul>
 
-	<a href="edit_accountForm?userId=${user.id}">Edit Account</a>
+	<a href="/account/edit_accountForm.jsp?userId=${user.id}">Edit Account</a>
 	<br>
 	<br>
 
 	<c:if test="${user.role eq 'Teacher' }">
 		<form class="form" action="lessonPlanAdd.do">
+			<input type="hidden" value="${user.id}" name="userId">
 			<input type="submit" value="Add Lesson Plan">
 		</form>
 		<form class="form" action="resourceAdd.do" method="get">

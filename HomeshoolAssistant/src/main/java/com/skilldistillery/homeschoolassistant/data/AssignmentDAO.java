@@ -8,6 +8,7 @@ import com.skilldistillery.homeschoolassistant.entities.GradeLevel;
 import com.skilldistillery.homeschoolassistant.entities.LessonPlan;
 import com.skilldistillery.homeschoolassistant.entities.Resource;
 import com.skilldistillery.homeschoolassistant.entities.Standard;
+import com.skilldistillery.homeschoolassistant.entities.Student;
 import com.skilldistillery.homeschoolassistant.entities.Subject;
 import com.skilldistillery.homeschoolassistant.entities.Teacher;
 import com.skilldistillery.homeschoolassistant.entities.User;
@@ -40,5 +41,13 @@ public interface AssignmentDAO {
 	List<GradeLevel> getAllGrades();
 	List<Subject> getAllSubjects();
 	List<Standard> getAllStandards();
+	List<Resource> getAllResources();
 	Standard getStandardById(int standardId);
+	List<Student> getStudentsByTeacherId(int userId);
+	Student getStudentById(int userId);
+	Resource getResourceById(int resourceId);
+	List<Student> getAllStudents();
+	LessonPlan getLessonPlanById(int planId);
+	List<Assignment> getAssignmentsByPlanId(int planId);
+
 }

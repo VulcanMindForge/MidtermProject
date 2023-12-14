@@ -22,7 +22,7 @@ public class LoginController {
 	public String loginView(HttpSession session) {
 		User sessionUser = (User) session.getAttribute("user");
 		if (sessionUser != null) {
-			return "profile";
+			return "account";
 		}
 		return "sign-in";
 	}
@@ -34,13 +34,13 @@ public class LoginController {
 		Boolean loginSuccessful = false;
 		User sessionUser = (User) session.getAttribute("user");
 		if (sessionUser != null) {
-			return "profile";
+			return "account";
 		}
 		if (user != null) {
 			loginSuccessful = true;
 			session.setAttribute("login", loginSuccessful);
 			session.setAttribute("user", user);
-			return "profile";
+			return "account";
 		} else {
 			session.setAttribute("login", loginSuccessful);
 			return "sign-in";

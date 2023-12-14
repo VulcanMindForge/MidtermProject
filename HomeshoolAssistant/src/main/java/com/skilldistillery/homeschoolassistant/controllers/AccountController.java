@@ -65,7 +65,9 @@ public class AccountController {
     @RequestMapping(path = "addAccount.do", method = RequestMethod.POST)
     public String addAccount(HttpSession session, @RequestParam("firstName") String firstName,
             @RequestParam("lastName") String lastName, @RequestParam("username") String username,
-            @RequestParam("password") String password, @RequestParam("role") String role) {
+            @RequestParam("password") String password, @RequestParam("role") String role,
+            @RequestParam(value = "gradeLevel", required = false) String gradeLevel,
+            @RequestParam(value = "teacherId", required = false) Integer teacherId) {
 
         User newUser = new User();
         newUser.setFirstName(firstName);
@@ -73,17 +75,20 @@ public class AccountController {
         newUser.setUsername(username);
         newUser.setPassword(password);
         newUser.setRole(role);
-        if(role.equals("Student")) {
-        	newUser.setEnabled(false);
+
+        if (role.equalsIgnoreCase("student")) {
+            newUser.setEnabled(false);
+            userDAO.addStudent(newUser, gradeLevel, teacherId);
+        } else {
+            newUser.setEnabled(true);
+            userDAO.addTeacher(newUser);
         }
-        else {
-        	newUser.setEnabled(true);
-        }
-        
+
         userDAO.registerUser(newUser);
 
         return "redirect:account.do";
     }
+
 
     @RequestMapping(path = "removeAccount.do", method = { RequestMethod.GET, RequestMethod.POST })
     public String removeAccount(HttpSession session, @RequestParam("userId") Integer userId) {

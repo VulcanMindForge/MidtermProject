@@ -11,6 +11,7 @@
 <body>
 
 	<h1>Account Heading</h1>
+
 	<h5>Your Account:</h5>
 	<a href="getAccount.do?userId=${user.id}">${user.firstName} ${user.lastName}</a> 
 	<br><br>
@@ -20,10 +21,24 @@
 	        <a href="getAccount.do?userId=${otherUser.id}">${otherUser.firstName} ${otherUser.lastName}</a>		
 	        <br>
 	    </c:if>
+
 	</c:forEach>
 
 	<br>
 	<a href="add_accountForm">Add Account</a>
+	
+	<c:if test="${user.role eq 'Teacher' }">
+		<form class="form" action="lessonPlanAdd.do">
+			<input type="hidden" value="${user.id}" name="userId">
+			<input type="submit" value="Add Lesson Plan">
+		</form>
+		<form class="form" action="resourceAdd.do" method="get">
+			<input type="submit" value="Add Resource">
+		</form>
+		<form class="form" action="standardAdd.do">
+			<input type="submit" value="Add Standard">
+		</form>
+	</c:if>
 
 </body>
 <%@ include file="includes/footer.jsp"%>
