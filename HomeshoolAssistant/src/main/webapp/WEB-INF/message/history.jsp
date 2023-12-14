@@ -6,6 +6,14 @@
 
 <head>
     <title>History</title>
+    <style>
+        .message-container {
+            max-height: 400px; /* Set your desired height */
+            overflow-y: scroll;
+            border: 1px solid #ccc; /* Add a border for better appearance */
+            padding: 10px; /* Add some padding */
+        }
+    </style>
 </head>
 <body>
 
@@ -15,13 +23,28 @@
     <br>
     
     <a href="new_messageForm?senderId=${sender.id}&receiverId=${receiver.id}">
-    New Message to ${receiver.firstName}</a><br>
+    Send New Message</a><br>
 
     <br><br>
     
-    <c:forEach var="message" items="${messages}">	
-        <p>${message.sender.username}: ${message.message}</p><br>
-    </c:forEach> 
+    <div class="message-container">
+    
+    <c:if test="${messages.isEmpty()}">
+        <p>No chats with ${receiver.firstName} yet</p>
+    </c:if>
+    <c:if test="${!messages.isEmpty()}">
+        <c:forEach var="message" items="${messages}">	
+            <p>${message.sender.username}: ${message.message}</p>
+        </c:forEach> 
+    </c:if>
+    
+        
+        <!--  
+        <c:forEach var="message" items="${messages}">	
+            <p>${message.sender.username}: ${message.message}</p><br>
+        </c:forEach> 
+        -->
+    </div>
     <br>
 
 </body>

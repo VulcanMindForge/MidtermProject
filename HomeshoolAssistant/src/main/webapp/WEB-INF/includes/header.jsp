@@ -19,7 +19,10 @@
 					</li>
 				</ul>
 				<ul class="navbar-nav">
-					<li><a href="register.do">Register</a></li>
+					<c:if test="${not login}">
+						<li><a href="register.do">Register</a></li>
+					</c:if>
+					
 					<c:if test="${not login}">
 						<li><a href="login.do">Log In</a></li>
 					</c:if>
