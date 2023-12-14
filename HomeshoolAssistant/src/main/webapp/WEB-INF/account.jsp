@@ -18,6 +18,8 @@
 	</c:forEach>
 	<br>
 
+	<a href="message.do">Chat</a>
+	<br><br>
 	<a href="add_accountForm">Add Account</a>
 
 

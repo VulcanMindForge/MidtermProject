@@ -31,7 +31,7 @@ public class AccountController {
 		return "profile";
 	}
 	
-	@RequestMapping(path = "edit_accountForm", method = RequestMethod.GET)
+	@RequestMapping(path = "edit_accountForm.do", method = RequestMethod.GET)
 	public String showEditAccountForm(@RequestParam("userId") Integer userId, Model model) {
 		User user = userDAO.findById(userId);
 		model.addAttribute("user", user);
