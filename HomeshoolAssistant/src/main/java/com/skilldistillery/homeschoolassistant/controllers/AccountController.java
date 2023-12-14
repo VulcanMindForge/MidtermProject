@@ -32,7 +32,7 @@ public class AccountController {
     }
 
     @RequestMapping(path = "edit_accountForm", method = RequestMethod.GET)
-    public String showEditAccountForm(@RequestParam("userId") Integer userId, Model model) {
+    public String showEditAccountForm(HttpSession session, @RequestParam("userId") Integer userId, Model model) {
         User user = userDAO.findById(userId);
         model.addAttribute("user", user);
         return "account/edit_accountForm";
@@ -63,7 +63,7 @@ public class AccountController {
     }
 
     @RequestMapping(path = "addAccount.do", method = RequestMethod.POST)
-    public String addPlayer(HttpSession session, @RequestParam("firstName") String firstName,
+    public String addAccount(HttpSession session, @RequestParam("firstName") String firstName,
             @RequestParam("lastName") String lastName, @RequestParam("username") String username,
             @RequestParam("password") String password, @RequestParam("role") String role) {
 
@@ -73,8 +73,13 @@ public class AccountController {
         newUser.setUsername(username);
         newUser.setPassword(password);
         newUser.setRole(role);
-        newUser.setEnabled(false);
-
+        if(role.equals("Student")) {
+        	newUser.setEnabled(false);
+        }
+        else {
+        	newUser.setEnabled(true);
+        }
+        
         userDAO.registerUser(newUser);
 
         return "redirect:account.do";

@@ -37,6 +37,7 @@ public class UserDaoImpl implements UserDAO {
 
 	@Override
 	public User registerUser(User user) {
+		//
 		em.persist(user);
 		em.flush();
 		

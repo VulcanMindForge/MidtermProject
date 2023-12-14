@@ -3,7 +3,6 @@
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
 <!DOCTYPE html>
 <html>
-<!--%@ include file="includes/header.jsp"%-->
 <%@ include file="/WEB-INF/includes/header.jsp"%>
 
 <head>
@@ -30,9 +29,10 @@
         <input type="text" id="password" name="password" required>
         <br>
         
-        <label for="role">Role:</label>
-        <input type="text" id="role" name="role" required>
-        <br>
+        <label>Role: </label>
+	    <label><input type="radio" id="role" name="role" value="Student" required> Student</label>
+	    <label><input type="radio" id="role" name="role" value="Teacher" required> Teacher</label>
+	    <br>
 
         <input type="submit" value="Add Account">
     </form>
