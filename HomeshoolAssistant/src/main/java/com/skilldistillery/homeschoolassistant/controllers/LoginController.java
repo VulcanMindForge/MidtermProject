@@ -1,5 +1,7 @@
 package com.skilldistillery.homeschoolassistant.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.skilldistillery.homeschoolassistant.data.UserDAO;
+import com.skilldistillery.homeschoolassistant.entities.LessonPlan;
 import com.skilldistillery.homeschoolassistant.entities.User;
 
 import jakarta.servlet.http.HttpSession;
@@ -34,10 +37,14 @@ public class LoginController {
 		Boolean loginSuccessful = false;
 		User sessionUser = (User) session.getAttribute("user");
 		if (sessionUser != null) {
+			List<LessonPlan> plans = userDAO.getLessonPlansByUserId(sessionUser.getId());
+			model.addAttribute("plans", plans);
 			return "account";
 		}
 		if (user != null) {
 			loginSuccessful = true;
+			List<LessonPlan> plans = userDAO.getLessonPlansByUserId(user.getId());
+			model.addAttribute("plans", plans);
 			session.setAttribute("login", loginSuccessful);
 			session.setAttribute("user", user);
 			return "account";

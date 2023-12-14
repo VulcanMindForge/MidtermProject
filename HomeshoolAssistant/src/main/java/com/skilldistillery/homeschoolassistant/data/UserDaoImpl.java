@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.skilldistillery.homeschoolassistant.entities.GradeLevel;
+import com.skilldistillery.homeschoolassistant.entities.LessonPlan;
 import com.skilldistillery.homeschoolassistant.entities.Student;
 import com.skilldistillery.homeschoolassistant.entities.Teacher;
 import com.skilldistillery.homeschoolassistant.entities.User;
@@ -89,6 +90,18 @@ public class UserDaoImpl implements UserDAO {
 		List<User> users = em.createQuery(jpql, User.class).getResultList();
 
 		return users;
+	}
+	@Override
+	public List<LessonPlan> getLessonPlansByUserId(int userId) {
+		String jpql = "SELECT plan FROM LessonPlan plan where teacher = :userId";
+		
+		List<LessonPlan> plans = em.createQuery(jpql, LessonPlan.class).setParameter("userId", getTeacherById(userId)).getResultList();
+		
+		return plans;
+	}
+	
+	public Teacher getTeacherById(int userId) {
+		return em.find(Teacher.class, userId);
 	}
 
 	@Override

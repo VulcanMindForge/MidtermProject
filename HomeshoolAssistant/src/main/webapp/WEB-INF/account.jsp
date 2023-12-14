@@ -27,6 +27,11 @@
 	<a href="add_accountForm">Add Account</a>
 	
 	<c:if test="${user.role eq 'Teacher' }">
+		<c:forEach items="${plans}" var="plan">
+		<h2>${plan.title}</h2>
+		<a href="lessonPlan.do?planId=${plan.id }">View Plan</a>
+		</c:forEach>
+	
 		<form class="form" action="lessonPlanAdd.do">
 			<input type="hidden" value="${user.id}" name="userId">
 			<input type="submit" value="Add Lesson Plan">

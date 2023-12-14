@@ -1,8 +1,8 @@
 package com.skilldistillery.homeschoolassistant.controllers;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ import com.skilldistillery.homeschoolassistant.entities.Resource;
 import com.skilldistillery.homeschoolassistant.entities.Standard;
 import com.skilldistillery.homeschoolassistant.entities.Student;
 import com.skilldistillery.homeschoolassistant.entities.Subject;
-import com.skilldistillery.homeschoolassistant.entities.Teacher;
+import com.skilldistillery.homeschoolassistant.entities.User;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -31,11 +31,10 @@ public class TeacherController {
 	private AssignmentDAO assignmentDAO;
 
 	@RequestMapping(path = "lessonPlan.do", method = RequestMethod.GET)
-	public String registerView(Model model, HttpSession session) {
-
-		LessonPlan plan = assignmentDAO.getLessonPlan(1);
-		model.addAttribute("lessonPlan", plan);
-		return "/teacherviews/lessonplan";
+	public String registerView(@RequestParam(name="planId") String planId, Model model, HttpSession session) {
+		LessonPlan plan = assignmentDAO.getLessonPlan(Integer.parseInt(planId));
+		model.addAttribute("plan", plan);
+		return "/teacherviews/view_lessonplan";
 	}
 
 	@RequestMapping(path = "lessonPlanAdd.do", method = RequestMethod.GET)
@@ -45,75 +44,86 @@ public class TeacherController {
 		List<Student> students = assignmentDAO.getStudentsByTeacherId(teacherId);
 		model.addAttribute("students", students);
 		model.addAttribute("resources", resources);
-		return "/teacherviews/lessonplanedit";
+		return "/teacherviews/edit_lessonplan";
 	}
 
+	@RequestMapping(path= "addLessonPlan.do", method = RequestMethod.POST)
+	public String addLessonPlan(@RequestParam(name="planTitle") String planTitle, @RequestParam(name="planDescription") String planDescription,
+			@RequestParam(name="shared") String shared, @RequestParam("assignmentTitle") String assignmentTitle, @RequestParam("assignmentDescription") String assignmentDescription,
+			@RequestParam(name="dueDate") String dueDate, @RequestParam("resource") String resource, @RequestParam(name="student") String student,
+			@RequestParam(name="userId") String userId, Model model, HttpSession session) {
+		LessonPlan plan = new LessonPlan();
+		plan.setTitle(planTitle);
+		plan.setDescription(planDescription);
+		plan.setShared(Boolean.parseBoolean(shared));
+		plan.setTeacher(assignmentDAO.getTeacherById(Integer.parseInt(userId)));
+		LessonPlan addedPlan = assignmentDAO.addLessonPlan(plan);
+		
+		Assignment assignment = new Assignment();
+		assignment.setLessonPlan(addedPlan);
+		assignment.setTitle(assignmentTitle);
+		assignment.setDescription(assignmentDescription);
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		LocalDate date = LocalDate.parse(dueDate, formatter);
+		assignment.setDuedate(date);
+		String[] resourceSplit = resource.split(", ");
+		assignment.setResource(assignmentDAO.getResourceById(Integer.parseInt(resourceSplit[0])));
+		String[] studentSplit = student.split(", ");
+		assignment.setStudent(assignmentDAO.getStudentById(Integer.parseInt(studentSplit[0])));
+		Assignment addedAssignment = assignmentDAO.addAssignment(assignment);
+		
+		addedPlan.addAssignment(addedAssignment);
+		
+		model.addAttribute("plan", addedPlan);
+		
+		return "/teacherviews/view_lessonplan";
+	}
+	
+	@RequestMapping(path="addAssignment.do", method = RequestMethod.GET)
+	public String addAssignmentView (@RequestParam(name="planId") String planId, @RequestParam(name="userId") String userId, Model model, HttpSession session) {
+		List<Resource> resources = assignmentDAO.getAllResources();
+		Integer teacherId = Integer.parseInt(userId);
+		List<Student> studentList = assignmentDAO.getStudentsByTeacherId(teacherId);
+		List<User> students = new ArrayList<>();
+		for (Student student : studentList) {
+			students.add(assignmentDAO.getUserById(student.getId()));
+		}
+		
+		model.addAttribute("students", students);
+		model.addAttribute("resources", resources);
+		model.addAttribute("plan", assignmentDAO.getLessonPlanById(Integer.parseInt(planId)));
+		return "/teacherviews/add_assignment";
+	}
+	
+	
+	@RequestMapping(path="addAssignment.do", method = RequestMethod.POST)
+	public String addAssignmentToPlan (@RequestParam(name="planId") String planId, @RequestParam("assignmentTitle") String assignmentTitle, @RequestParam("assignmentDescription") String assignmentDescription,
+			@RequestParam(name="dueDate") String dueDate, @RequestParam("resource") String resource, @RequestParam(name="student") String student,Model model, HttpSession session) {
+		LessonPlan plan = assignmentDAO.getLessonPlan(Integer.parseInt(planId));
+		
+		Assignment assignment = new Assignment();
+		assignment.setLessonPlan(plan);
+		assignment.setTitle(assignmentTitle);
+		assignment.setDescription(assignmentDescription);
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		LocalDate date = LocalDate.parse(dueDate, formatter);
+		assignment.setDuedate(date);
+		String[] resourceSplit = resource.split(", ");
+		assignment.setResource(assignmentDAO.getResourceById(Integer.parseInt(resourceSplit[0])));
+		String[] studentSplit = student.split(", ");
+		assignment.setStudent(assignmentDAO.getStudentById(Integer.parseInt(studentSplit[0])));
+		Assignment addedAssignment = assignmentDAO.addAssignment(assignment);
+		plan.addAssignment(addedAssignment);
+		
+		model.addAttribute("plan", plan);
+		return "/teacherviews/view_lessonplan";
+	}
+	
 	@RequestMapping(path = "resourceAdd.do", method = RequestMethod.GET)
 	public String addResourceView(Model model, HttpSession session) {
 		List<Standard> standards = assignmentDAO.getAllStandards();
 		model.addAttribute("standards", standards);
 		return "/teacherviews/resourceedit";
-	}
-
-	@RequestMapping(path = "standardAdd.do", method = RequestMethod.GET)
-	public String addStandardView(Model model, HttpSession session) {
-		List<GradeLevel> grades = assignmentDAO.getAllGrades();
-		List<Subject> subjects = assignmentDAO.getAllSubjects();
-		model.addAttribute("grades", grades);
-		model.addAttribute("subjects", subjects);
-		return "/teacherviews/standardedit";
-	}
-
-	@RequestMapping(path = "lessonPlanAdd.do", method = RequestMethod.POST)
-	public String addLessonPlanAction(@RequestParam(name = "planTitle") String title,
-			@RequestParam(name = "planDescription") String description, @RequestParam(name = "shared") String shared,
-			@RequestParam(name = "teacher") String userId,
-			@RequestParam(name = "assignmentTitle") String assignmentTitle,
-			@RequestParam(name = "assignmentDescription") String assignmentDescription,
-			@RequestParam(name = "dueDate") String dueDate, @RequestParam(name = "resource") String resourceId,
-			@RequestParam(name = "student") String studentId,
-			@RequestParam(name = "planId", required = false) String planId, @RequestParam(name = "finished", required = false) String finished, Model model, HttpSession session) {
-		List<Resource> resources = assignmentDAO.getAllResources();
-		Integer teacherId = Integer.parseInt(userId);
-		List<Student> students = assignmentDAO.getStudentsByTeacherId(teacherId);
-		if (planId != null) {
-			List<Assignment> assignments = assignmentDAO.getAssignmentsByPlanId(Integer.parseInt(planId));
-			model.addAttribute("assignments", assignments);
-		}
-		model.addAttribute("students", students);
-		model.addAttribute("resources", resources);
-
-			LessonPlan plan = new LessonPlan();
-			LessonPlan addedPlan = new LessonPlan();
-			plan.setTitle(title);
-			plan.setDescription(description);
-			plan.setShared(Boolean.parseBoolean(shared));
-			Teacher teacher = assignmentDAO.getTeacherById(Integer.parseInt(userId));
-			plan.setTeacher(teacher);
-		if (planId == null) {
-			addedPlan = assignmentDAO.addLessonPlan(plan);
-		} else {
-			addedPlan = assignmentDAO.modifyLessonPlan(Integer.parseInt(planId), plan);
-		}
-		Assignment assignment = new Assignment();
-		assignment.setTitle(assignmentTitle);
-		assignment.setDescription(assignmentDescription);
-		assignment.setLessonPlan(addedPlan);
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-		LocalDate due = LocalDate.parse(dueDate, formatter);
-		assignment.setDuedate(due);
-		if (studentId != null) {
-			assignment.setStudent(assignmentDAO.getStudentById(Integer.parseInt(studentId)));
-		}
-		assignment.setResource(assignmentDAO.getResourceById(Integer.parseInt(resourceId)));
-		Assignment addedAssignment = assignmentDAO.addAssignment(assignment);
-		addedPlan.addAssignment(addedAssignment);
-		model.addAttribute("lessonPlan", addedPlan);
-		if (finished == null) {			
-			return "/teacherviews/lessonplanedit";
-		} else {
-			return "teacherviews/lessonplan";
-		}
 	}
 
 	@RequestMapping(path = "resourceAdd.do", method = RequestMethod.POST)
@@ -131,6 +141,15 @@ public class TeacherController {
 		model.addAttribute("resource", newResource);
 
 		return "resourceview";
+	}
+
+	@RequestMapping(path = "standardAdd.do", method = RequestMethod.GET)
+	public String addStandardView(Model model, HttpSession session) {
+		List<GradeLevel> grades = assignmentDAO.getAllGrades();
+		List<Subject> subjects = assignmentDAO.getAllSubjects();
+		model.addAttribute("grades", grades);
+		model.addAttribute("subjects", subjects);
+		return "/teacherviews/standardedit";
 	}
 
 	@RequestMapping(path = "standardAdd.do", method = RequestMethod.POST)

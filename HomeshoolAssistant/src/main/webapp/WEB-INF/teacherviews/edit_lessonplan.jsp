@@ -34,7 +34,7 @@
 			
 				<c:if test="${assignments ne null}">
 			<h3>Current Assignments</h3>
-				<c:forEach items="${assignments}" var="assignemnt">
+				<c:forEach items="${assignments}" var="assignment">
 				${assignment.title } ${assignment.description } ${assignment.student }
 				<br>
 				</c:forEach>
@@ -69,7 +69,9 @@
 				<input type="hidden" name="teacher" value="${user.id}"> 
 				<input type="submit" value="Add Assignment">
 			</div>
-			<input type="hidden" name="finished" value="finished">
+			Lesson Plan Complete? 
+			<label for="yes">Yes: </label> <input type="checkbox" name="finished" value="true" id="yes"> 
+			<label for="no">No: </label> <input	type="checkbox" name="finished" value="false" id="no">
 			<input type="submit" value="Submit Plan">
 		</form>
 	</div>
