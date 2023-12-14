@@ -1,11 +1,17 @@
 package com.skilldistillery.homeschoolassistant.data;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.skilldistillery.homeschoolassistant.entities.Assignment;
+import com.skilldistillery.homeschoolassistant.entities.GradeLevel;
 import com.skilldistillery.homeschoolassistant.entities.LessonPlan;
 import com.skilldistillery.homeschoolassistant.entities.Resource;
+import com.skilldistillery.homeschoolassistant.entities.Standard;
+import com.skilldistillery.homeschoolassistant.entities.Subject;
 import com.skilldistillery.homeschoolassistant.entities.Teacher;
+import com.skilldistillery.homeschoolassistant.entities.User;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -102,6 +108,38 @@ public class AssignmentDaoImpl implements AssignmentDAO {
 		}
 		return false;
 	}
+	
+	
+
+	@Override
+	public Standard addStandard(Standard standard) {
+		em.persist(standard);
+		em.flush();
+		return standard;
+	}
+
+	@Override
+	public Standard modifyStandard(int standardId, Standard standard) {
+		Standard standardToModify = em.find(Standard.class, standardId);
+		standardToModify.setStandardYear(standard.getStandardYear());
+		standardToModify.setState(standard.getState());
+		standardToModify.setUrl(standard.getUrl());
+		standardToModify.setDescription(standard.getDescription());
+		standardToModify.setGradeLevel(standard.getGradeLevel());
+		standardToModify.setSubject(standard.getSubject());
+		standardToModify.setResources(standard.getResources());
+		return standardToModify;
+	}
+
+	@Override
+	public Boolean removeStandard(int standardId) {
+		Standard standardToRemove = em.find(Standard.class, standardId);
+		if (standardToRemove != null) {
+			em.remove(standardToRemove);
+			return true;
+		}
+		return false;
+	}
 
 	@Override
 	public LessonPlan getLessonPlan(int lessonPlanId) {
@@ -112,6 +150,47 @@ public class AssignmentDaoImpl implements AssignmentDAO {
 	public Teacher getTeacherById(int userId) {
 		return em.find(Teacher.class, userId);	
 	}
+
+	@Override
+	public Standard getStandardById(int standardId) {
+		return em.find(Standard.class, standardId);	
+	}
+
+	@Override
+	public User getUserById(int userId) {
+		return em.find(User.class, userId);	
+	}
 	
+	@Override
+	public GradeLevel getGradeByName(String grade) {
+		String sql = "SELECT gl From GradeLevel gl WHERE name = :grade";
+		return em.createQuery(sql, GradeLevel.class).setParameter("grade", grade).getSingleResult();	
+	}
+	
+	@Override
+	public Subject getSubjectByName(String subject) {
+		String sql = "SELECT sub From Subject sub WHERE title = :subject";
+		return em.createQuery(sql, Subject.class).setParameter("subject", subject).getSingleResult();	
+	}
+
+	
+	
+	@Override
+	public List<GradeLevel> getAllGrades() {
+		String sql = "Select grade From GradeLevel grade";
+		return em.createQuery(sql, GradeLevel.class).getResultList();
+	}
+
+	@Override
+	public List<Subject> getAllSubjects() {
+		String sql = "Select subject From Subject subject";
+		return em.createQuery(sql, Subject.class).getResultList();
+	}
+
+	@Override
+	public List<Standard> getAllStandards() {
+		String sql = "Select standard From Standard standard";
+		return em.createQuery(sql, Standard.class).getResultList();
+	}
 	
 }

@@ -324,11 +324,21 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `homeschooldb`;
-INSERT INTO `grade_level` (`id`, `name`, `grade_number`) VALUES (1, '6th grade', '6');
-INSERT INTO `grade_level` (`id`, `name`, `grade_number`) VALUES (2, '7th grade', '7');
-INSERT INTO `grade_level` (`id`, `name`, `grade_number`) VALUES (3, '8th grade', '8');
-INSERT INTO `grade_level` (`id`, `name`, `grade_number`) VALUES (4, '9th grade', '9');
-INSERT INTO `grade_level` (`id`, `name`, `grade_number`) VALUES (5, '10th grade', '10');
+
+INSERT INTO `grade_level` (`id`, `name`, `grade_number`) VALUES (1, 'Kindergarten', '0');
+INSERT INTO `grade_level` (`id`, `name`, `grade_number`) VALUES (2, 'First', '1');
+INSERT INTO `grade_level` (`id`, `name`, `grade_number`) VALUES (3, 'Second', '2');
+INSERT INTO `grade_level` (`id`, `name`, `grade_number`) VALUES (4, 'Third', '3');
+INSERT INTO `grade_level` (`id`, `name`, `grade_number`) VALUES (5, 'Fourth', '4');
+INSERT INTO `grade_level` (`id`, `name`, `grade_number`) VALUES (6, 'Fifth', '5');
+INSERT INTO `grade_level` (`id`, `name`, `grade_number`) VALUES (7, 'Sixth', '6');
+INSERT INTO `grade_level` (`id`, `name`, `grade_number`) VALUES (8, 'Seventh', '7');
+INSERT INTO `grade_level` (`id`, `name`, `grade_number`) VALUES (9, 'Eight', '8');
+INSERT INTO `grade_level` (`id`, `name`, `grade_number`) VALUES (10, 'Freshman', '9');
+INSERT INTO `grade_level` (`id`, `name`, `grade_number`) VALUES (11, 'Sophmore', '10');
+INSERT INTO `grade_level` (`id`, `name`, `grade_number`) VALUES (12, 'Junior', '11');
+INSERT INTO `grade_level` (`id`, `name`, `grade_number`) VALUES (13, 'Senior', '12');
+
 
 COMMIT;
 
@@ -390,11 +400,13 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `homeschooldb`;
-INSERT INTO `subject` (`id`, `title`) VALUES (1, 'math');
-INSERT INTO `subject` (`id`, `title`) VALUES (2, 'science');
-INSERT INTO `subject` (`id`, `title`) VALUES (3, 'social studies');
-INSERT INTO `subject` (`id`, `title`) VALUES (4, 'computer science');
-INSERT INTO `subject` (`id`, `title`) VALUES (5, 'language arts');
+
+INSERT INTO `subject` (`id`, `title`) VALUES (1, 'Math');
+INSERT INTO `subject` (`id`, `title`) VALUES (2, 'Science');
+INSERT INTO `subject` (`id`, `title`) VALUES (3, 'Computer Science');
+INSERT INTO `subject` (`id`, `title`) VALUES (4, 'Social Studies');
+INSERT INTO `subject` (`id`, `title`) VALUES (5, 'Language Arts');
+INSERT INTO `subject` (`id`, `title`) VALUES (6, 'Physical Education');
 
 COMMIT;
 
