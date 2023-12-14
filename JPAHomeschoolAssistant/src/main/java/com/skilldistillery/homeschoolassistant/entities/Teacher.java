@@ -1,25 +1,45 @@
 package com.skilldistillery.homeschoolassistant.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 
 @Entity
 public class Teacher {
-	
+
 	@Id
 	private int id;
-	
+
 	private String email;
-	
+
 	@OneToMany(mappedBy = "teacher")
 	private List<LessonPlan> lessonPlans;
 
 	public Teacher() {
+	}
+
+	public void addLessonPlan(LessonPlan lessonPlan) {
+		if (lessonPlans == null) {
+			lessonPlans = new ArrayList<>();
+		}
+		if (!lessonPlans.contains(lessonPlan)) {
+			lessonPlans.add(lessonPlan);
+			if (lessonPlan.getTeacher() != null) {
+				lessonPlan.getTeacher().removeLessonPlan(lessonPlan);
+			}
+			lessonPlan.setTeacher(this);
+		}
+	}
+
+	public void removeLessonPlan(LessonPlan lessonPlan) {
+		if (lessonPlans != null && lessonPlans.contains(lessonPlan)) {
+			lessonPlans.remove(lessonPlan);
+			lessonPlan.setTeacher(null);
+		}
 	}
 
 	public List<LessonPlan> getLessonPlans() {
@@ -67,6 +87,5 @@ public class Teacher {
 	public String toString() {
 		return "Teacher [id=" + id + ", email=" + email + "]";
 	}
-	
-	
+
 }

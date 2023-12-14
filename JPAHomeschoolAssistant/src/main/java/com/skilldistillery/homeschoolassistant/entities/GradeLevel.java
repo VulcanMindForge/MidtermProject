@@ -1,5 +1,6 @@
 package com.skilldistillery.homeschoolassistant.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -18,19 +19,61 @@ public class GradeLevel {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	private String name;
-	
+
 	@Column(name = "grade_number")
 	private String gradeNumber;
-	
+
 	@OneToMany(mappedBy = "gradeLevel")
 	private List<Standard> standards;
-	
+
 	@OneToMany(mappedBy = "gradeLevel")
 	private List<Student> students;
 
 	public GradeLevel() {
+	}
+
+	public void addStandard(Standard standard) {
+		if (standards == null) {
+			standards = new ArrayList<>();
+		}
+
+		if (!standards.contains(standard)) {
+			standards.add(standard);
+			if (standard.getGradeLevel() != null) {
+				standard.getGradeLevel().removeStandard(standard);
+			}
+			standard.setGradeLevel(this);
+		}
+	}
+
+	public void removeStandard(Standard standard) {
+		if (standards != null && standards.contains(standard)) {
+			standards.remove(standard);
+			standard.setGradeLevel(null);
+		}
+	}
+
+	public void addStudent(Student student) {
+		if (students == null) {
+			students = new ArrayList<>();
+		}
+
+		if (!students.contains(student)) {
+			students.add(student);
+			if (student.getGradeLevel() != null) {
+				student.getGradeLevel().removeStudent(student);
+			}
+			student.setGradeLevel(this);
+		}
+	}
+
+	public void removeStudent(Student student) {
+		if (students != null && students.contains(student)) {
+			students.remove(student);
+			student.setGradeLevel(null);
+		}
 	}
 
 	public List<Student> getStudents() {
@@ -94,5 +137,5 @@ public class GradeLevel {
 	public String toString() {
 		return "GradeLevel [id=" + id + ", name=" + name + ", gradeNumber=" + gradeNumber + "]";
 	}
-	
+
 }

@@ -16,29 +16,29 @@ public class Assignment {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	private String title;
-	
+
 	private String description;
-	
+
 	private LocalDateTime duedate;
-	
+
 	private boolean completed;
-	
+
 	private Double grade;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "student_id")
 	private Student student;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "lessonplan_id")
 	private LessonPlan lessonPlan;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "resource_id")
 	private Resource resource;
-	
+
 	public Assignment() {
 	}
 
@@ -98,6 +98,22 @@ public class Assignment {
 		this.grade = grade;
 	}
 
+	public LessonPlan getLessonPlan() {
+		return lessonPlan;
+	}
+
+	public void setLessonPlan(LessonPlan lessonPlan) {
+		this.lessonPlan = lessonPlan;
+	}
+
+	public Resource getResource() {
+		return resource;
+	}
+
+	public void setResource(Resource resource) {
+		this.resource = resource;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -120,6 +136,5 @@ public class Assignment {
 		return "Assignment [id=" + id + ", title=" + title + ", description=" + description + ", duedate=" + duedate
 				+ ", completed=" + completed + ", grade=" + grade + ", student=" + student + "]";
 	}
-	
-	
+
 }

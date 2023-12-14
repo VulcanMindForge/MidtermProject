@@ -72,14 +72,11 @@ public class TeacherController {
 
 	@RequestMapping(path = "resourceAdd.do", method = RequestMethod.POST)
 	public String addResourceAction(@RequestParam(name = "title") String title, @RequestParam(name = "url") String url,
-			@RequestParam(name = "userId") String userId, @RequestParam(name="standards", required = false) String[] standards, Model model, HttpSession session) {
+			@RequestParam(name = "userId") String userId, @RequestParam(name="standards", required = false) String standard, Model model, HttpSession session) {
 		Resource resource = new Resource();
 		List<Standard> standardList = new ArrayList<>();
-		for (String string : standards) {
-			if (string.equals("on")) {
-				standardList.add(assignmentDAO.getStandardById(Integer.parseInt(string)));
-			}
-		}
+		standardList.add(assignmentDAO.getStandardById(Integer.parseInt(standard)));
+		
 		resource.setTitle(title);
 		resource.setUrl(url);
 		resource.setUser(assignmentDAO.getUserById(Integer.parseInt(userId)));

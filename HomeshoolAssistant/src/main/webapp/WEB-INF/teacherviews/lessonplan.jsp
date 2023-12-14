@@ -5,8 +5,9 @@
 <html>
 <%@ include file="../includes/header.jsp"%>
 <body>
-	<h1>Lesson Plan</h1>
-
+	<h1>${lessonPlan.title}</h1>
+	<p>${lessonPlan.description }
+	<br>
 	<h2>Assignments</h2>
 	<c:forEach items="${lessonPlan.assignments}" var="assignment">
 		<h4>${assignment.title}</h4>
