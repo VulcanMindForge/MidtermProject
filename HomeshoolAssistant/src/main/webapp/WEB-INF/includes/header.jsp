@@ -19,7 +19,10 @@
 					</li>
 				</ul>
 				<ul class="navbar-nav">
-					<li><a href="register.do">Register</a></li>
+					<c:if test="${not login}">
+						<li><a href="register.do">Register</a></li>
+					</c:if>
+					
 					<c:if test="${not login}">
 						<li><a href="login.do">Log In</a></li>
 					</c:if>
@@ -28,6 +31,10 @@
 						<li><a href="account.do">Account</a></li>
 					</c:if>
 
+					<c:if test="${login eq true}">
+						<li><a href="message.do">Chat</a></li>
+					</c:if>
+					
 					<c:if test="${login eq true}">
 						<li><a href="logout.do">Logout</a></li>
 					</c:if>

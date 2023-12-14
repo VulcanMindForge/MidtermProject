@@ -12,15 +12,18 @@
 
 	<h1>Account Heading</h1>
 
-	<h5>Current Students</h5>
-	<c:forEach var="user" items="${userList}">
-		<c:if test="${user.role eq 'student'}"></c:if>
-		<a href="getAccount.do?userId=${user.id}">${user.id}: ${user.firstName} ${user.lastName}</a> <br>
-	</c:forEach>
-	<br>
-
-	<a href="message.do">Chat</a>
+	<h5>Your Account:</h5>
+	<a href="getAccount.do?userId=${user.id}">${user.firstName} ${user.lastName}</a> 
 	<br><br>
+	<h5>Current Student(s):</h5>
+	<c:forEach var="otherUser" items="${userList}">
+		<c:if test="${user.id ne otherUser.id}">
+	        <a href="getAccount.do?userId=${otherUser.id}">${otherUser.firstName} ${otherUser.lastName}</a>		
+	        <br>
+	    </c:if>
+
+	</c:forEach>
+
 	<a href="add_accountForm">Add Account</a>
 
 </body>
