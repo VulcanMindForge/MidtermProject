@@ -32,7 +32,7 @@ public class AccountController {
     }
 
     @RequestMapping(path = "edit_accountForm", method = RequestMethod.GET)
-    public String showEditAccountForm(@RequestParam("userId") Integer userId, Model model) {
+    public String showEditAccountForm(HttpSession session, @RequestParam("userId") Integer userId, Model model) {
         User user = userDAO.findById(userId);
         model.addAttribute("user", user);
         return "account/edit_accountForm";
@@ -63,9 +63,11 @@ public class AccountController {
     }
 
     @RequestMapping(path = "addAccount.do", method = RequestMethod.POST)
-    public String addPlayer(HttpSession session, @RequestParam("firstName") String firstName,
+    public String addAccount(HttpSession session, @RequestParam("firstName") String firstName,
             @RequestParam("lastName") String lastName, @RequestParam("username") String username,
-            @RequestParam("password") String password, @RequestParam("role") String role, @RequestParam("gradeLevel") String gradeLevel, @RequestParam("teacherId") String teacherId) {
+            @RequestParam("password") String password, @RequestParam("role") String role,
+            @RequestParam(value = "gradeLevel", required = false) String gradeLevel,
+            @RequestParam(value = "teacherId", required = false) Integer teacherId) {
 
         User newUser = new User();
         newUser.setFirstName(firstName);
@@ -73,17 +75,20 @@ public class AccountController {
         newUser.setUsername(username);
         newUser.setPassword(password);
         newUser.setRole(role);
+
         if (role.equalsIgnoreCase("student")) {
-        	userDAO.addStudent(newUser, gradeLevel, teacherId);
+            newUser.setEnabled(false);
+            userDAO.addStudent(newUser, gradeLevel, teacherId);
         } else {
-        	userDAO.addTeacher(newUser);
+            newUser.setEnabled(true);
+            userDAO.addTeacher(newUser);
         }
-        newUser.setEnabled(true);
 
         userDAO.registerUser(newUser);
 
         return "redirect:account.do";
     }
+
 
     @RequestMapping(path = "removeAccount.do", method = { RequestMethod.GET, RequestMethod.POST })
     public String removeAccount(HttpSession session, @RequestParam("userId") Integer userId) {

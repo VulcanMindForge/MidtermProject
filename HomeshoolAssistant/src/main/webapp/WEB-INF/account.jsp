@@ -24,6 +24,7 @@
 
 	</c:forEach>
 
+	<br>
 	<a href="add_accountForm">Add Account</a>
 	
 	<c:if test="${user.role eq 'Teacher' }">

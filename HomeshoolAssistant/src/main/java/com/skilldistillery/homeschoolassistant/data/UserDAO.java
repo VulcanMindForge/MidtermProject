@@ -19,6 +19,7 @@ public interface UserDAO {
 	Teacher addTeacher(User user);
 	Teacher findTeacherById(int teacherId);
 	GradeLevel findGradeLevelById(int gradeId);
-	Student addStudent(User user, String gradeLevel, String teacherId);
+	Student addStudent(User user, String gradeLevel, int teacherId);
 	List<LessonPlan> getLessonPlansByUserId(int userId);
+
 }

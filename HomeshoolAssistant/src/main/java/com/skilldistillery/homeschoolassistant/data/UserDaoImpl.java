@@ -40,6 +40,7 @@ public class UserDaoImpl implements UserDAO {
 
 	@Override
 	public User registerUser(User user) {
+		//
 		em.persist(user);
 		em.flush();
 		
@@ -115,11 +116,11 @@ public class UserDaoImpl implements UserDAO {
 	}
 
 	@Override
-	public Student addStudent(User user, String gradeLevel, String teacherId) {
+	public Student addStudent(User user, String gradeLevel, int teacherId) {
 		Student student = new Student();
 		student.setId(user.getId());
 		student.setGradeLevel(findGradeLevelById(Integer.parseInt(gradeLevel)));
-		student.setParent(findById(Integer.parseInt(teacherId)));
+		student.setParent(findById(teacherId));
 		em.persist(student);
 		em.flush();
 		return student;

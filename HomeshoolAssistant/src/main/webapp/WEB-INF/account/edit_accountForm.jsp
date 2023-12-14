@@ -11,15 +11,22 @@
 <body>
 
 	<form action="edit_account.do" method="post">
-		<label for="userId">User ID: ${user.id}</label> <input type="hidden" id="userId" name="userId" value="${user.id}"> <br>
-		<label for="firstName">First Name:</label> <input type="text" id="firstName" name="firstName" value="${user.firstName}" required> <br> 
-		<label for="lastName">Last Name:</label> <input type="text" id="lastName" name="lastName" value="${user.lastName}" required> <br>
-		<label for="username">Username:</label> <input type="text" id="username" name="username" value="${user.username}" required> <br> 
-		<label for="password">Password:</label> <input type="password" id="password" name="password" value="${user.password}" required> <br> 
-		<label for="role">Role:</label> <input type="text" id="role" name="role" value="${user.role}" required> <br> 
-		<input type="submit" value="Submit">
+	    <label for="userId">User ID: ${user.id}</label> <input type="hidden" id="userId" name="userId" value="${user.id}"> <br>
+	    <label for="firstName">First Name:</label> <input type="text" id="firstName" name="firstName" value="${user.firstName}" required> <br> 
+	    <label for="lastName">Last Name:</label> <input type="text" id="lastName" name="lastName" value="${user.lastName}" required> <br>
+	    <label for="username">Username:</label> <input type="text" id="username" name="username" value="${user.username}" required> <br> 
+	    <label for="password">Password:</label> <input type="password" id="password" name="password" value="${user.password}" required> <br> 
+	        
+	    <c:if test="${((sessionScope.user).role) eq 'Teacher'}">
+	        <label>Role: </label>
+	        <label><input type="radio" id="studentRole" name="role" value="Student" ${user.role == 'Student' ? 'checked' : ''} required> Student</label>
+	        <label><input type="radio" id="teacherRole" name="role" value="Teacher" ${user.role == 'Teacher' ? 'checked' : ''} required> Teacher</label>
+	        <br>
+	    </c:if>
+	    
+	    <input type="submit" value="Submit">
 	</form>
-
+	
 	<a href="removeAccount.do?userId=${user.id}">Remove User</a>
 
 </body>
