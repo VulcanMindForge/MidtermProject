@@ -5,7 +5,7 @@
 <%@ include file="../includes/header.jsp"%>
 <body>
 	<div class="container">
-		<form class="form" action="lessonPlanAdd.do" method="POST">
+		<form class="form" action="addLessonPlan.do" method="POST">
 			<label for="planTitle">Title: </label>
 			<input type="text" name="planTitle" > 
 			<br>

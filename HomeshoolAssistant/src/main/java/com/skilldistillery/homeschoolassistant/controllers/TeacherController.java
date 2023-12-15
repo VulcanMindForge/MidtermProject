@@ -37,14 +37,18 @@ public class TeacherController {
 		return "/teacherviews/view_lessonplan";
 	}
 
-	@RequestMapping(path = "lessonPlanAdd.do", method = RequestMethod.GET)
+	@RequestMapping(path = "addLessonPlan.do", method = RequestMethod.GET)
 	public String addLessonPlanView(@RequestParam(name = "userId") String userId, Model model, HttpSession session) {
 		List<Resource> resources = assignmentDAO.getAllResources();
 		Integer teacherId = Integer.parseInt(userId);
-		List<Student> students = assignmentDAO.getStudentsByTeacherId(teacherId);
+		List<Student> studentList = assignmentDAO.getStudentsByTeacherId(teacherId);
+		List<User> students = new ArrayList<>();
+		for (Student student : studentList) {
+			students.add(assignmentDAO.getUserById(student.getId()));
+		}
 		model.addAttribute("students", students);
 		model.addAttribute("resources", resources);
-		return "/teacherviews/edit_lessonplan";
+		return "/teacherviews/add_lessonplan";
 	}
 
 	@RequestMapping(path= "addLessonPlan.do", method = RequestMethod.POST)

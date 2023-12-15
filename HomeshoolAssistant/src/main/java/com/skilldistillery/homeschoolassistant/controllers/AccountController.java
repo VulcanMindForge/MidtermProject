@@ -77,7 +77,7 @@ public class AccountController {
         newUser.setRole(role);
 
         if (role.equalsIgnoreCase("student")) {
-            newUser.setEnabled(false);
+            newUser.setEnabled(true);
             userDAO.addStudent(newUser, gradeLevel, teacherId);
         } else {
             newUser.setEnabled(true);
