@@ -34,7 +34,7 @@
 	    <label><input type="radio" id="role" name="role" value="Teacher" required> Teacher</label>
 	    <br>
 	
-	    <label for="gradeLevel">Grade Level if Student:</label>
+	    <label for="gradeLevel">Grade Level of Student:</label>
 	    <input type="text" id="gradeLevel" name="gradeLevel">
 	    <br>
 	
