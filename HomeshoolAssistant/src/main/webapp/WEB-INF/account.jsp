@@ -10,7 +10,7 @@
 </head>
 <body>
 
-	<h1>Account Heading</h1>
+	<h1>ACCOUNT HEADING</h1>
 
 	<h5>Your Account:</h5>
 	<a href="getAccount.do?userId=${user.id}">${user.firstName} ${user.lastName}</a> 
@@ -35,13 +35,15 @@
 	
 		<form class="form" action="lessonPlanAdd.do">
 			<input type="hidden" value="${user.id}" name="userId">
-			<input type="submit" value="Add Lesson Plan">
+			<input class="btn btn-success" type="submit" value="Add Lesson Plan">
 		</form>
+		<br>
 		<form class="form" action="resourceAdd.do" method="get">
-			<input type="submit" value="Add Resource">
+			<input class="btn btn-success" type="submit" value="Add Resource">
 		</form>
+		<br>
 		<form class="form" action="standardAdd.do">
-			<input type="submit" value="Add Standard">
+			<input class="btn btn-success" type="submit" value="Add Standard">
 		</form>
 	</c:if>
 
