@@ -20,23 +20,23 @@
 				</ul>
 				<ul class="navbar-nav">
 					<c:if test="${not login}">
-						<li><a href="register.do">Register</a></li>
+						<li class="nav-item"><a href="register.do">Register</a></li>
 					</c:if>
 					
 					<c:if test="${not login}">
-						<li><a href="login.do">Log In</a></li>
+						<li class="nav-item"><a href="login.do">Log In</a></li>
 					</c:if>
 
 					<c:if test="${login eq true}">
-						<li><a href="account.do">Account</a></li>
+						<li class="nav-item"><a href="account.do">Account</a></li>
 					</c:if>
 
 					<c:if test="${login eq true}">
-						<li><a href="message.do">Chat</a></li>
+						<li class="nav-item"><a href="message.do">Chat</a></li>
 					</c:if>
 					
 					<c:if test="${login eq true}">
-						<li><a href="logout.do">Logout</a></li>
+						<li class="nav-item"><a href="logout.do">Logout</a></li>
 					</c:if>
 				</ul>
 			</div>
