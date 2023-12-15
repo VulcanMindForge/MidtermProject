@@ -21,13 +21,15 @@
 	<c:if test="${user.role eq 'Teacher' }">
 		<form class="form" action="lessonPlanAdd.do">
 			<input type="hidden" value="${user.id}" name="userId">
-			<input type="submit" value="Add Lesson Plan">
+			<input class="btn btn-success" type="submit" value="Add Lesson Plan">
 		</form>
+		<br>
 		<form class="form" action="resourceAdd.do" method="get">
-			<input type="submit" value="Add Resource">
+			<input class="btn btn-success" type="submit" value="Add Resource">
 		</form>
+		<br>
 		<form class="form" action="standardAdd.do">
-			<input type="submit" value="Add Standard">
+			<input class="btn btn-success" type="submit" value="Add Standard">
 		</form>
 	</c:if>
 
