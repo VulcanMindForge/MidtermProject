@@ -45,7 +45,7 @@
 						<p class="description">Educational standards describe what
 							students should know and be able to do in each subject in each
 							grade. The State Board of Education decides on the standards for
-							all students, from kindergarten through high school.p>
+							all students, from kindergarten through high school.p> 
 					</div>
 
 					<div class="icon-box">
