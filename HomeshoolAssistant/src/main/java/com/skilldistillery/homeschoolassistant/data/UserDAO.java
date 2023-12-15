@@ -21,5 +21,6 @@ public interface UserDAO {
 	GradeLevel findGradeLevelById(int gradeId);
 	Student addStudent(User user, String gradeLevel, int teacherId);
 	List<LessonPlan> getLessonPlansByUserId(int userId);
+	List<User> getAllUsers();
 
 }

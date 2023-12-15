@@ -27,12 +27,28 @@
 	<br>
 	<a href="add_accountForm">Add Account</a>
 	
-	<c:if test="${user.role eq 'Teacher' }">
+	<c:if test="${user.role eq 'Teacher'}">
+	<div class="container">
+	<table class="table">
+		<tbody>
 		<c:forEach items="${plans}" var="plan">
-		<h2>${plan.title}</h2>
-		<a href="lessonPlan.do?planId=${plan.id }">View Plan</a>
+		<tr>
+			<td><a href="lessonPlan.do?planId=${plan.id }">${plan.title}</a></td>
+			<td>${plan.description}</td>
+			<c:forEach items="${plan.assignments}" var="assignment">
+			<c:forEach items="${users}" var="user">
+			<c:if test="${user.id eq assignment.student.id}">
+			
+			<td>${assignment.title}<br>${user.firstName} ${user.lastName}</td>
+			</c:if>
+			</c:forEach>
+			</c:forEach>
+		</tr>
 		</c:forEach>
-	
+		</tbody>
+	</table>
+	</div>
+	<div class="container">
 		<form class="form" action="addLessonPlan.do">
 			<input type="hidden" value="${user.id}" name="userId">
 			<input class="btn btn-success" type="submit" value="Add Lesson Plan">
@@ -47,6 +63,7 @@
 			<input type="hidden" value="${user.id}" name="userId">
 			<input class="btn btn-success" type="submit" value="Add Standard">
 		</form>
+	</div>
 	</c:if>
 
 </body>

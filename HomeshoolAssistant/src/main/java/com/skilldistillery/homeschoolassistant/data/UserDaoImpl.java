@@ -101,6 +101,12 @@ public class UserDaoImpl implements UserDAO {
 		return plans;
 	}
 	
+	@Override
+	public List<User> getAllUsers() {
+		String sql = "SELECT user FROM User user";
+		return em.createQuery(sql, User.class).getResultList();
+	}
+	
 	public Teacher getTeacherById(int userId) {
 		return em.find(Teacher.class, userId);
 	}

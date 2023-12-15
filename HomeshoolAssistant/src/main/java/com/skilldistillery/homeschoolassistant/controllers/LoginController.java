@@ -38,12 +38,16 @@ public class LoginController {
 		User sessionUser = (User) session.getAttribute("user");
 		if (sessionUser != null) {
 			List<LessonPlan> plans = userDAO.getLessonPlansByUserId(sessionUser.getId());
+			List<User> users = userDAO.getAllUsers();
+			model.addAttribute("users", users);
 			model.addAttribute("plans", plans);
 			return "account";
 		}
 		if (user != null) {
 			loginSuccessful = true;
 			List<LessonPlan> plans = userDAO.getLessonPlansByUserId(user.getId());
+			List<User> users = userDAO.getAllUsers();
+			model.addAttribute("users", users);
 			model.addAttribute("plans", plans);
 			session.setAttribute("login", loginSuccessful);
 			session.setAttribute("user", user);
