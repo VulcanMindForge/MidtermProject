@@ -39,7 +39,7 @@
         <c:forEach var="otherUser" items="${userList}">
             <c:if test="${user.id ne otherUser.id}">
                 <a href="history.do?senderId=${user.id}&receiverId=${otherUser.id}" class="chat-link">
-                    To: ${otherUser.firstName} ${otherUser.lastName}
+                    ${otherUser.firstName} ${otherUser.lastName}
                 </a>
             </c:if>
         </c:forEach>
