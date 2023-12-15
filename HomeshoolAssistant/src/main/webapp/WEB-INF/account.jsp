@@ -33,16 +33,18 @@
 		<a href="lessonPlan.do?planId=${plan.id }">View Plan</a>
 		</c:forEach>
 	
-		<form class="form" action="lessonPlanAdd.do">
+		<form class="form" action="addLessonPlan.do">
 			<input type="hidden" value="${user.id}" name="userId">
 			<input class="btn btn-success" type="submit" value="Add Lesson Plan">
 		</form>
 		<br>
 		<form class="form" action="resourceAdd.do" method="get">
+			<input type="hidden" value="${user.id}" name="userId">
 			<input class="btn btn-success" type="submit" value="Add Resource">
 		</form>
 		<br>
 		<form class="form" action="standardAdd.do">
+			<input type="hidden" value="${user.id}" name="userId">
 			<input class="btn btn-success" type="submit" value="Add Standard">
 		</form>
 	</c:if>
