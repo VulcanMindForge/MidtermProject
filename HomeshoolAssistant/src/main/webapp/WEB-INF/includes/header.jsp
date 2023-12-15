@@ -29,7 +29,7 @@
                     </c:if>
                     
                     <c:if test="${not login}">
-                        <li class="nav-item"><a class="nav-link" href="login.do">Log In</a></li>
+                        <li class="nav-item"><a class="nav-link" href="login.do">Login</a></li>
                     </c:if>
 
                     <c:if test="${login eq true}">
