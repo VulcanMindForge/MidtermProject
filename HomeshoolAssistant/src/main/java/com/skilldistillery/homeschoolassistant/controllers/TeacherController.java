@@ -64,7 +64,6 @@ public class TeacherController {
 		LessonPlan addedPlan = assignmentDAO.addLessonPlan(plan);
 		
 		Assignment assignment = new Assignment();
-		assignment.setLessonPlan(addedPlan);
 		assignment.setTitle(assignmentTitle);
 		assignment.setDescription(assignmentDescription);
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -74,8 +73,8 @@ public class TeacherController {
 		assignment.setResource(assignmentDAO.getResourceById(Integer.parseInt(resourceSplit[0])));
 		String[] studentSplit = student.split(", ");
 		assignment.setStudent(assignmentDAO.getStudentById(Integer.parseInt(studentSplit[0])));
+		assignment.setLessonPlan(addedPlan);
 		Assignment addedAssignment = assignmentDAO.addAssignment(assignment);
-		
 		addedPlan.addAssignment(addedAssignment);
 		
 		model.addAttribute("plan", addedPlan);
@@ -123,28 +122,41 @@ public class TeacherController {
 		return "/teacherviews/view_lessonplan";
 	}
 	
+	@RequestMapping(path = "removeAssignment.do, method = RequestMethod.GET")
+	public String removeAssignmentFromLessonPlan() {
+		return "teacherviews/remove_assignment";
+	}
+	
 	@RequestMapping(path = "resourceAdd.do", method = RequestMethod.GET)
 	public String addResourceView(Model model, HttpSession session) {
 		List<Standard> standards = assignmentDAO.getAllStandards();
 		model.addAttribute("standards", standards);
-		return "/teacherviews/resourceedit";
+		return "/teacherviews/add_resource";
 	}
 
 	@RequestMapping(path = "resourceAdd.do", method = RequestMethod.POST)
 	public String addResourceAction(@RequestParam(name = "title") String title, @RequestParam(name = "url") String url,
 			@RequestParam(name = "userId") String userId,
-			@RequestParam(name = "standards", required = false) String standard, Model model, HttpSession session) {
+			@RequestParam(name = "standard", required = false) String standard, Model model, HttpSession session) {
 		Resource resource = new Resource();
 
 		resource.setTitle(title);
 		resource.setUrl(url);
 		resource.setUser(assignmentDAO.getUserById(Integer.parseInt(userId)));
-		resource.addStandard(assignmentDAO.getStandardById(Integer.parseInt(standard)));
+		String [] standards = standard.split(", ");
+		resource.addStandard(assignmentDAO.getStandardById(Integer.parseInt(standards[0])));
 
 		Resource newResource = assignmentDAO.addResource(resource);
 		model.addAttribute("resource", newResource);
 
-		return "resourceview";
+		return "view_resource";
+	}
+	
+	@RequestMapping(path = "viewResource.do", method = RequestMethod.GET)
+	public String viewResource(@RequestParam(name = "resourceId") String resourcId, Model model, HttpSession session) {
+		Resource resource = assignmentDAO.getResourceById(Integer.parseInt(resourcId));
+		model.addAttribute("resource", resource);
+		return "view_resource";
 	}
 
 	@RequestMapping(path = "standardAdd.do", method = RequestMethod.GET)
@@ -153,7 +165,7 @@ public class TeacherController {
 		List<Subject> subjects = assignmentDAO.getAllSubjects();
 		model.addAttribute("grades", grades);
 		model.addAttribute("subjects", subjects);
-		return "/teacherviews/standardedit";
+		return "/teacherviews/add_standard";
 	}
 
 	@RequestMapping(path = "standardAdd.do", method = RequestMethod.POST)
@@ -172,7 +184,7 @@ public class TeacherController {
 		Standard newStandard = assignmentDAO.addStandard(standard);
 
 		model.addAttribute("standard", newStandard);
-		return "standardview";
+		return "view_standard";
 	}
 
 }

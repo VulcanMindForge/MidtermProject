@@ -1,5 +1,8 @@
 package com.skilldistillery.homeschoolassistant.controllers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.skilldistillery.homeschoolassistant.data.UserDAO;
+import com.skilldistillery.homeschoolassistant.entities.LessonPlan;
+import com.skilldistillery.homeschoolassistant.entities.Student;
 import com.skilldistillery.homeschoolassistant.entities.User;
 
 import jakarta.servlet.http.HttpSession;
@@ -19,8 +24,16 @@ public class AccountController {
     private UserDAO userDAO;
 
     @RequestMapping(path = "account.do", method = RequestMethod.GET)
-    public String accountView(HttpSession session, Model model) {
-        model.addAttribute("userList", userDAO.findAll());
+    public String accountView(@RequestParam(name="userId") String userId, HttpSession session, Model model) {
+
+    	List<Student> studentList = userDAO.getStudentsByTeacherId(Integer.parseInt(userId));
+		List<User> students = new ArrayList<>();
+		for (Student student : studentList) {
+			students.add(userDAO.findById(student.getId()));
+		}
+		model.addAttribute("students", students);
+		List<LessonPlan> plans = userDAO.getLessonPlansByUserId(Integer.parseInt(userId));
+		model.addAttribute("plans", plans);
         return "account";
     }
 

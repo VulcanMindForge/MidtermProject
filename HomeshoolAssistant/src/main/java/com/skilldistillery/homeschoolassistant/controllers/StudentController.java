@@ -17,7 +17,7 @@ public class StudentController {
 	@RequestMapping(path = "assignment.do" )
 	public String home(@RequestParam(name = "userId") int userId,Model model) {
 		model.addAttribute("assignments", assignDao.listAssignments(userId));
-		return "assignmentView";
+		return "view_assignment";
 	}
 
 }

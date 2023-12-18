@@ -140,4 +140,12 @@ public class UserDaoImpl implements UserDAO {
 		em.flush();
 		return student;
 	}
+	
+	@Override
+	public List<Student> getStudentsByTeacherId(int userId) {
+		String sql = "SELECT user FROM User user WHERE id = :userId";
+		User parent = em.createQuery(sql, User.class).setParameter("userId", userId).getSingleResult();
+		sql = "Select student From Student student where parent = :parent";
+		return em.createQuery(sql, Student.class).setParameter("parent", parent).getResultList();
+	}
 }

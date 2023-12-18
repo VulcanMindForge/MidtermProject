@@ -1,5 +1,6 @@
 package com.skilldistillery.homeschoolassistant.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.skilldistillery.homeschoolassistant.data.UserDAO;
 import com.skilldistillery.homeschoolassistant.entities.LessonPlan;
+import com.skilldistillery.homeschoolassistant.entities.Student;
 import com.skilldistillery.homeschoolassistant.entities.User;
 
 import jakarta.servlet.http.HttpSession;
@@ -37,17 +39,27 @@ public class LoginController {
 		Boolean loginSuccessful = false;
 		User sessionUser = (User) session.getAttribute("user");
 		if (sessionUser != null) {
+			List<Student> studentList = userDAO.getStudentsByTeacherId(sessionUser.getId());
+			List<User> students = new ArrayList<>();
+			for (Student student : studentList) {
+				students.add(userDAO.findById(student.getId()));
+			}
 			List<LessonPlan> plans = userDAO.getLessonPlansByUserId(sessionUser.getId());
 			List<User> users = userDAO.getAllUsers();
+			model.addAttribute("students", students);
 			model.addAttribute("users", users);
 			model.addAttribute("plans", plans);
 			return "account";
 		}
 		if (user != null) {
 			loginSuccessful = true;
+			List<Student> studentList = userDAO.getStudentsByTeacherId(user.getId());
+			List<User> students = new ArrayList<>();
+			for (Student student : studentList) {
+				students.add(userDAO.findById(student.getId()));
+			}
 			List<LessonPlan> plans = userDAO.getLessonPlansByUserId(user.getId());
-			List<User> users = userDAO.getAllUsers();
-			model.addAttribute("users", users);
+			model.addAttribute("students", students);
 			model.addAttribute("plans", plans);
 			session.setAttribute("login", loginSuccessful);
 			session.setAttribute("user", user);
