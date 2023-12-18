@@ -40,6 +40,10 @@
 	</c:forEach>
 	</tbody>
 	</table>
+	<form class="form" action="account.do">
+			<input type="hidden" value="${user.id}" name="userId">
+			<input class="btn btn-success" type="submit" value="Return to Account">
+		</form>
 	</c:if>
 	</div>
 	</div>

@@ -80,7 +80,7 @@ public class TeacherController {
 		
 		addedPlan.addAssignment(addedAssignment);
 		
-		List<Assignment> assignments = addedPlan.getAssignments();
+		List<Assignment> assignments = assignmentDAO.getAssignmentsByPlanId(addedPlan.getId());
 		model.addAttribute("assignments", assignments);
 		model.addAttribute("plan", assignmentDAO.getLessonPlan(addedPlan.getId()));
 		
