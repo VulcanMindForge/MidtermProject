@@ -29,7 +29,7 @@
 		<th scope="row">${assignment.title}</th>
 		<td>${assignment.description}</td>
 		<td colspan="2"><a href="${assignment.resource.url}">${assignment.resource.title}</a><td>
-			<c:forEach items="${assignment.resource.standards }" var="standard">
+			<c:forEach items="${assignment.resource.standards}" var="standard">
 			<td><a href="${standard.url}">${standard.description}</a></td>
 			</c:forEach>
 		</tr>

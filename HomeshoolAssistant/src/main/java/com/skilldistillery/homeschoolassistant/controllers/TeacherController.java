@@ -62,7 +62,7 @@ public class TeacherController {
 		plan.setShared(Boolean.parseBoolean(shared));
 		plan.setTeacher(assignmentDAO.getTeacherById(Integer.parseInt(userId)));
 		LessonPlan addedPlan = assignmentDAO.addLessonPlan(plan);
-		
+
 		Assignment assignment = new Assignment();
 		assignment.setTitle(assignmentTitle);
 		assignment.setDescription(assignmentDescription);
@@ -73,11 +73,16 @@ public class TeacherController {
 		assignment.setResource(assignmentDAO.getResourceById(Integer.parseInt(resourceSplit[0])));
 		String[] studentSplit = student.split(", ");
 		assignment.setStudent(assignmentDAO.getStudentById(Integer.parseInt(studentSplit[0])));
-		assignment.setLessonPlan(addedPlan);
+		assignment.setLessonPlan(plan);
+				
 		Assignment addedAssignment = assignmentDAO.addAssignment(assignment);
+		assignment.setLessonPlan(plan);
+		
 		addedPlan.addAssignment(addedAssignment);
 		
-		model.addAttribute("plan", addedPlan);
+		List<Assignment> assignments = addedPlan.getAssignments();
+		model.addAttribute("assignments", assignments);
+		model.addAttribute("plan", assignmentDAO.getLessonPlan(addedPlan.getId()));
 		
 		return "/teacherviews/view_lessonplan";
 	}
@@ -122,8 +127,17 @@ public class TeacherController {
 		return "/teacherviews/view_lessonplan";
 	}
 	
-	@RequestMapping(path = "removeAssignment.do, method = RequestMethod.GET")
+	@RequestMapping(path = "removeAssignment.do", method = RequestMethod.GET)
 	public String removeAssignmentFromLessonPlan(@RequestParam(name = "planId") String planId, @RequestParam(name = "userId") String userId, Model model, HttpSession session) {
+		List<Assignment> assignments = assignmentDAO.getAssignmentsByPlanId(Integer.parseInt(planId));
+		model.addAttribute("assignments", assignments);
+		return "teacherviews/remove_assignment";
+	}
+
+	@RequestMapping(path = "removeAssignment.do", method = RequestMethod.POST)
+	public String removeAssignmentByLessonPlanId(@RequestParam(name = "planId") String planId, @RequestParam(name = "assignmentId") String assignmentId, @RequestParam(name = "userId") String userId, Model model, HttpSession session) {
+		boolean removed = assignmentDAO.removeAssignment(Integer.parseInt(assignmentId));
+		model.addAttribute("removed", removed);
 		List<Assignment> assignments = assignmentDAO.getAssignmentsByPlanId(Integer.parseInt(planId));
 		model.addAttribute("assignments", assignments);
 		return "teacherviews/remove_assignment";

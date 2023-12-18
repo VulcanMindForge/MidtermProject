@@ -6,9 +6,9 @@
 <%@ include file="../includes/header.jsp"%>
 </head>
 <body>
-	<div class="text-center rounded-3 mt-2">
-		<div class="d-flex justify-content-center align-items-center h-100">
-			<div class="text-white">
+	<div class="container">
+		<div class="bg-image text-center rounded-3 mt-2 d-flex justify-content-center align-items-center h-100">
+			<div class="form w-75">
 				<form class="form" action="addAssignment.do" method="POST">
 					<h2>Lesson Plan: ${plan.title}</h2>
 					<br>
@@ -17,7 +17,7 @@
 					<c:if test="${plan.assignments ne null}">
 						<h2>Current Assignments</h2>
 						<c:forEach items="${plan.assignments}" var="assignment">
-				${assignment.title } ${assignment.description } ${assignment.student }
+				${assignment.title } ${assignment.description } 
 				<br>
 						</c:forEach>
 					</c:if>
@@ -47,7 +47,6 @@
 				</form>
 			</div>
 		</div>
-	</div>
 	</div>
 </body>
 <%@ include file="../includes/footer.jsp"%>

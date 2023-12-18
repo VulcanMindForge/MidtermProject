@@ -27,7 +27,7 @@
 				<label for="resource">Resource for Assignment: </label> 
 				<select name="resource" id="resource">
 					<c:forEach items="${resources}" var="resource">
-						<option name="${resource.id}">${resource.id}, ${resource.title}</option>
+						<option name="${resource.id}" value="${resource.id}">${resource.id}, ${resource.title}</option>
 					</c:forEach>
 				</select> 
 				
@@ -35,7 +35,7 @@
 				<label for="student">Student: </label> 
 				<select name="student">
 					<c:forEach items="${students}" var="student">
-						<option name="${student.id }">${student.id}, ${student.firstName} ${student.lastName}</option>
+						<option name="${student.id }" value="${student.id}">${student.id}, ${student.firstName} ${student.lastName}</option>
 					</c:forEach>
 				</select>
 				<br>

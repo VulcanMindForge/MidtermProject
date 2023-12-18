@@ -115,7 +115,7 @@ public class Student {
 
 	@Override
 	public String toString() {
-		return "Student [id=" + id + ", assignments=" + assignments + ", gradeLevel=" + gradeLevel + ", parent="
+		return "Student [id=" + id + ", gradeLevel=" + gradeLevel + ", parent="
 				+ parent + ", teacher=" + teacher + "]";
 	}
 }
