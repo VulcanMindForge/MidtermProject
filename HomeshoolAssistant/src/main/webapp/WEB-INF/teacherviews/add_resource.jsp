@@ -9,14 +9,16 @@
 		<form class="form" action="resourceAdd.do" method="POST">
 			<label for="title">Title: </label> <input type="text" name="title">
 			<br> <label for="url">URL: </label> <input type="text"
-				name="url"> <br> <select name="standards"
-				id="standards">
-
+				name="url"> 
+				<br> 
+				<select name="standard">
 				<c:forEach var="standard" items="${standards}">
-					<option value="${standard.id}">${standard.gradeLevel.name}
-						${standard.subject.title} ${ standard.description}</option>
+					<option value="${standard.id}">${standard.id}, ${standard.gradeLevel.name}, 
+						${standard.subject.title}, ${ standard.description}</option>
 				</c:forEach>
-			</select> <input type="hidden" name="userId" value="${user.id}"> <input
+			</select> 
+			<br>
+			<input type="hidden" name="userId" value="${user.id}"> <input
 				type="submit">
 		</form>
 	</div>

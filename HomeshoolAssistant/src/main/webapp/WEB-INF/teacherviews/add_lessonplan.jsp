@@ -5,18 +5,13 @@
 <%@ include file="../includes/header.jsp"%>
 <body>
 	<div class="container">
-		<form class="form" action="addLessonPlan.do" method="POST">
+		<form class="form w-75 center" action="addLessonPlan.do" method="POST">
 			<label for="planTitle">Title: </label>
 			<input type="text" name="planTitle" > 
 			<br>
 			<label for="planDescription">Description: </label>
 			<input type="text" name="planDescription" > 
-			<br>			
-			Shared: <label for="yes">Yes: </label> 
-					<input type="checkbox" name="shared" value="true" id="yes">
-					<label for="no">No: </label> 
-					<input type="checkbox" name="shared" value="false" id="no">
-			<br>
+			<input type="hidden" value="true" name="shared">
 			<h2>Add Assignment</h2>
 			<label for="assignmentTitle">Assignment Title: </label>
 			<input	type="text" id="assignmentTitle" name="assignmentTitle">

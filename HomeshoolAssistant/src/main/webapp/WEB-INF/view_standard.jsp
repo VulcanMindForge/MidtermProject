@@ -5,20 +5,25 @@
 <html>
 <%@ include file="includes/header.jsp"%>
 <body>
+<div class="container">
+	<div class="text-center bg-image rounded-3 mt-2">
+			<div class="d-flex justify-content-center align-items-center h-100">
+				<div class="text-white form">
+					School Year: ${standard.standardYear } <br> 
+					State: ${standard.state } <br>
+					<a href="${standard.url}">Link to State Standard</a> <br> 
+					Grade: ${standard.gradeLevel.name } <br>
+					Subject: ${standard.subject.name } <br>
+					Standard: ${standard.description } <br>
 
-
-	${standard.standardYear }
-	<br> ${standard.state }
-	<br> ${standard.url }
-	<br> ${standard.gradeLevel }
-	<br> ${standard.subject }
-	<br> ${standard.description }
+					<c:forEach var="resource" items="${standard.resources}">
+		Resources that use this Standard: <a href="viewResource.do?resourceId=${resource.id}">${resource.title}</a>
 	<br>
-
-	<c:forEach var="resource" items="${standard.resources }">
-		${resource.title}
-	<br>
-	</c:forEach>
+					</c:forEach>
+				</div>
+			</div>
+		</div>
+</div>
 </body>
 <%@ include file="includes/footer.jsp"%>
 </html>

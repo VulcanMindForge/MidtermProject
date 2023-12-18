@@ -4,30 +4,40 @@
 <!DOCTYPE html>
 <html>
 <%@ include file="includes/header.jsp"%>
-
-<head>
-<title>Account</title>
-</head>
 <body>
+<div class="container">
 
-	<h1>ACCOUNT HEADING</h1>
+	<h1>${user.role} Account</h1>
 
 	<h5>Your Account:</h5>
-	<a href="getAccount.do?userId=${user.id}">${user.firstName} ${user.lastName}</a> 
+	<ul>
+		<li>First Name: ${user.firstName }</li>
+		<li>Last Name: ${user.lastName }</li>
+		<li>Username: ${user.username }</li>
+	</ul>
 	<br><br>
-	<h5>Current Student(s):</h5>
-	<c:forEach var="otherUser" items="${userList}">
-		<c:if test="${user.id ne otherUser.id}">
-	        <a href="getAccount.do?userId=${otherUser.id}">${otherUser.firstName} ${otherUser.lastName}</a>		
+	
+	<a href="/account/edit_accountForm.jsp?userId=${user.id}">Edit Account</a>
+	
+	<c:if test="${user.role eq 'Student'}">
+	<a href="assignment.do?userId=${user.id }" > List Assignments </a>
+	<br>
+
+	</c:if>
+	
+	
+	<c:if test="${user.role eq 'Teacher'}">
+	<h5>Student(s):</h5>
+	<c:forEach var="student" items="${students}">
+
+	        <a href="getAccount.do?userId=${student.id}">${student.firstName} ${student.lastName}</a>		
 	        <br>
-	    </c:if>
 
 	</c:forEach>
 
 	<br>
 	<a href="add_accountForm">Add Account</a>
 	
-	<c:if test="${user.role eq 'Teacher'}">
 	<div class="container">
 	<table class="table">
 		<tbody>
@@ -48,17 +58,17 @@
 		</tbody>
 	</table>
 	</div>
-	<div class="container">
+	<div class="container form-group">
 		<form class="form" action="addLessonPlan.do">
 			<input type="hidden" value="${user.id}" name="userId">
 			<input class="btn btn-success" type="submit" value="Add Lesson Plan">
 		</form>
-		<br>
+		
 		<form class="form" action="resourceAdd.do" method="get">
 			<input type="hidden" value="${user.id}" name="userId">
 			<input class="btn btn-success" type="submit" value="Add Resource">
 		</form>
-		<br>
+	
 		<form class="form" action="standardAdd.do">
 			<input type="hidden" value="${user.id}" name="userId">
 			<input class="btn btn-success" type="submit" value="Add Standard">
@@ -66,6 +76,7 @@
 	</div>
 	</c:if>
 
+</div>
 </body>
 <%@ include file="includes/footer.jsp"%>
 

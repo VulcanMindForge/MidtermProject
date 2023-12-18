@@ -33,7 +33,7 @@
                     </c:if>
 
                     <c:if test="${login eq true}">
-                        <li class="nav-item"><a class="nav-link" href="account.do">Account</a></li>
+                        <li class="nav-item"><a class="nav-link" href="account.do?userId=${user.id}">Account</a></li>
                     </c:if>
 
                     <c:if test="${login eq true}">
