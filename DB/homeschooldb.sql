@@ -288,9 +288,12 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `homeschooldb`;
-INSERT INTO `user` (`id`, `first_name`, `last_name`, `username`, `password`, `role`, `enabled`) VALUES (1, 'john', 'doe', 'johndoe1', '1234', '1', 1);
+INSERT INTO `user` (`id`, `first_name`, `last_name`, `username`, `password`, `role`, `enabled`) VALUES (1, 'john', 'doe', 'johndoe1', '1234', 'Teacher', 1);
 INSERT INTO `user` (`id`, `first_name`, `last_name`, `username`, `password`, `role`, `enabled`) VALUES (2, 'mom', 'doe', 'mom1', '1234', 'Teacher', 1);
-INSERT INTO `user` (`id`, `first_name`, `last_name`, `username`, `password`, `role`, `enabled`) VALUES (3, 'son', 'doe', 'son1', '1234', 'Student', 0);
+INSERT INTO `user` (`id`, `first_name`, `last_name`, `username`, `password`, `role`, `enabled`) VALUES (3, 'son', 'doe', 'son1', '1234', 'Student', 1);
+INSERT INTO `user` (`id`, `first_name`, `last_name`, `username`, `password`, `role`, `enabled`) VALUES (4, 'Malcolm', 'Stuart', 'Mal', '1234', 'Student', 1);
+INSERT INTO `user` (`id`, `first_name`, `last_name`, `username`, `password`, `role`, `enabled`) VALUES (5, 'Addye', 'Stuart', 'Addye', '1234', 'Student', 1);
+INSERT INTO `user` (`id`, `first_name`, `last_name`, `username`, `password`, `role`, `enabled`) VALUES (6, 'Jacob', 'Stuart', 'jastuart', '1234', 'Teacher', 1);
 
 COMMIT;
 
@@ -301,6 +304,7 @@ COMMIT;
 START TRANSACTION;
 USE `homeschooldb`;
 INSERT INTO `teacher` (`id`, `email`) VALUES (1, 'teacher1@mail.com');
+INSERT INTO `teacher` (`id`, `email`) VALUES (6, 'jacob.stuart@mail.com');
 
 COMMIT;
 
@@ -349,6 +353,8 @@ COMMIT;
 START TRANSACTION;
 USE `homeschooldb`;
 INSERT INTO `student` (`id`, `grade_level_id`, `parent_id`) VALUES (1, 1, 1);
+INSERT INTO `student` (`id`, `grade_level_id`, `parent_id`) VALUES (4, 5, 6);
+INSERT INTO `student` (`id`, `grade_level_id`, `parent_id`) VALUES (5, 7, 6);
 
 COMMIT;
 
@@ -390,7 +396,11 @@ INSERT INTO `message` (`id`, `sender_id`, `receiver_id`, `message`, `message_dat
 INSERT INTO `message` (`id`, `sender_id`, `receiver_id`, `message`, `message_date`) VALUES (2, 1, 2, 'hi', '2022-01-02');
 INSERT INTO `message` (`id`, `sender_id`, `receiver_id`, `message`, `message_date`) VALUES (3, 1, 2, 'how are you?', '2022-01-02');
 INSERT INTO `message` (`id`, `sender_id`, `receiver_id`, `message`, `message_date`) VALUES (4, 2, 1, 'i\'m good', '2022-01-02');
-INSERT INTO `message` (`id`, `sender_id`, `receiver_id`, `message`, `message_date`) VALUES (5, 2, 1, 'how are you?', '2022-01-02');
+INSERT INTO `message` (`id`, `sender_id`, `receiver_id`, `message`, `message_date`) VALUES (6, 4, 6, 'how are you?', '2022-01-02');
+INSERT INTO `message` (`id`, `sender_id`, `receiver_id`, `message`, `message_date`) VALUES (7, 6, 4, 'good, and you?', '2022-01-02');
+INSERT INTO `message` (`id`, `sender_id`, `receiver_id`, `message`, `message_date`) VALUES (8, 4, 6, 'Any issue on this weeks assignment', '2022-01-02');
+INSERT INTO `message` (`id`, `sender_id`, `receiver_id`, `message`, `message_date`) VALUES (9, 6, 4, 'nope', '2022-01-02');
+
 
 COMMIT;
 
@@ -416,7 +426,77 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `homeschooldb`;
-INSERT INTO `standard` (`id`, `subject_id`, `url`, `grade_level_id`, `description`, `state`, `standard_year`) VALUES (1, 1, 'google.com', 1, 'math', 'CO', 2013);
+
+INSERT INTO `standard` (`id`, `subject_id`, `url`, `grade_level_id`, `description`, `state`, `standard_year`) VALUES (1, 1, 'https://www.cde.state.co.us/apps/standards/4,2,0', 1, 'Kindergarten Math', 'CO', 2023);
+INSERT INTO `standard` (`id`, `subject_id`, `url`, `grade_level_id`, `description`, `state`, `standard_year`) VALUES (2, 2, 'https://www.cde.state.co.us/apps/standards/7,2,0', 1, 'Kindergarten Science', 'CO', 2023);
+INSERT INTO `standard` (`id`, `subject_id`, `url`, `grade_level_id`, `description`, `state`, `standard_year`) VALUES (3, 4, 'https://www.cde.state.co.us/apps/standards/8,2,0', 1, 'Kindergarten Social Studies', 'CO', 2023);
+INSERT INTO `standard` (`id`, `subject_id`, `url`, `grade_level_id`, `description`, `state`, `standard_year`) VALUES (4, 5, 'https://www.cde.state.co.us/apps/standards/6,2,0', 1, 'Kindergarten Language Arts', 'CO', 2023);
+INSERT INTO `standard` (`id`, `subject_id`, `url`, `grade_level_id`, `description`, `state`, `standard_year`) VALUES (5, 6, 'https://www.cde.state.co.us/apps/standards/11,2,0', 1, 'Kindergarten Physical Education', 'CO', 2023);
+INSERT INTO `standard` (`id`, `subject_id`, `url`, `grade_level_id`, `description`, `state`, `standard_year`) VALUES (6, 1, 'https://www.cde.state.co.us/apps/standards/4,3,0', 2, 'First Grade Math', 'CO', 2023);
+INSERT INTO `standard` (`id`, `subject_id`, `url`, `grade_level_id`, `description`, `state`, `standard_year`) VALUES (7, 2, 'https://www.cde.state.co.us/apps/standards/7,3,0', 2, 'First Grade Science', 'CO', 2023);
+INSERT INTO `standard` (`id`, `subject_id`, `url`, `grade_level_id`, `description`, `state`, `standard_year`) VALUES (8, 4, 'https://www.cde.state.co.us/apps/standards/8,3,0', 2, 'First Grade Social Studies', 'CO', 2023);
+INSERT INTO `standard` (`id`, `subject_id`, `url`, `grade_level_id`, `description`, `state`, `standard_year`) VALUES (9, 5, 'https://www.cde.state.co.us/apps/standards/6,3,0', 2, 'First Grade Language Arts', 'CO', 2023);
+INSERT INTO `standard` (`id`, `subject_id`, `url`, `grade_level_id`, `description`, `state`, `standard_year`) VALUES (10, 6, 'https://www.cde.state.co.us/apps/standards/11,3,0', 2, 'First Grade Physical Education', 'CO', 2023);
+INSERT INTO `standard` (`id`, `subject_id`, `url`, `grade_level_id`, `description`, `state`, `standard_year`) VALUES (11, 1, 'https://www.cde.state.co.us/apps/standards/4,4,0', 3, 'Second Grade Math', 'CO', 2023);
+INSERT INTO `standard` (`id`, `subject_id`, `url`, `grade_level_id`, `description`, `state`, `standard_year`) VALUES (12, 2, 'https://www.cde.state.co.us/apps/standards/7,4,0', 3, 'Second Grade Science', 'CO', 2023);
+INSERT INTO `standard` (`id`, `subject_id`, `url`, `grade_level_id`, `description`, `state`, `standard_year`) VALUES (13, 4, 'https://www.cde.state.co.us/apps/standards/8,4,0', 3, 'Second Grade Social Studies', 'CO', 2023);
+INSERT INTO `standard` (`id`, `subject_id`, `url`, `grade_level_id`, `description`, `state`, `standard_year`) VALUES (14, 5, 'https://www.cde.state.co.us/apps/standards/6,4,0', 3, 'Second Grade Language Arts', 'CO', 2023);
+INSERT INTO `standard` (`id`, `subject_id`, `url`, `grade_level_id`, `description`, `state`, `standard_year`) VALUES (15, 6, 'https://www.cde.state.co.us/apps/standards/11,4,0', 3, 'Second Grade Physical Education', 'CO', 2023);
+INSERT INTO `standard` (`id`, `subject_id`, `url`, `grade_level_id`, `description`, `state`, `standard_year`) VALUES (16, 1, 'https://www.cde.state.co.us/apps/standards/4,5,0', 4, 'Third Grade Math', 'CO', 2023);
+INSERT INTO `standard` (`id`, `subject_id`, `url`, `grade_level_id`, `description`, `state`, `standard_year`) VALUES (17, 2, 'https://www.cde.state.co.us/apps/standards/7,5,0', 4, 'Third Grade Science', 'CO', 2023);
+INSERT INTO `standard` (`id`, `subject_id`, `url`, `grade_level_id`, `description`, `state`, `standard_year`) VALUES (18, 4, 'https://www.cde.state.co.us/apps/standards/8,5,0', 4, 'Third Grade Social Studies', 'CO', 2023);
+INSERT INTO `standard` (`id`, `subject_id`, `url`, `grade_level_id`, `description`, `state`, `standard_year`) VALUES (19, 5, 'https://www.cde.state.co.us/apps/standards/6,5,0', 4, 'Third Grade Language Arts', 'CO', 2023);
+INSERT INTO `standard` (`id`, `subject_id`, `url`, `grade_level_id`, `description`, `state`, `standard_year`) VALUES (20, 6, 'https://www.cde.state.co.us/apps/standards/11,5,0', 4, 'Third Grade Physical Education', 'CO', 2023);
+INSERT INTO `standard` (`id`, `subject_id`, `url`, `grade_level_id`, `description`, `state`, `standard_year`) VALUES (21, 1, 'https://www.cde.state.co.us/apps/standards/4,6,0', 5, 'Fourth Grade Math', 'CO', 2023);
+INSERT INTO `standard` (`id`, `subject_id`, `url`, `grade_level_id`, `description`, `state`, `standard_year`) VALUES (22, 2, 'https://www.cde.state.co.us/apps/standards/7,6,0', 5, 'Fourth Grade Science', 'CO', 2023);
+INSERT INTO `standard` (`id`, `subject_id`, `url`, `grade_level_id`, `description`, `state`, `standard_year`) VALUES (23, 4, 'https://www.cde.state.co.us/apps/standards/8,6,0', 5, 'Fourth Grade Social Studies', 'CO', 2023);
+INSERT INTO `standard` (`id`, `subject_id`, `url`, `grade_level_id`, `description`, `state`, `standard_year`) VALUES (24, 5, 'https://www.cde.state.co.us/apps/standards/6,6,0', 5, 'Fourth Grade Language Arts', 'CO', 2023);
+INSERT INTO `standard` (`id`, `subject_id`, `url`, `grade_level_id`, `description`, `state`, `standard_year`) VALUES (25, 6, 'https://www.cde.state.co.us/apps/standards/11,6,0', 5, 'Fourth Grade Physical Education', 'CO', 2023);
+INSERT INTO `standard` (`id`, `subject_id`, `url`, `grade_level_id`, `description`, `state`, `standard_year`) VALUES (26, 1, 'https://www.cde.state.co.us/apps/standards/4,7,0', 6, 'Fifth Grade Math', 'CO', 2023);
+INSERT INTO `standard` (`id`, `subject_id`, `url`, `grade_level_id`, `description`, `state`, `standard_year`) VALUES (27, 2, 'https://www.cde.state.co.us/apps/standards/7,7,0', 6, 'Fifth Grade Science', 'CO', 2023);
+INSERT INTO `standard` (`id`, `subject_id`, `url`, `grade_level_id`, `description`, `state`, `standard_year`) VALUES (28, 4, 'https://www.cde.state.co.us/apps/standards/8,7,0', 6, 'Fifth Grade Social Studies', 'CO', 2023);
+INSERT INTO `standard` (`id`, `subject_id`, `url`, `grade_level_id`, `description`, `state`, `standard_year`) VALUES (29, 5, 'https://www.cde.state.co.us/apps/standards/6,7,0', 6, 'Fifth Grade Language Arts', 'CO', 2023);
+INSERT INTO `standard` (`id`, `subject_id`, `url`, `grade_level_id`, `description`, `state`, `standard_year`) VALUES (30, 6, 'https://www.cde.state.co.us/apps/standards/11,7,0', 6, 'Fifth Grade Physical Education', 'CO', 2023);
+INSERT INTO `standard` (`id`, `subject_id`, `url`, `grade_level_id`, `description`, `state`, `standard_year`) VALUES (31, 1, 'https://www.cde.state.co.us/apps/standards/4,8,0', 7, 'Sixth Grade Math', 'CO', 2023);
+INSERT INTO `standard` (`id`, `subject_id`, `url`, `grade_level_id`, `description`, `state`, `standard_year`) VALUES (32, 2, 'https://www.cde.state.co.us/apps/standards/7,8,0', 7, 'Sixth Grade Science', 'CO', 2023);
+INSERT INTO `standard` (`id`, `subject_id`, `url`, `grade_level_id`, `description`, `state`, `standard_year`) VALUES (33, 4, 'https://www.cde.state.co.us/apps/standards/8,8,0', 7, 'Sixth Grade Social Studies', 'CO', 2023);
+INSERT INTO `standard` (`id`, `subject_id`, `url`, `grade_level_id`, `description`, `state`, `standard_year`) VALUES (34, 5, 'https://www.cde.state.co.us/apps/standards/6,8,0', 7, 'Sixth Grade Language Arts', 'CO', 2023);
+INSERT INTO `standard` (`id`, `subject_id`, `url`, `grade_level_id`, `description`, `state`, `standard_year`) VALUES (35, 6, 'https://www.cde.state.co.us/apps/standards/11,8,0', 7, 'Sixth Grade Physical Education', 'CO', 2023);
+INSERT INTO `standard` (`id`, `subject_id`, `url`, `grade_level_id`, `description`, `state`, `standard_year`) VALUES (36, 1, 'https://www.cde.state.co.us/apps/standards/4,9,0', 8, 'Seventh Grade Math', 'CO', 2023);
+INSERT INTO `standard` (`id`, `subject_id`, `url`, `grade_level_id`, `description`, `state`, `standard_year`) VALUES (37, 2, 'https://www.cde.state.co.us/apps/standards/7,9,0', 8, 'Seventh Grade Science', 'CO', 2023);
+INSERT INTO `standard` (`id`, `subject_id`, `url`, `grade_level_id`, `description`, `state`, `standard_year`) VALUES (38, 4, 'https://www.cde.state.co.us/apps/standards/8,9,0', 8, 'Seventh Grade Social Studies', 'CO', 2023);
+INSERT INTO `standard` (`id`, `subject_id`, `url`, `grade_level_id`, `description`, `state`, `standard_year`) VALUES (39, 5, 'https://www.cde.state.co.us/apps/standards/6,9,0', 8, 'Seventh Grade Language Arts', 'CO', 2023);
+INSERT INTO `standard` (`id`, `subject_id`, `url`, `grade_level_id`, `description`, `state`, `standard_year`) VALUES (40, 6, 'https://www.cde.state.co.us/apps/standards/11,9,0', 8, 'Seventh Grade Physical Education', 'CO', 2023);
+INSERT INTO `standard` (`id`, `subject_id`, `url`, `grade_level_id`, `description`, `state`, `standard_year`) VALUES (41, 1, 'https://www.cde.state.co.us/apps/standards/4,9,0', 9, 'Eighth Grade Math', 'CO', 2023);
+INSERT INTO `standard` (`id`, `subject_id`, `url`, `grade_level_id`, `description`, `state`, `standard_year`) VALUES (42, 2, 'https://www.cde.state.co.us/apps/standards/7,9,0', 9, 'Eighth Grade Science', 'CO', 2023);
+INSERT INTO `standard` (`id`, `subject_id`, `url`, `grade_level_id`, `description`, `state`, `standard_year`) VALUES (43, 4, 'https://www.cde.state.co.us/apps/standards/8,9,0', 9, 'Eighth Grade Social Studies', 'CO', 2023);
+INSERT INTO `standard` (`id`, `subject_id`, `url`, `grade_level_id`, `description`, `state`, `standard_year`) VALUES (44, 5, 'https://www.cde.state.co.us/apps/standards/6,9,0', 9, 'Eighth Grade Language Arts', 'CO', 2023);
+INSERT INTO `standard` (`id`, `subject_id`, `url`, `grade_level_id`, `description`, `state`, `standard_year`) VALUES (45, 6, 'https://www.cde.state.co.us/apps/standards/11,9,0', 9, 'Eighth Grade Physical Education', 'CO', 2023);
+INSERT INTO `standard` (`id`, `subject_id`, `url`, `grade_level_id`, `description`, `state`, `standard_year`) VALUES (46, 1, 'https://www.cde.state.co.us/apps/standards/4,15,0', 10, 'Freshman Math', 'CO', 2023);
+INSERT INTO `standard` (`id`, `subject_id`, `url`, `grade_level_id`, `description`, `state`, `standard_year`) VALUES (47, 2, 'https://www.cde.state.co.us/apps/standards/7,15,0', 10, 'Freshman Science', 'CO', 2023);
+INSERT INTO `standard` (`id`, `subject_id`, `url`, `grade_level_id`, `description`, `state`, `standard_year`) VALUES (48, 3, 'https://www.cde.state.co.us/apps/standards/12,15,0', 10, 'Freshman Comp Science', 'CO', 2023);
+INSERT INTO `standard` (`id`, `subject_id`, `url`, `grade_level_id`, `description`, `state`, `standard_year`) VALUES (49, 4, 'https://www.cde.state.co.us/apps/standards/8,15,0', 10, 'Freshman Social Studies', 'CO', 2023);
+INSERT INTO `standard` (`id`, `subject_id`, `url`, `grade_level_id`, `description`, `state`, `standard_year`) VALUES (50, 5, 'https://www.cde.state.co.us/apps/standards/6,15,0', 10, 'Freshman Language Arts', 'CO', 2023);
+INSERT INTO `standard` (`id`, `subject_id`, `url`, `grade_level_id`, `description`, `state`, `standard_year`) VALUES (51, 6, 'https://www.cde.state.co.us/apps/standards/11,15,0', 10, 'Freshman Physical Education', 'CO', 2023);
+INSERT INTO `standard` (`id`, `subject_id`, `url`, `grade_level_id`, `description`, `state`, `standard_year`) VALUES (52, 1, 'https://www.cde.state.co.us/apps/standards/4,15,0', 11, 'Sophmore Math', 'CO', 2023);
+INSERT INTO `standard` (`id`, `subject_id`, `url`, `grade_level_id`, `description`, `state`, `standard_year`) VALUES (53, 2, 'https://www.cde.state.co.us/apps/standards/7,15,0', 11, 'Sophmore Science', 'CO', 2023);
+INSERT INTO `standard` (`id`, `subject_id`, `url`, `grade_level_id`, `description`, `state`, `standard_year`) VALUES (54, 3, 'https://www.cde.state.co.us/apps/standards/12,15,0', 11, 'Sophmore Comp Science', 'CO', 2023);
+INSERT INTO `standard` (`id`, `subject_id`, `url`, `grade_level_id`, `description`, `state`, `standard_year`) VALUES (55, 4, 'https://www.cde.state.co.us/apps/standards/8,15,0', 11, 'Sophmore Social Studies', 'CO', 2023);
+INSERT INTO `standard` (`id`, `subject_id`, `url`, `grade_level_id`, `description`, `state`, `standard_year`) VALUES (56, 5, 'https://www.cde.state.co.us/apps/standards/6,15,0', 11, 'Sophmore Language Arts', 'CO', 2023);
+INSERT INTO `standard` (`id`, `subject_id`, `url`, `grade_level_id`, `description`, `state`, `standard_year`) VALUES (57, 6, 'https://www.cde.state.co.us/apps/standards/11,15,0', 11, 'Sophmore Physical Education', 'CO', 2023);
+INSERT INTO `standard` (`id`, `subject_id`, `url`, `grade_level_id`, `description`, `state`, `standard_year`) VALUES (58, 1, 'https://www.cde.state.co.us/apps/standards/4,15,0', 12, 'Junior Math', 'CO', 2023);
+INSERT INTO `standard` (`id`, `subject_id`, `url`, `grade_level_id`, `description`, `state`, `standard_year`) VALUES (59, 2, 'https://www.cde.state.co.us/apps/standards/7,15,0', 12, 'Junior Science', 'CO', 2023);
+INSERT INTO `standard` (`id`, `subject_id`, `url`, `grade_level_id`, `description`, `state`, `standard_year`) VALUES (60, 3, 'https://www.cde.state.co.us/apps/standards/12,15,0', 12, 'Junior Comp Science', 'CO', 2023);
+INSERT INTO `standard` (`id`, `subject_id`, `url`, `grade_level_id`, `description`, `state`, `standard_year`) VALUES (61, 4, 'https://www.cde.state.co.us/apps/standards/8,15,0', 12, 'Junior Social Studies', 'CO', 2023);
+INSERT INTO `standard` (`id`, `subject_id`, `url`, `grade_level_id`, `description`, `state`, `standard_year`) VALUES (62, 5, 'https://www.cde.state.co.us/apps/standards/6,15,0', 12, 'Junior Language Arts', 'CO', 2023);
+INSERT INTO `standard` (`id`, `subject_id`, `url`, `grade_level_id`, `description`, `state`, `standard_year`) VALUES (63, 6, 'https://www.cde.state.co.us/apps/standards/11,15,0', 12, 'Junior Physical Education', 'CO', 2023);
+INSERT INTO `standard` (`id`, `subject_id`, `url`, `grade_level_id`, `description`, `state`, `standard_year`) VALUES (64, 1, 'https://www.cde.state.co.us/apps/standards/4,15,0', 13, 'Senior Math', 'CO', 2023);
+INSERT INTO `standard` (`id`, `subject_id`, `url`, `grade_level_id`, `description`, `state`, `standard_year`) VALUES (65, 2, 'https://www.cde.state.co.us/apps/standards/7,15,0', 13, 'Senior Science', 'CO', 2023);
+INSERT INTO `standard` (`id`, `subject_id`, `url`, `grade_level_id`, `description`, `state`, `standard_year`) VALUES (66, 3, 'https://www.cde.state.co.us/apps/standards/12,15,0', 13, 'Senior Comp Science', 'CO', 2023);
+INSERT INTO `standard` (`id`, `subject_id`, `url`, `grade_level_id`, `description`, `state`, `standard_year`) VALUES (67, 4, 'https://www.cde.state.co.us/apps/standards/8,15,0', 13, 'Senior Social Studies', 'CO', 2023);
+INSERT INTO `standard` (`id`, `subject_id`, `url`, `grade_level_id`, `description`, `state`, `standard_year`) VALUES (68, 5, 'https://www.cde.state.co.us/apps/standards/6,15,0', 13, 'Senior Language Arts', 'CO', 2023);
+INSERT INTO `standard` (`id`, `subject_id`, `url`, `grade_level_id`, `description`, `state`, `standard_year`) VALUES (69, 6, 'https://www.cde.state.co.us/apps/standards/11,15,0', 13, 'Senior Physical Education', 'CO', 2023);
+
 
 COMMIT;
 
