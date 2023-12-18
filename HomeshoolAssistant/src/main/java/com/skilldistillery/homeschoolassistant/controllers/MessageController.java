@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.skilldistillery.homeschoolassistant.data.MessageDAO;
 import com.skilldistillery.homeschoolassistant.data.UserDAO;
 import com.skilldistillery.homeschoolassistant.entities.Message;
+import com.skilldistillery.homeschoolassistant.entities.Student;
+import com.skilldistillery.homeschoolassistant.entities.Teacher;
 import com.skilldistillery.homeschoolassistant.entities.User;
 
 import jakarta.servlet.http.HttpSession;
@@ -37,12 +39,18 @@ public class MessageController {
         model.addAttribute("messages", messages);
         
         if(sessionUser.getRole().equals("Student")) {
-        	model.addAttribute("teacherList", usersReceivedMessages);
+        	List<Teacher> teachers = userDAO.getTeachersByStudentId(currentUserId);
+        	model.addAttribute("teacherList", teachers);
+        	System.out.println("hi1");
+        }
+        else if(sessionUser.getRole().equals("Teacher")) {
+        	List<Student> students = userDAO.getStudentsByTeacherId(currentUserId);
+        	model.addAttribute("studentList", students);
+        	System.out.println("hi2");
         }
 
         return "message/chat";
     }
-
 
     @RequestMapping(path = "new_messageForm", method = RequestMethod.GET)
     public String newMessageForm(@RequestParam("senderId") int senderId, @RequestParam("receiverId") int receiverId,

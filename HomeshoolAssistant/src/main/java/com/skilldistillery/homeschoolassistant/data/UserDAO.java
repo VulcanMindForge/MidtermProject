@@ -23,5 +23,5 @@ public interface UserDAO {
 	List<LessonPlan> getLessonPlansByUserId(int userId);
 	List<User> getAllUsers();
 	List<Student> getStudentsByTeacherId(int userId);
-	List<Student> getTeachersByStudentId(int studentId);
+	List<Teacher> getTeachersByStudentId(int studentId);
 }

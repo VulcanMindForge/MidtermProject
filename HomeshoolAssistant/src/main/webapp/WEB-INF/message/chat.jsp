@@ -27,8 +27,8 @@
             display: block;
             margin-bottom: 10px;
             padding: 10px;
-            background-color: #007bff;
             border: 1px solid #007bff;
+            background-color: #007bff;
             border-radius: 5px;
             text-decoration: none;
             color: #fff;
@@ -59,12 +59,31 @@
         
         <c:if test="${not empty searchList}">
             <div>
-                <%@ include file="show_users.jsp"%>
+                <%@ include file="search_users.jsp"%>
             </div>
+        </c:if>
+        
+        <c:if test="${not empty teacherList}">
+        	<div>
+        	<p>hi1</p>
+        		<c:forEach var="teacher" items="${teacherList}">
+        			<p>${teacher.id}</p>
+        		</c:forEach>
+        	</div>
+        </c:if>
+
+		<c:if test="${not empty studentList}">
+        	<div>
+        	<p>hi2</p>
+        		<c:forEach var="student" items="${studentList}">
+        			<p>${student.id}</p>
+        		</c:forEach>
+        	</div>
         </c:if>
 
         <div class="container">
             <h4>Your Chats</h4>
+            
             <c:forEach var="otherUser" items="${userList}">
                 <c:if test="${user.id ne otherUser.id}">
                     <a href="history.do?senderId=${user.id}&receiverId=${otherUser.id}" class="chat-link">

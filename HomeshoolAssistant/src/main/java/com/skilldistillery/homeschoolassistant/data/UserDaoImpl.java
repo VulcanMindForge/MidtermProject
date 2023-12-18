@@ -112,13 +112,14 @@ public class UserDaoImpl implements UserDAO {
 	}
 	
 	@Override
-	public List<Student> getTeachersByStudentId(int studentId) {
-	    String jpql = "SELECT s.teacher.id FROM Student s WHERE s.id = :studentId";
-	    List<Student> teachers = em.createQuery(jpql, Student.class)
-	                          .setParameter("senderId", studentId)
-	                          .getResultList();
+	public List<Teacher> getTeachersByStudentId(int studentId) {
+	    String jpql = "SELECT s.teacher FROM Student s WHERE s.id = :studentId";
+	    List<Teacher> teachers = em.createQuery(jpql, Teacher.class)
+	                              .setParameter("studentId", studentId)
+	                              .getResultList();
 	    return teachers;
 	}
+
 
 	@Override
 	public Teacher addTeacher(User user) {
