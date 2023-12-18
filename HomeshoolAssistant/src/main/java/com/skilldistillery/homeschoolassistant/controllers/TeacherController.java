@@ -123,7 +123,9 @@ public class TeacherController {
 	}
 	
 	@RequestMapping(path = "removeAssignment.do, method = RequestMethod.GET")
-	public String removeAssignmentFromLessonPlan() {
+	public String removeAssignmentFromLessonPlan(@RequestParam(name = "planId") String planId, @RequestParam(name = "userId") String userId, Model model, HttpSession session) {
+		List<Assignment> assignments = assignmentDAO.getAssignmentsByPlanId(Integer.parseInt(planId));
+		model.addAttribute("assignments", assignments);
 		return "teacherviews/remove_assignment";
 	}
 	

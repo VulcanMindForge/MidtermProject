@@ -6,6 +6,7 @@
 <%@ include file="../includes/header.jsp"%>
 <body>
 	<div class="container">
+	<div class="bg-image text-center rounded-3 mt-2 d-flex justify-content-center align-items-center h-100">
 		<form class="form" action="resourceAdd.do" method="POST">
 			<label for="title">Title: </label> <input type="text" name="title">
 			<br> <label for="url">URL: </label> <input type="text"
@@ -17,10 +18,11 @@
 						${standard.subject.title}, ${ standard.description}</option>
 				</c:forEach>
 			</select> 
-			<br>
+			<br><br>
 			<input type="hidden" name="userId" value="${user.id}"> <input
-				type="submit">
+				type="submit" value="Add Resource">
 		</form>
+	</div>
 	</div>
 </body>
 <%@ include file="../includes/footer.jsp"%>

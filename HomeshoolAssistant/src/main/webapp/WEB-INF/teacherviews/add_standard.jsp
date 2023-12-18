@@ -5,7 +5,8 @@
 <%@ include file="../includes/header.jsp"%>
 <body>
 <div class="container">
-		<form class="form" action="standardAdd.do" method="POST">
+	<div class="bg-image text-center rounded-3 mt-2 d-flex justify-content-center align-items-center h-100">
+		<form class="form w-75" action="standardAdd.do" method="POST">
 			<label for="year">School Year: </label> 
 			<input type="text" name="year">
 			<br>
@@ -38,9 +39,10 @@
 			
 			<input type="hidden" name="teacher" value="${user.id}"> 
 			<br>
-			<input type="submit">
+			<input type="submit" value="Add Standard">
 
 		</form>
+	</div>
 	</div>
 
 </body>

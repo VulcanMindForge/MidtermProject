@@ -6,16 +6,9 @@
 <%@ include file="../includes/header.jsp"%>
 <body>
 <div class="container">
-	<form action="addAssignment.do">
-		<input type="hidden" name="planId" value="${plan.id}">
-		<input type="hidden" name="userId" value="${user.id}">
-		<input type="submit" name="addAssignment" value="Add Assignment">
-	</form>
-	<form action="removeAssignment.do">
-		<input type="hidden" name="planId" value="${plan.id}">
-		<input type="hidden" name="userId" value="${user.id}">
-		<input type="submit" name="removeAssignment" value="Remove Assignment">
-	</form>
+		<div class="bg-image text-center rounded-3 mt-2 d-flex justify-content-center align-items-center h-100">
+			<div class="form w-75">
+				<div class="text-white form align-middle">
 	<h1>${plan.title}</h1>
 	<p>${plan.description}</p>
 	<br>
@@ -43,6 +36,20 @@
 		</c:forEach>
 		</tbody>
 		</table>
+	<form action="addAssignment.do">
+		<input type="hidden" name="planId" value="${plan.id}">
+		<input type="hidden" name="userId" value="${user.id}">
+		<input type="submit" name="addAssignment" value="Add Assignment">
+	</form>
+	<form action="removeAssignment.do">
+		<input type="hidden" name="planId" value="${plan.id}">
+		<input type="hidden" name="userId" value="${user.id}">
+		<input class="btn btn-danger" type="submit" name="removeAssignment" value="Remove Assignment">
+	</form>
+	</div>
+	</div>
+	</div>
+	</div>
 </body>
 <%@ include file="../includes/footer.jsp"%>
 </html>
