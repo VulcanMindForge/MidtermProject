@@ -14,7 +14,7 @@
         }
 
         .message-container {
-            max-height: 400px; 
+            max-height: 300px; 
             overflow-y: scroll;
             border: 1px solid #ccc; 
             padding: 10px;
@@ -61,7 +61,7 @@
             Send New Message
         </a><br>
 
-        <br><br>
+        <br>
 
         <div class="message-container">
 

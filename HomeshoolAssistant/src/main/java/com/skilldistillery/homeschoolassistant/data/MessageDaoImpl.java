@@ -33,6 +33,15 @@ public class MessageDaoImpl implements MessageDAO {
                                   .getResultList();
         return messages;
 	}
+	
+	@Override
+	public List<User> getUsersReceivedMessagesFromSender(int senderId) {
+	    String jpql = "SELECT DISTINCT m.receiver FROM Message m WHERE m.sender.id = :senderId";
+	    List<User> mailTo = em.createQuery(jpql, User.class)
+	                          .setParameter("senderId", senderId)
+	                          .getResultList();
+	    return mailTo;
+	}
 
 	@Override
 	public List<Message> getMessagesByReceiver(int receiverId) {
@@ -48,6 +57,12 @@ public class MessageDaoImpl implements MessageDAO {
 	    String jpql = "SELECT m FROM Message m " +
 	                  "WHERE (m.sender.id = :senderId AND m.receiver.id = :receiverId) " +
 	                  "   OR (m.sender.id = :receiverId AND m.receiver.id = :senderId)";
+	    
+	    /*String jpql = "SELECT m FROM Message m " +
+	               "WHERE (m.sender.id = :senderId AND m.receiver.id = :receiverId) " +
+	               "   OR (m.sender.id = :receiverId AND m.receiver.id = :senderId) " +
+	               "   AND m.message IS NOT NULL";*/
+
 
 	    List<Message> messages = em.createQuery(jpql, Message.class)
 	                                .setParameter("senderId", senderId)
@@ -55,7 +70,6 @@ public class MessageDaoImpl implements MessageDAO {
 	                                .getResultList();
 	    return messages;
 	}
-
 
 	@Override
 	public List<Message> getAllMessages() {
@@ -73,6 +87,19 @@ public class MessageDaoImpl implements MessageDAO {
 	             .setParameter("username", username)
 	             .getSingleResult();
 	}
-
+	
+	@Override
+	public List<User> findUsersByName(String name) {
+	    // JPQL query to select users based on username, first name, or last name
+	    String jpql = "SELECT u FROM User u WHERE u.username LIKE :name OR u.firstName LIKE :name OR u.lastName LIKE :name";
+	    
+	    // Executing the query and setting the "name" parameter
+	    List<User> users = em.createQuery(jpql, User.class)
+	                          .setParameter("name", "%" + name + "%")
+	                          .getResultList();
+	    return users;
+	}
+	
+	
 
 }
