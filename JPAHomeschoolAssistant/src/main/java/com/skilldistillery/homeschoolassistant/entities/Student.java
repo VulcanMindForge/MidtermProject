@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -26,8 +27,20 @@ public class Student {
 	@ManyToOne
 	@JoinColumn(name = "parent_id")
 	private User parent;
+	
+	@ManyToOne
+	@JoinColumn(name = "teacher_id")
+	private User teacher;
 
 	public Student() {
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public User getParent() {
@@ -74,14 +87,17 @@ public class Student {
 		this.gradeLevel = gradeLevel;
 	}
 
-	@Override
-	public String toString() {
-		return "Student [id=" + id + "]";
+	public User getTeacher() {
+		return teacher;
+	}
+
+	public void setTeacher(User teacher) {
+		this.teacher = teacher;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id);
+		return Objects.hash(assignments, gradeLevel, id, parent, teacher);
 	}
 
 	@Override
@@ -93,16 +109,13 @@ public class Student {
 		if (getClass() != obj.getClass())
 			return false;
 		Student other = (Student) obj;
-		return id == other.id;
+		return Objects.equals(assignments, other.assignments) && Objects.equals(gradeLevel, other.gradeLevel)
+				&& id == other.id && Objects.equals(parent, other.parent) && Objects.equals(teacher, other.teacher);
 	}
 
-	public int getId() {
-		return id;
+	@Override
+	public String toString() {
+		return "Student [id=" + id + ", assignments=" + assignments + ", gradeLevel=" + gradeLevel + ", parent="
+				+ parent + ", teacher=" + teacher + "]";
 	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-	
-	
 }

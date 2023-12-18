@@ -11,6 +11,7 @@ public interface MessageDAO {
 	List<Message> getMessagesByReceiver(int receiverId);
 	List<Message> getAllMessages();
 	User getUserByUsername(String senderId);
+	List<User> findUsersByName(String name);
 	List<Message> getMessagesByReceiver(int senderId, int receiverId);
-	
+	List<User> getUsersReceivedMessagesFromSender(int senderId);
 }
