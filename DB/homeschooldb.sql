@@ -350,7 +350,6 @@ INSERT INTO `grade_level` (`id`, `name`, `grade_number`) VALUES (11, 'Sophmore',
 INSERT INTO `grade_level` (`id`, `name`, `grade_number`) VALUES (12, 'Junior', '11');
 INSERT INTO `grade_level` (`id`, `name`, `grade_number`) VALUES (13, 'Senior', '12');
 
-
 COMMIT;
 
 
@@ -420,8 +419,8 @@ USE `homeschooldb`;
 
 INSERT INTO `subject` (`id`, `title`) VALUES (1, 'Math');
 INSERT INTO `subject` (`id`, `title`) VALUES (2, 'Science');
-INSERT INTO `subject` (`id`, `title`) VALUES (3, 'Computer Science');
-INSERT INTO `subject` (`id`, `title`) VALUES (4, 'Social Studies');
+INSERT INTO `subject` (`id`, `title`) VALUES (3, 'Social Studies');
+INSERT INTO `subject` (`id`, `title`) VALUES (4, 'Computer Science');
 INSERT INTO `subject` (`id`, `title`) VALUES (5, 'Language Arts');
 INSERT INTO `subject` (`id`, `title`) VALUES (6, 'Physical Education');
 
@@ -502,7 +501,6 @@ INSERT INTO `standard` (`id`, `subject_id`, `url`, `grade_level_id`, `descriptio
 INSERT INTO `standard` (`id`, `subject_id`, `url`, `grade_level_id`, `description`, `state`, `standard_year`) VALUES (67, 4, 'https://www.cde.state.co.us/apps/standards/8,15,0', 13, 'Senior Social Studies', 'CO', 2023);
 INSERT INTO `standard` (`id`, `subject_id`, `url`, `grade_level_id`, `description`, `state`, `standard_year`) VALUES (68, 5, 'https://www.cde.state.co.us/apps/standards/6,15,0', 13, 'Senior Language Arts', 'CO', 2023);
 INSERT INTO `standard` (`id`, `subject_id`, `url`, `grade_level_id`, `description`, `state`, `standard_year`) VALUES (69, 6, 'https://www.cde.state.co.us/apps/standards/11,15,0', 13, 'Senior Physical Education', 'CO', 2023);
-
 
 COMMIT;
 
