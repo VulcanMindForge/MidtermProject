@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.skilldistillery.homeschoolassistant.data.UserDAO;
+import com.skilldistillery.homeschoolassistant.entities.Assignment;
 import com.skilldistillery.homeschoolassistant.entities.LessonPlan;
 import com.skilldistillery.homeschoolassistant.entities.Student;
 import com.skilldistillery.homeschoolassistant.entities.User;
@@ -34,14 +35,27 @@ public class AccountController {
 		model.addAttribute("students", students);
 		List<LessonPlan> plans = userDAO.getLessonPlansByUserId(Integer.parseInt(userId));
 		model.addAttribute("plans", plans);
+		List<User> users = userDAO.getAllUsers();
+		model.addAttribute("users", users);
+		
         return "account";
     }
 
     @RequestMapping(path = "getAccount.do")
-    public String showUser(@RequestParam("userId") Integer userId, Model model) {
+    public String showUser(@RequestParam("userId") Integer userId, Model model, HttpSession session) {
         User user = userDAO.findById(userId);
+        User sessionUser = (User) session.getAttribute("user");
+        List<Assignment> assignments = userDAO.getAssignmentsByStudentId(user.getId());
+        List<LessonPlan> plans = userDAO.getLessonPlansByUserId(userId);
+        List<User> users = userDAO.getAllUsers();
+        
+		model.addAttribute("plans", plans);
+        model.addAttribute("assignments", assignments);
         model.addAttribute("user", user);
-        return "profile";
+        model.addAttribute("users", users);
+        model.addAttribute("sessionUser", sessionUser);
+        
+        return "account";
     }
 
     @RequestMapping(path = "edit_accountForm", method = RequestMethod.GET)

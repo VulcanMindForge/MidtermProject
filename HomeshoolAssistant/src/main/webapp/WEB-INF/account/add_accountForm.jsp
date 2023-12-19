@@ -11,8 +11,11 @@
 <body>
 
 <h1>Add Account</h1>
+<div class="container">
+		<div
+			class="bg-dark text-center rounded-3 mt-2 d-flex justify-content-center align-items-center h-100">
 
-    <form action="addAccount.do" method="post">
+    <form class="form w-75 center" action="addAccount.do" method="post">
 	    <label for="firstName">First Name:</label>
 	    <input type="text" id="firstName" name="firstName" required>
 	    <br>
@@ -41,6 +44,8 @@
 	    <input type="hidden" value="${user.id}" name="teacherId">
 	    <input type="submit" value="Add Account">
 	</form>
+	</div>
+	</div>
 	
 </body>
 <%@ include file="/WEB-INF/includes/footer.jsp"%>

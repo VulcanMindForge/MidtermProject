@@ -9,8 +9,11 @@
 <title>Edit Account</title>
 </head>
 <body>
+<div class="container">
+		<div
+			class="bg-dark text-center rounded-3 mt-2 d-flex justify-content-center align-items-center h-100">
 
-	<form action="edit_account.do" method="post">
+	<form class="form w-75 center" action="edit_account.do" method="post">
 	    <label for="userId">User ID: ${user.id}</label> <input type="hidden" id="userId" name="userId" value="${user.id}"> <br>
 	    <label for="firstName">First Name:</label> <input type="text" id="firstName" name="firstName" value="${user.firstName}" required> <br> 
 	    <label for="lastName">Last Name:</label> <input type="text" id="lastName" name="lastName" value="${user.lastName}" required> <br>
@@ -24,11 +27,12 @@
 	        <br>
 	    </c:if>
 	    
-	    <input type="submit" value="Submit">
+	    <input type="submit" value="Submit changes">
+		<a class="btn btn-danger" href="removeAccount.do?userId=${user.id}">Remove User</a>
 	</form>
 	
-	<a href="removeAccount.do?userId=${user.id}">Remove User</a>
-
+	</div>
+	</div>
 </body>
 <%@ include file="/WEB-INF/includes/footer.jsp"%>
 </html>

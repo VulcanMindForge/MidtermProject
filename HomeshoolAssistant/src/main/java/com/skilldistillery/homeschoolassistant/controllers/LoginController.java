@@ -63,11 +63,13 @@ public class LoginController {
 				students.add(userDAO.findById(student.getId()));
 			}
 			List<LessonPlan> plans = userDAO.getLessonPlansByUserId(user.getId());
+			List<User> users = userDAO.getAllUsers();
 			model.addAttribute("students", students);
 			model.addAttribute("assignments", assignments);
 			model.addAttribute("plans", plans);
 			session.setAttribute("login", loginSuccessful);
 			session.setAttribute("user", user);
+			model.addAttribute("users", users);
 			return "account";
 		} else {
 			session.setAttribute("login", loginSuccessful);

@@ -6,23 +6,34 @@
 <%@ include file="includes/header.jsp"%>
 <body>
 	<div class="container">
-		<div
-			class="bg-dark text-center rounded-3 mt-2 d-flex justify-content-center align-items-center h-100">
-			<form class="form w-75 center" action="/account/edit_accountForm.jsp"
+		<div class="bg-dark text-center rounded-3 mt-2 d-flex justify-content-center align-items-center h-100">
+			<form class="form w-80 center" action="/account/edit_accountForm.jsp"
 				method="POST">
 
-				<h1>${user.role}Account</h1>
+				<h1>${user.role} Account</h1>
 
 				<h5>Your Information:</h5>
 
 				<strong>First Name: </strong>${user.firstName }<br> <strong>Last
 					Name: </strong>${user.lastName }<br> <strong>Username: </strong>${user.username }<br>
+					
 
 				<br> <br>
-
+				<c:if test="${sessionUser.role eq 'Teacher'}">
+					<a class="btn btn-primary" href="edit_accountForm?userId=${user.id}">Edit Account</a>
+				</c:if>
 				<c:if test="${user.role eq 'Student'}">
 					<h3>Assignments not completed</h3>
 					<table class="table">
+						<thead>
+						<tr>
+							<th scope="col">Assignment</th>
+							<th scope="col">Assignment Description</th>
+							<th scope="col">Assigned Student</th>
+							<th scope="col">Assignment Completed</th>
+							<th scope="col">Assignment Grade</th>
+						</tr>
+						</thead>
 						<tbody>
 							<c:forEach items="${assignments}" var="assignment">
 								<c:if test="${assignment.completed ne true}">
@@ -32,7 +43,7 @@
 										<td>${assignment.description}</td>
 
 										<c:if test="${user.id eq assignment.student.id}">
-											<td>${user.firstName}${user.lastName}</td>
+											<td>${user.firstName} ${user.lastName}</td>
 										</c:if>
 
 										<td>${assignment.completed}</td>
@@ -46,6 +57,15 @@
 					<h3>Assignments completed and graded</h3>
 					<div class="container">
 						<table class="table">
+						<thead>
+						<tr>
+							<th scope="col">Assignment</th>
+							<th scope="col">Assignment Description</th>
+							<th scope="col">Assigned Student</th>
+							<th scope="col">Assignment Completed</th>
+							<th scope="col">Assignment Grade</th>
+						</tr>
+						</thead>
 							<tbody>
 								<c:forEach items="${assignments}" var="assignment">
 									<c:if test="${assignment.completed eq true}">
@@ -86,6 +106,15 @@
 					<br>
 					<h3>Assignments To Grade</h3>
 					<table class="table">
+					<thead>
+						<tr>
+							<th scope="col">Assignment</th>
+							<th scope="col">Assignment Description</th>
+							<th scope="col">Assigned Student</th>
+							<th scope="col">Assignment Completed</th>
+							<th scope="col">Assignment Grade</th>
+						</tr>
+						</thead>
 						<tbody>
 							<c:forEach items="${plans}" var="plan">
 								<c:forEach items="${plan.assignments}" var="assignment">
@@ -101,7 +130,7 @@
 													</c:if>
 												</c:forEach>
 												<td>${assignment.completed}</td>
-												<td>${assignemtn.grade}</td>
+												<td>${assignment.grade}</td>
 											</tr>
 										</c:if>
 									</c:if>
@@ -112,6 +141,15 @@
 					<br>
 					<h3>Assignments not completed</h3>
 					<table class="table">
+					<thead>
+						<tr>
+							<th scope="col">Assignment</th>
+							<th scope="col">Assignment Description</th>
+							<th scope="col">Assigned Student</th>
+							<th scope="col">Assignment Completed</th>
+							<th scope="col">Assignment Grade</th>
+						</tr>
+						</thead>
 						<tbody>
 							<c:forEach items="${plans}" var="plan">
 								<c:forEach items="${plan.assignments}" var="assignment">
@@ -126,7 +164,7 @@
 												</c:if>
 											</c:forEach>
 											<td>${assignment.completed}</td>
-											<td>${assignemtn.grade}</td>
+											<td>${assignment.grade}</td>
 										</tr>
 									</c:if>
 								</c:forEach>
@@ -137,6 +175,15 @@
 					<h3>Assignments completed and graded</h3>
 					<div class="container">
 						<table class="table">
+						<thead>
+						<tr>
+							<th scope="col">Assignment</th>
+							<th scope="col">Assignment Description</th>
+							<th scope="col">Assigned Student</th>
+							<th scope="col">Assignment Completed</th>
+							<th scope="col">Assignment Grade</th>
+						</tr>
+						</thead>
 							<tbody>
 								<c:forEach items="${plans}" var="plan">
 									<c:forEach items="${plan.assignments}" var="assignment">
@@ -152,7 +199,7 @@
 														</c:if>
 													</c:forEach>
 													<td>${assignment.completed}</td>
-													<td>${assignemtn.grade}</td>
+													<td>${assignment.grade}</td>
 												</tr>
 											</c:if>
 										</c:if>

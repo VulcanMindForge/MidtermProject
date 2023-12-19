@@ -226,6 +226,11 @@ public class AssignmentDaoImpl implements AssignmentDAO {
 	}
 
 	@Override
+	public Assignment getAssignmentsById(int assignmentId) {
+		return em.find(Assignment.class, assignmentId);
+	}
+
+	@Override
 	public List<Standard> getAllStandards() {
 		String sql = "Select standard From Standard standard";
 		return em.createQuery(sql, Standard.class).getResultList();

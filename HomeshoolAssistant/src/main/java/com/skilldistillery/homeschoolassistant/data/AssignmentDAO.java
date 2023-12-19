@@ -49,5 +49,6 @@ public interface AssignmentDAO {
 	List<Student> getAllStudents();
 	LessonPlan getLessonPlanById(int planId);
 	List<Assignment> getAssignmentsByPlanId(int planId);
+	Assignment getAssignmentsById(int assignmentId);
 
 }
