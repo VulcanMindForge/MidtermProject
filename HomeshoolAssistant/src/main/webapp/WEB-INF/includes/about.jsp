@@ -41,7 +41,7 @@ a:hover {
 			<div class="row about-container">
 
 				<div class="col-lg-6 content order-lg-1 order-2">
-					<h2 class="title">Few Words About Us</h2>
+					<h2 class="title">A Few Words About Us</h2>
 					<p>We feel that home schooling should maintain the same
 						standards as public school. To better ensure our children don't
 						fall behind if they return to school, or if they pursue higher
