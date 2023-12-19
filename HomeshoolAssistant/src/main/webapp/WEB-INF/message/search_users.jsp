@@ -12,22 +12,38 @@
             padding: 20px;
         }
 
+        .scrollable-container {
+            max-height: 400px; 
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+            background-color: #f8f9fa;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
         .new-chat-link {
             display: block;
             margin-bottom: 10px;
             padding: 10px;
-            background-color: #f8f9fa;
+            background-color: #ffffff; /* Change background color */
             border: 1px solid #ddd;
             border-radius: 5px;
             text-decoration: none;
             color: #333;
+            transition: background-color 0.3s;
+        }
+
+        .new-chat-link:hover {
+            background-color: #f8f9fa; /* Change hover background color */
         }
     </style>
 </head>
 
 <body>
 
-    <div>
+
+    <div class="scrollable-container">
         <c:forEach var="searchUser" items="${searchList}">
             <a href="new_messageForm?senderId=${((sessionScope.user).id)}&receiverId=${searchUser.id}"
                 class="new-chat-link">

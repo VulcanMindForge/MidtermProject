@@ -11,26 +11,42 @@
     <style>
         body {
             padding: 20px;
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #343a40; /* Darker background color */
+            padding: 20px;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            color: #fff; /* Set text color to white */
+        }
+
+        h1 {
+            color: #007bff;
         }
 
         form {
-            max-width: 600px;
-            margin: 0 auto;
-            background-color: #f8f9fa;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+            margin-top: 20px;
         }
 
         label {
             margin-top: 10px;
             display: block;
+            color: #fff; /* Set label text color to white */
         }
 
         textarea {
             width: 100%;
             height: 150px;
             margin-top: 5px;
+            padding: 8px;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            box-sizing: border-box;
         }
 
         input[type="submit"] {
@@ -46,9 +62,15 @@
             color: #fff;
             border-radius: 5px;
             cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
+
 <body>
 
     <div class="container">
@@ -59,7 +81,7 @@
             <input type="hidden" id="receiverId" name="receiverId" value="${receiver.id}">
 
             <label>From: ${sender.firstName} ${sender.lastName}</label><br>
-            <label for="firstName">To: ${receiver.firstName} ${receiver.lastName}</label> <br> 
+            <label>To: ${receiver.firstName} ${receiver.lastName}</label><br> 
             <label for="message">Message:</label><br>
 
             <textarea id="message" name="message" required></textarea>

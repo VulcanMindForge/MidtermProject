@@ -31,23 +31,12 @@ public class MessageController {
     @RequestMapping(path = "message.do", method = RequestMethod.GET)
     public String chatView(HttpSession session, Model model) {
     	User sessionUser = (User) session.getAttribute("user");
-        int currentUserId = sessionUser.getId(); // Assuming 'id' is the user's ID
+        int currentUserId = sessionUser.getId();
 
         List<Message> messages = messageDAO.getMessagesByReceiver(currentUserId, currentUserId);
         List<User> usersReceivedMessages = messageDAO.getUsersReceivedMessagesFromSender(currentUserId);
         model.addAttribute("userList", usersReceivedMessages);
         model.addAttribute("messages", messages);
-        
-        if(sessionUser.getRole().equals("Student")) {
-        	List<Teacher> teachers = userDAO.getTeachersByStudentId(currentUserId);
-        	model.addAttribute("teacherList", teachers);
-        	System.out.println("hi1");
-        }
-        else if(sessionUser.getRole().equals("Teacher")) {
-        	List<Student> students = userDAO.getStudentsByTeacherId(currentUserId);
-        	model.addAttribute("studentList", students);
-        	System.out.println("hi2");
-        }
 
         return "message/chat";
     }
@@ -81,10 +70,8 @@ public class MessageController {
             // Save the message to the database
             messageDAO.sendMessage(newMessage);
         } else {
-            System.out.println("nope");
-            // if receiver is not found
+            System.out.println("receiver is not found");
         }
-        // return "redirect:/message.do";
         return "redirect:/history.do?senderId=" + sender.getId() + "&receiverId=" + receiver.getId();
     }
 
@@ -118,16 +105,17 @@ public class MessageController {
 
         if (search != null && !search.trim().isEmpty()) {
             searchResults = messageDAO.findUsersByName(search);
-        } /*else {
-            // If no search criteria provided, return all users
-            searchResults = userDAO.getAllUsers();
-        }*/
+        } 
         
         model.addAttribute("searchList", searchResults);
+        User sessionUser = (User) session.getAttribute("user");
+        int currentUserId = sessionUser.getId();
         
-        //model.addAttribute("userList", userDAO.findAll());
-        /*List<Message> messages = messageDAO.getAllMessages();
-        model.addAttribute("messages", messages);*/
+        List<Message> messages = messageDAO.getMessagesByReceiver(currentUserId, currentUserId);
+        List<User> usersReceivedMessages = messageDAO.getUsersReceivedMessagesFromSender(currentUserId);
+        model.addAttribute("userList", usersReceivedMessages);
+        model.addAttribute("messages", messages);
+
         return "message/chat";
     }
 }
