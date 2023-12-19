@@ -27,10 +27,11 @@
 						<tr>
 							<th scope="row">${assignment.title}</th>
 							<td>${assignment.description}</td>
-							<td colspan="2"><a href="${assignment.resource.url}">${assignment.resource.title}</a><td>
-							<c:forEach items="${assignment.resource.standards}" var="standard">
-								<td><a href="${standard.url}">${standard.description}</a></td>
-							</c:forEach>
+							<td colspan="2"><a target="_blank" href="${assignment.resource.url}">${assignment.resource.title}</a></td>
+							<td><c:forEach items="${assignment.resource.standards}" var="standard">
+									<a target="_blank" href="${standard.url}">${standard.description}</a>
+								</c:forEach>
+							</td>
 						</tr>
 					</c:forEach>
 				</tbody>

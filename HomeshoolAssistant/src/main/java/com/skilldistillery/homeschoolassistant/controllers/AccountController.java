@@ -37,7 +37,8 @@ public class AccountController {
 		model.addAttribute("plans", plans);
 		List<User> users = userDAO.getAllUsers();
 		model.addAttribute("users", users);
-		
+		List<Assignment> assignments = userDAO.getAssignmentsByStudentId(Integer.parseInt(userId));
+		model.addAttribute("assignments", assignments);
         return "account";
     }
 
