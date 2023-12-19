@@ -20,7 +20,6 @@ public class UserController {
 
 	@RequestMapping(path = { "/", "home.do" })
 	public String home(Model model) {
-		model.addAttribute("SMOKETEST", userDAO.authenticateUser("johndoe1", "1234"));
 		return "home";
 	}
 
@@ -41,8 +40,8 @@ public class UserController {
 		user.setEnabled(true);
 		user.setRole("Teacher");
 		User newUser = userDAO.registerUser(user);
+		userDAO.addTeacher(newUser);
 		model.addAttribute("user", newUser);
 		return "sign-in";
 	}
-	
 }

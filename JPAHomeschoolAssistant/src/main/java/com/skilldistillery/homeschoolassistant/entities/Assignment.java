@@ -1,5 +1,6 @@
 package com.skilldistillery.homeschoolassistant.entities;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -16,29 +17,29 @@ public class Assignment {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	private String title;
-	
+
 	private String description;
-	
-	private LocalDateTime duedate;
-	
+
+	private LocalDate duedate;
+
 	private boolean completed;
-	
+
 	private Double grade;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "student_id")
 	private Student student;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "lessonplan_id")
 	private LessonPlan lessonPlan;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "resource_id")
 	private Resource resource;
-	
+
 	public Assignment() {
 	}
 
@@ -74,11 +75,11 @@ public class Assignment {
 		this.description = description;
 	}
 
-	public LocalDateTime getDuedate() {
+	public LocalDate getDuedate() {
 		return duedate;
 	}
 
-	public void setDuedate(LocalDateTime duedate) {
+	public void setDuedate(LocalDate duedate) {
 		this.duedate = duedate;
 	}
 
@@ -96,6 +97,22 @@ public class Assignment {
 
 	public void setGrade(Double grade) {
 		this.grade = grade;
+	}
+
+	public LessonPlan getLessonPlan() {
+		return lessonPlan;
+	}
+
+	public void setLessonPlan(LessonPlan lessonPlan) {
+		this.lessonPlan = lessonPlan;
+	}
+
+	public Resource getResource() {
+		return resource;
+	}
+
+	public void setResource(Resource resource) {
+		this.resource = resource;
 	}
 
 	@Override
@@ -120,6 +137,5 @@ public class Assignment {
 		return "Assignment [id=" + id + ", title=" + title + ", description=" + description + ", duedate=" + duedate
 				+ ", completed=" + completed + ", grade=" + grade + ", student=" + student + "]";
 	}
-	
-	
+
 }

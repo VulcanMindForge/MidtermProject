@@ -1,5 +1,6 @@
 package com.skilldistillery.homeschoolassistant.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -57,7 +58,26 @@ public class Standard {
 	public void setGradeLevel(GradeLevel gradeLevel) {
 		this.gradeLevel = gradeLevel;
 	}
-
+	
+	public void addResource(Resource resource) {
+		if (resources == null) {
+			resources = new ArrayList<>();
+		}
+		
+		if (!resources.contains(resource)) {
+			resources.add(resource);
+			resource.addStandard(this);
+		}
+		
+	}
+	
+	public void removeResource(Resource resource) {
+		if(resources != null && resources.contains(resource)) {
+			resources.remove(resource);
+			resource.removeStandard(this);
+		}
+	}
+	
 	public List<Resource> getResources() {
 		return resources;
 	}

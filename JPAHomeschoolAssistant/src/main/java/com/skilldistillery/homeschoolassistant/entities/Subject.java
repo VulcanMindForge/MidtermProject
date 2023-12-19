@@ -1,5 +1,6 @@
 package com.skilldistillery.homeschoolassistant.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -23,7 +24,28 @@ public class Subject {
 
 	public Subject() {
 	}
+	
+	public void addStandard(Standard standard) {
+		if (standards == null) {
+			standards = new ArrayList<>();
+		}
 
+		if (!standards.contains(standard)) {
+			standards.add(standard);
+			if (standard.getSubject() != null) {
+				standard.getSubject().removeStandard(standard);
+			}
+			standard.setSubject(this);
+		}
+	}
+
+	public void removeStandard(Standard standard) {
+		if (standards != null && standards.contains(standard)) {
+			standards.remove(standard);
+			standard.setSubject(null);
+		}
+	}
+	
 	public List<Standard> getStandards() {
 		return standards;
 	}

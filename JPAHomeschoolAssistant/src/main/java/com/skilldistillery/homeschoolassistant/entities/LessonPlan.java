@@ -1,8 +1,12 @@
 package com.skilldistillery.homeschoolassistant.entities;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -21,22 +25,24 @@ public class LessonPlan {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	private String title;
-	
+
 	private String description;
-	
+
 	@Column(name = "create_date")
+	@CreationTimestamp
 	private LocalDateTime createDate;
-	
+
 	@Column(name = "last_update")
+	@UpdateTimestamp
 	private LocalDateTime lastUpdate;
-	
+
 	private boolean shared;
-	
+
 	@OneToMany(mappedBy = "lessonPlan")
 	private List<Assignment> assignments;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "teacher_id")
 	private Teacher teacher;
@@ -50,6 +56,26 @@ public class LessonPlan {
 
 	public void setTeacher(Teacher teacher) {
 		this.teacher = teacher;
+	}
+
+	public void addAssignment(Assignment assignment) {
+		if (assignments == null) {
+			assignments = new ArrayList<>();
+		}
+		if (!assignments.contains(assignment)) {
+			assignments.add(assignment);
+			if (assignment.getLessonPlan() != null) {
+				assignment.getLessonPlan().removeAssignment(assignment);
+			}
+			assignment.setLessonPlan(this);
+		}
+	}
+
+	public void removeAssignment(Assignment assignment) {
+		if (assignments != null && assignments.contains(assignment)) {
+			assignments.remove(assignment);
+			assignment.setLessonPlan(null);
+		}
 	}
 
 	public List<Assignment> getAssignments() {
@@ -130,7 +156,5 @@ public class LessonPlan {
 		return "LessonPlan [id=" + id + ", title=" + title + ", description=" + description + ", createDate="
 				+ createDate + ", lastUpdate=" + lastUpdate + ", shared=" + shared + "]";
 	}
-	
-	
-	
+
 }

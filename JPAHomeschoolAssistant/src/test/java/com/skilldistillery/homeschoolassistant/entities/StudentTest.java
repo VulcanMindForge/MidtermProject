@@ -45,5 +45,4 @@ class StudentTest {
 		assertNotNull(student);
 		assertEquals(1, student.getId());
 	}
-
 }
