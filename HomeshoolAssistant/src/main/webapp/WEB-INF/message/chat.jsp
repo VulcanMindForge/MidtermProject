@@ -4,7 +4,6 @@
 <!DOCTYPE html>
 <html>
 <%@ include file="/WEB-INF/includes/header.jsp"%>
-
 <head>
     <title>Chat</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" 
@@ -12,23 +11,53 @@
     <style>
         body {
             padding: 20px; 
+            background-color: #f8f9fa;
         }
 
-        .chat-container {
+        .search-container {
             max-width: 800px;
             margin: 0 auto;
+            background-color: rgba(0, 0, 0, 0.6);
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
         }
 
         .search {
             margin-bottom: 20px;
         }
 
+        .search-form {
+            display: flex;
+            gap: 10px;
+        }
+
+        #search {
+            flex: 1;
+        }
+
+        .find-button {
+            flex-shrink: 0;
+            background-color: #007bff;
+            color: #fff;
+            border: 1px solid #007bff;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .find-button:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
         .chat-link {
             display: block;
             margin-bottom: 10px;
             padding: 10px;
-            border: 1px solid #007bff;
             background-color: #007bff;
+            border: 1px solid #007bff;
             border-radius: 5px;
             text-decoration: none;
             color: #fff;
@@ -43,55 +72,39 @@
         h1, h4 {
             color: #007bff;
         }
+        
+        .search-results {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
     </style>
 </head>
-
 <body>
-    <div class="chat-container">
-        <h1>Chat</h1>
-        <div class="search">
-            <form action="searchUsers.do" method="GET">
-                <label for="search">Search Users:</label>
-                <input type="text" id="search" name="search"/>
-                <input type="submit" value="Find"/>
-            </form>
-        </div>
+    <div class="search-container">
+        <form action="searchUsers.do" method="GET">
+            <label for="search">Search Users:</label>
+            <input type="text" id="search" name="search"/>
+            <input type="submit" value="Find"/>
+        </form>
+    </div>
         
-        <c:if test="${not empty searchList}">
-            <div>
-                <%@ include file="search_users.jsp"%>
-            </div>
-        </c:if>
-        
-        <c:if test="${not empty teacherList}">
-        	<div>
-        	<p>hi1</p>
-        		<c:forEach var="teacher" items="${teacherList}">
-        			<p>${teacher.id}</p>
-        		</c:forEach>
-        	</div>
-        </c:if>
-
-		<c:if test="${not empty studentList}">
-        	<div>
-        	<p>hi2</p>
-        		<c:forEach var="student" items="${studentList}">
-        			<p>${student.id}</p>
-        		</c:forEach>
-        	</div>
-        </c:if>
-
-        <div class="container">
-            <h4>Your Chats</h4>
-            
-            <c:forEach var="otherUser" items="${userList}">
-                <c:if test="${user.id ne otherUser.id}">
-                    <a href="history.do?senderId=${user.id}&receiverId=${otherUser.id}" class="chat-link">
-                        ${otherUser.firstName} ${otherUser.lastName}
-                    </a>
-                </c:if>
-            </c:forEach>
+    <c:if test="${not empty searchList}">
+        <div class="search-results">
+            <%@ include file="search_users.jsp"%>
         </div>
+    </c:if>
+
+    <div class="container" style="max-width: 800px; margin: 0 auto; padding: 20px;"> 
+        <h4>Your Chats</h4>
+        
+        <c:forEach var="otherUser" items="${userList}">
+            <c:if test="${user.id ne otherUser.id}">
+                <a href="history.do?senderId=${user.id}&receiverId=${otherUser.id}" class="chat-link">
+                    ${otherUser.firstName} ${otherUser.lastName}
+                </a>
+            </c:if>
+        </c:forEach>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" 
