@@ -15,7 +15,7 @@
 						${standard.gradeLevel.name}, ${standard.subject.title}: ${standard.description }
 					</c:forEach>
 
-				<form class="form" action="standardAdd.do">
+				<form class="form" action="resourceAdd.do">
 					<input type="hidden" value="${user.id}" name="userId"> 
 					<input class="btn btn-success" type="submit" value="Add Another Resource">
 				</form>

@@ -23,12 +23,7 @@
 							<th scope="row">${assignment.title}</th>
 							<td>${assignment.completed}</td>
 							<td>${assignment.description}</td>
-							<td class="d-flex">	
-								<form class="form" action="editAssignment.do">
-									<input type="hidden" value="${user.id}" name="userId">
-									<input type="hidden" value="${assignment.id}" name="assignmentId">			
-									<input class="btn btn-success" type="submit" value="Edit">
-								</form>
+							<td class="d-flex">
 								<form class="form" action="removeAssignment.do" method="POST">
 									<input type="hidden" value="${user.id}" name="userId">
 									<input type="hidden" value="${assignment.id}" name="assignmentId">			
