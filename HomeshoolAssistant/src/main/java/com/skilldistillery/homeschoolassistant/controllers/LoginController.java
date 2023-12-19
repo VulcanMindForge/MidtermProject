@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.skilldistillery.homeschoolassistant.data.UserDAO;
+import com.skilldistillery.homeschoolassistant.entities.Assignment;
 import com.skilldistillery.homeschoolassistant.entities.LessonPlan;
 import com.skilldistillery.homeschoolassistant.entities.Student;
 import com.skilldistillery.homeschoolassistant.entities.User;
@@ -44,15 +45,18 @@ public class LoginController {
 			for (Student student : studentList) {
 				students.add(userDAO.findById(student.getId()));
 			}
+			List<Assignment> assignments = userDAO.getAssignmentsByStudentId(sessionUser.getId());
 			List<LessonPlan> plans = userDAO.getLessonPlansByUserId(sessionUser.getId());
 			List<User> users = userDAO.getAllUsers();
 			model.addAttribute("students", students);
+			model.addAttribute("assignments", assignments);
 			model.addAttribute("users", users);
 			model.addAttribute("plans", plans);
 			return "account";
 		}
 		if (user != null) {
 			loginSuccessful = true;
+			List<Assignment> assignments = userDAO.getAssignmentsByStudentId(user.getId());
 			List<Student> studentList = userDAO.getStudentsByTeacherId(user.getId());
 			List<User> students = new ArrayList<>();
 			for (Student student : studentList) {
@@ -60,6 +64,7 @@ public class LoginController {
 			}
 			List<LessonPlan> plans = userDAO.getLessonPlansByUserId(user.getId());
 			model.addAttribute("students", students);
+			model.addAttribute("assignments", assignments);
 			model.addAttribute("plans", plans);
 			session.setAttribute("login", loginSuccessful);
 			session.setAttribute("user", user);

@@ -23,7 +23,7 @@
 			</tr>
 		</thead>
 		</tbody>
-		<c:forEach items="${plan.assignments}" var="assignment">
+		<c:forEach items="${assignments}" var="assignment">
 		<tr>
 		
 		<th scope="row">${assignment.title}</th>
@@ -39,12 +39,17 @@
 	<form action="addAssignment.do">
 		<input type="hidden" name="planId" value="${plan.id}">
 		<input type="hidden" name="userId" value="${user.id}">
-		<input type="submit" name="addAssignment" value="Add Assignment">
+		<input class="btn btn-primary" type="submit" name="addAssignment" value="Add Assignment">
 	</form>
 	<form action="removeAssignment.do">
 		<input type="hidden" name="planId" value="${plan.id}">
 		<input type="hidden" name="userId" value="${user.id}">
-		<input class="btn btn-danger" type="submit" name="removeAssignment" value="Remove Assignment">
+		<input class="btn btn-danger" type="submit" name="removeAssignment" value="View Assignments">
+	</form>
+	<form action="editLessonPlan.do">
+		<input type="hidden" name="planId" value="${plan.id}">
+		<input type="hidden" name="userId" value="${user.id}">
+		<input class="btn btn-secondary" type="submit" name="editLessonPlan" value="Edit Lesson Plan">
 	</form>
 	</div>
 	</div>

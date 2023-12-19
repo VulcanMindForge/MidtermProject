@@ -33,6 +33,9 @@ public class TeacherController {
 	@RequestMapping(path = "lessonPlan.do", method = RequestMethod.GET)
 	public String registerView(@RequestParam(name="planId") String planId, Model model, HttpSession session) {
 		LessonPlan plan = assignmentDAO.getLessonPlan(Integer.parseInt(planId));
+		
+		List<Assignment> assignments = assignmentDAO.getAssignmentsByPlanId(plan.getId());
+		model.addAttribute("assignments", assignments);
 		model.addAttribute("plan", plan);
 		return "/teacherviews/view_lessonplan";
 	}
@@ -50,7 +53,39 @@ public class TeacherController {
 		model.addAttribute("resources", resources);
 		return "/teacherviews/add_lessonplan";
 	}
-
+	
+	@RequestMapping(path = "editLessonPlan.do", method = RequestMethod.GET)
+	public String editLessonPlanView(@RequestParam(name = "userId") String userId, @RequestParam(name = "userId") String planId, Model model, HttpSession session) {
+		List<Resource> resources = assignmentDAO.getAllResources();
+		Integer teacherId = Integer.parseInt(userId);
+		List<Student> studentList = assignmentDAO.getStudentsByTeacherId(teacherId);
+		List<User> students = new ArrayList<>();
+		for (Student student : studentList) {
+			students.add(assignmentDAO.getUserById(student.getId()));
+		}
+		LessonPlan plan = assignmentDAO.getLessonPlan(Integer.parseInt(planId));
+		model.addAttribute("lessonPlan", plan);
+		model.addAttribute("students", students);
+		model.addAttribute("resources", resources);
+		return "/teacherviews/edit_lessonplan";
+	}
+	
+	@RequestMapping(path= "editLessonPlan.do", method = RequestMethod.POST)
+	public String addLessonPlan(@RequestParam(name="planTitle") String planTitle, @RequestParam(name="planDescription") String planDescription,
+			@RequestParam(name="planId") String planId,
+			@RequestParam(name="userId") String userId, Model model, HttpSession session) {
+		LessonPlan plan = new LessonPlan();
+		plan.setTitle(planTitle);
+		plan.setDescription(planDescription);
+		plan.setTeacher(assignmentDAO.getTeacherById(Integer.parseInt(userId)));
+		
+		LessonPlan modifiedPlan = assignmentDAO.modifyLessonPlan(Integer.parseInt(planId), plan);
+		List<Assignment> assignments = assignmentDAO.getAssignmentsByPlanId(modifiedPlan.getId());
+		model.addAttribute("assignments", assignments);
+		model.addAttribute("plan", assignmentDAO.getLessonPlan(modifiedPlan.getId()));
+		return "/teacherviews/view_lessonplan";
+	}
+	
 	@RequestMapping(path= "addLessonPlan.do", method = RequestMethod.POST)
 	public String addLessonPlan(@RequestParam(name="planTitle") String planTitle, @RequestParam(name="planDescription") String planDescription,
 			@RequestParam(name="shared") String shared, @RequestParam("assignmentTitle") String assignmentTitle, @RequestParam("assignmentDescription") String assignmentDescription,
@@ -123,6 +158,9 @@ public class TeacherController {
 		Assignment addedAssignment = assignmentDAO.addAssignment(assignment);
 		plan.addAssignment(addedAssignment);
 		
+		List<Assignment> assignments = assignmentDAO.getAssignmentsByPlanId(plan.getId());
+		model.addAttribute("assignments", assignments);
+		
 		model.addAttribute("plan", plan);
 		return "/teacherviews/view_lessonplan";
 	}
@@ -142,6 +180,7 @@ public class TeacherController {
 		model.addAttribute("assignments", assignments);
 		return "teacherviews/remove_assignment";
 	}
+	
 	
 	@RequestMapping(path = "resourceAdd.do", method = RequestMethod.GET)
 	public String addResourceView(Model model, HttpSession session) {

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.skilldistillery.homeschoolassistant.entities.Assignment;
 import com.skilldistillery.homeschoolassistant.entities.GradeLevel;
 import com.skilldistillery.homeschoolassistant.entities.LessonPlan;
 import com.skilldistillery.homeschoolassistant.entities.Student;
@@ -148,5 +149,12 @@ public class UserDaoImpl implements UserDAO {
 		User parent = em.createQuery(sql, User.class).setParameter("userId", userId).getSingleResult();
 		sql = "Select student From Student student where parent = :parent";
 		return em.createQuery(sql, Student.class).setParameter("parent", parent).getResultList();
+	}
+	
+	@Override
+	public List<Assignment> getAssignmentsByStudentId(int userId) {
+		Student student = em.find(Student.class, userId);
+		String sql = "SELECT assignment FROM Assignment assignment WHERE student = :student";
+		return em.createQuery(sql, Assignment.class).setParameter("student", student).getResultList(); 
 	}
 }

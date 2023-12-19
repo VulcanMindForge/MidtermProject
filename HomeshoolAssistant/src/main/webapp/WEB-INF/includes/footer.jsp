@@ -5,7 +5,7 @@
 <html>
 
 <body>
-    <div class="footer-basic fixed-bottom navbar-light bg-light">
+    <div class="footer-basic fixed-bottom navbar-light bg-light mt-auto">
         <footer>
             <div class="social"><a href="#"><i class="icon ion-social-instagram"></i></a><a href="#"><i class="icon ion-social-snapchat"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a><a href="#"><i class="icon ion-social-facebook"></i></a></div>
             

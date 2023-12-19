@@ -2,6 +2,7 @@ package com.skilldistillery.homeschoolassistant.data;
 
 import java.util.List;
 
+import com.skilldistillery.homeschoolassistant.entities.Assignment;
 import com.skilldistillery.homeschoolassistant.entities.GradeLevel;
 import com.skilldistillery.homeschoolassistant.entities.LessonPlan;
 import com.skilldistillery.homeschoolassistant.entities.Student;
@@ -24,4 +25,5 @@ public interface UserDAO {
 	List<User> getAllUsers();
 	List<Student> getStudentsByTeacherId(int userId);
 	List<Teacher> getTeachersByStudentId(int studentId);
+	List<Assignment> getAssignmentsByStudentId(int userId);
 }
